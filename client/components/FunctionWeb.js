@@ -5,18 +5,15 @@ const FunctionTree = React.createClass({
   render (){
 
     var style = {
-        padding: 10,
-        margin: 10,
         backgroundColor: "#aaee11",
-        width: 600,
         fontFamily: "sans-serif",
         textAlign: "center"
     };
 
     return(
-      <div style={style}>
+      <div className="col-md-9" style={style}>
         <h1>
-          THIS IS THE FUNCTION TREE VIEW
+          THIS IS THE FUNCTION WEB VIEW
         </h1>
 
       </div>

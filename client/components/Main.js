@@ -1,18 +1,18 @@
 //Main.js
 import React from 'react';
 import { Link } from 'react-router';
+require("../styles/style.css");
+
 
 //Other Needed Components
 import FileTree from './FileTree';
 import Code from './Code';
-import FunctionTree from './FunctionTree';
+import FunctionWeb from './FunctionWeb';
 
 const Main = React.createClass({
   render (){
     //An example of how we can style things right here if we want to
     var style = {
-        padding: 10,
-        margin: 10,
         display: "inline-block",
         backgroundColor: "#7824bb",
         fontFamily: "sans-serif",
@@ -20,13 +20,16 @@ const Main = React.createClass({
       };
 
     return(
-      <div style={ style }>
+      <div className="col-md-12 row" style={ style }>
         <h1>
           <Link to="/">THIS IS MAIN</Link>
         </h1>
-        <FileTree />
-        <Code /><Code />
-        <FunctionTree />
+        <div id="sidebar" className="col-md-3">
+          <FileTree />
+          <Code />
+          <Code />
+        </div>
+        <FunctionWeb />
       </div>
     )
   }
