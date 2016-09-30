@@ -9,17 +9,17 @@ import { render } from 'react-dom';
 import Main from './components/Main';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-//import { Provider } from 'react-redux';
-//import store, { history } from './store';
+import { Provider } from 'react-redux';
+import store, { history } from './store';
 
 const router = (
-  //<Provider store={store}>
+  <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={Main}>
 
       </Route>
     </Router>
-  //</Provider>
+  </Provider>
 )
 
 render(router, document.getElementById('root'));

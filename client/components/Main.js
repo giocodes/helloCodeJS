@@ -24,12 +24,14 @@ const Main = React.createClass({
         <h1>
           <Link to="/">THIS IS MAIN</Link>
         </h1>
+
         <div id="sidebar" className="col-md-3">
           <FileTree />
           <Code />
           <Code />
         </div>
         <FunctionWeb />
+
       </div>
     )
   }
