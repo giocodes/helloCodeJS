@@ -1,36 +1,33 @@
 //Code.js
 import React from 'react';
 
-import CodeMirror from 'codemirror';
+//import CodeMirror from 'codemirror';
+
+import Codemirror from 'react-codemirror';
 
 const Code = React.createClass({
+    getInitialState: function() {
+        return {
+            code: this.props.code[0]['index.js']
+        };
+    },
+    updateCode: function(newCode) {
+        this.setState({
+            code: newCode
+        });
+    },
+    render: function() {
+        const options = {
+            lineNumbers: true,
+            readOnly: true,
+            theme: 'monokai'
+        };
 
-  componentDidMount(){
-    this.codeMirror = CodeMirror(
-      this.refs.container
-      /*{
-        value: this.props.code[0],
-        mode: 'javascript',
-        lineNumbers: true,
-        readOnly: true,
-      }*/
-    );
-  },
-
-  render (){
-
-    var style = {
-        backgroundColor: "#de4512",
-        fontFamily: "sans-serif",
-        textAlign: "center"
-    };
-
-    return(
-      //<div className="col-md-12" style={style}>
-      <div className="col-md-12" style={style} ref="container">
-      </div>
-    )
-  }
+        return (
+          <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
+                  )
+    }
 });
+
 
 export default Code;

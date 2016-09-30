@@ -11,7 +11,7 @@ const FunctionTree = React.createClass({
     };
 
     return(
-      <div className="col-md-9" style={style}>
+      <div style={style}>
         <h1>
           THIS IS THE FUNCTION WEB VIEW
         </h1>

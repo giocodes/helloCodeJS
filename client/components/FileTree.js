@@ -11,12 +11,14 @@ const FileTree = React.createClass({
     };
 
     return(
-      <div className="col-md-12" style={style}>
-        <h1>
-          THIS IS THE FILE TREE
-        </h1>
 
-      </div>
+        <div style={style}>
+          <h1>
+            THIS IS THE FILE TREE
+          </h1>
+
+        </div>
+
     )
   }
 });
