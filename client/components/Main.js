@@ -3,7 +3,6 @@ import React from 'react';
 import { Link } from 'react-router';
 require("../styles/style.css");
 
-
 //Other Needed Components
 import FileTree from './FileTree';
 import Code from './Code';
@@ -26,12 +25,11 @@ const Main = React.createClass({
         </h1>
 
         <div id="sidebar" className="col-md-3">
-          <FileTree />
+          <FileTree {...this.props}/>
           <Code />
           <Code />
         </div>
         <FunctionWeb />
-
       </div>
     )
   }
