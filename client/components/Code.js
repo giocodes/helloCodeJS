@@ -1,21 +1,21 @@
 //Code.js
 import React from 'react';
 
-//import CodeMirror from 'codemirror';
+import CodeMirror from 'codemirror';
 
 const Code = React.createClass({
 
-  componentDidMount() {
-    this.codeMirror = CodeMirror( // eslint-disable-line new-cap
+  componentDidMount(){
+    this.codeMirror = CodeMirror(
       this.refs.container
       /*{
-        value: this.props.defaultValue,
-        mode: this.props.mode,
-        lineNumbers: this.props.lineNumbers,
-        readOnly: this.props.readOnly,
+        value: this.props.code[0],
+        mode: 'javascript',
+        lineNumbers: true,
+        readOnly: true,
       }*/
     );
-  }
+  },
 
   render (){
 
@@ -27,11 +27,7 @@ const Code = React.createClass({
 
     return(
       //<div className="col-md-12" style={style}>
-      <div className="col-md-12" ref="container">
-        <h1>
-          THIS IS THE CODE VIEW
-        </h1>
-
+      <div className="col-md-12" style={style} ref="container">
       </div>
     )
   }

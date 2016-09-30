@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 require("../styles/style.css");
+require("../styles/codemirror.css");
 
 
 //Other Needed Components
@@ -26,12 +27,12 @@ const Main = React.createClass({
         </h1>
 
         <div id="sidebar" className="col-md-3">
+
           <FileTree />
-          <Code />
+          <Code {...this.props}/>
           <Code />
         </div>
         <FunctionWeb />
-
       </div>
     )
   }
