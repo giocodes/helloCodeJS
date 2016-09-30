@@ -2,6 +2,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 require("../styles/style.css");
+require("../styles/codemirror.css");
 
 
 //Other Needed Components
@@ -16,7 +17,7 @@ const Main = React.createClass({
         display: "inline-block",
         backgroundColor: "#7824bb",
         fontFamily: "sans-serif",
-        textAlign: "center"
+        textAlign: "left"
       };
 
     return(
@@ -26,12 +27,22 @@ const Main = React.createClass({
         </h1>
 
         <div id="sidebar" className="col-md-3">
-          <FileTree />
-          <Code />
-          <Code />
+          <div className="row">
+            <FileTree />
+          </div>
+          <div className="row">
+            <Code {...this.props}/>
+          </div>
+          <div className="row">
+          <br></br>
+          </div>
+          <div className="row">
+            <Code {...this.props}/>
+          </div>
         </div>
-        <FunctionWeb />
-
+        <div className="col-md-9">
+          <FunctionWeb />
+        </div>
       </div>
     )
   }
