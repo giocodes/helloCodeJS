@@ -24,6 +24,7 @@ const Main = React.createClass({
         <h1>
           <Link to="/">THIS IS MAIN</Link>
         </h1>
+
         <FileTree />
         <Code /><Code />
         <FunctionTree />
