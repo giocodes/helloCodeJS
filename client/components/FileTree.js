@@ -7,7 +7,18 @@ const FileTree = React.createClass({
     e.preventDefault();
     const username = this.refs.username.value;
     this.props.requestRepos(username);
-    this.refs.usernameForm.reset();
+    
+    fetch('https://api.github.com/users/'+username+'/repos').then(response => {
+      console.log('Fetch!');
+      console.log(response);
+        response.json()
+      }).then(json => {
+        console.log('JSON!');
+        console.log(json);
+        // console.log(store)
+          this.props.repos = json;
+      });
+
   },
 
   render (){

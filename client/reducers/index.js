@@ -1,6 +1,7 @@
 //reducers/index.js
-import { combineReducers } from 'redux';
+import { combineReducers, applyMiddleware } from 'redux';
 import { routerReducer } from 'react-router-redux';
+import store from '../store';
 
 import code from './code';
 import edges from './edges';
@@ -28,17 +29,20 @@ function repos(state = [], action) {
       fetch('https://api.github.com/users/'+action.username+'/repos').then(response => {
 		  console.log('Fetch!');
 		  console.log(response);
-  			return response.json()
-			}).then(response => {
-  				
+  			response.json()
+			}).then(json => {
 			  console.log('JSON!');
-			  console.log(response);
-  				return response
+			  console.log(json);
+			  console.log(store)
+			  	repos = json.data
+			  	isReady = true
+  				store.dispatch();
 			});
-			// Add catch
+		return state;
 
-		
-      
+	case 'RECEIVE_REPOS' :
+		console.log(action)
+		return action.repos
 
     default:
       return state;
