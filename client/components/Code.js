@@ -6,7 +6,7 @@ const Code = React.createClass({
 
     var style = {
         backgroundColor: "#de4512",
-        fontFamily: "sans-serif",
+        //fontFamily: "sans-serif",
         textAlign: "center"
     };
 

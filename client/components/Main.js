@@ -14,7 +14,7 @@ const Main = React.createClass({
     var style = {
         display: "inline-block",
         backgroundColor: "#7824bb",
-        fontFamily: "sans-serif",
+        //fontFamily: "sans-serif",
         textAlign: "center"
       };
 

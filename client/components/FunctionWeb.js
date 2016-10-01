@@ -6,7 +6,7 @@ const FunctionTree = React.createClass({
 
     var style = {
         backgroundColor: "#aaee11",
-        fontFamily: "sans-serif",
+        //fontFamily: "sans-serif",
         textAlign: "center"
     };
 

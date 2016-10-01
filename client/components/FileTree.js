@@ -7,7 +7,7 @@ const FileTree = React.createClass({
     e.preventDefault();
     const username = this.refs.username.value;
     this.props.requestRepos(username);
-    
+
     fetch('https://api.github.com/users/'+username+'/repos').then(response => {
       console.log('Fetch!');
       console.log(response);
@@ -25,7 +25,7 @@ const FileTree = React.createClass({
 
     var style = {
         backgroundColor: "#ffde00",
-        fontFamily: "sans-serif",
+        //fontFamily: "sans-serif",
         textAlign: "center"
     };
 
