@@ -28,11 +28,11 @@ export function requestRepoContents(activeRepo){
 
   }
 }
-/*
+
 export function receiveRepoContents(repoContents){
   return {
     type: 'RECEIVE_REPO_CONTENTS',
     repoContents
   }
-}*/
+}
 

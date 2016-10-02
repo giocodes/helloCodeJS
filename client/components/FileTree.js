@@ -20,7 +20,16 @@ const FileTree = React.createClass({
 
   logRepo(e) {
     e.preventDefault();
-    console.log(e.target.value);
+    const repo = e.target.value;
+    this.props.requestRepoContents(repo);
+
+    fetch('https://api.github.com/repos/'+this.props.username+'/'+repo+'/contents')
+    .then(response => {
+      return response.json()})
+    .then(repoContents => {
+      console.log(repoContents);
+      this.props.receiveRepoContents(repoContents);
+    });
   },
 
   resetUser(e) {

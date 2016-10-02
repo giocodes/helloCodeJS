@@ -9,8 +9,9 @@ import nodes from './nodes';
 import username from './username';
 import repos from './repos';
 import activeRepo from './activeRepo';
+import repoContents from './repoContents';
 
-const rootReducer = combineReducers({code, edges, nodes, username, repos, activeRepo, routing: routerReducer });
+const rootReducer = combineReducers({code, edges, nodes, username, repos, activeRepo, repoContents, routing: routerReducer });
 
 export default rootReducer;
 
