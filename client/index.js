@@ -2,7 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 
 //import css
-// We won't use this Stylus Language 
+// We won't use this Stylus Language
 // import css from './styles/style.styl';
 
 //import components
@@ -17,10 +17,11 @@ const router = (
   <Provider store={store}>
     <Router history={browserHistory}>
       <Route path="/" component={App}></Route>
+
     </Router>
   </Provider>
 )
 
 render(router, document.getElementById('root'));
-      
+
 // <Route path="/github" component={Github}></Route>

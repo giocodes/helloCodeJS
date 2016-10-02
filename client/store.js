@@ -15,8 +15,8 @@ const defaultState = {
 	code,
 	nodes,
 	edges,
-	username : "",
-	repos : []
+	username: "",
+	repos: []
 };
 
 // const store = createStore(rootReducer, defaultState);

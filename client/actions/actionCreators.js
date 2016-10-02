@@ -14,13 +14,10 @@ export function requestRepos(username){
 	}
 }
 
-
-
-export function receiveRepos(username, json){
+export function receiveRepos(repos){
 	return {
 		type: 'RECEIVE_REPOS',
-		username,
-		repos: json.data
-
+		repos
 	}
 }
+

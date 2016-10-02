@@ -12,6 +12,7 @@ function mapStateToProps(state) {
     edges: state.edges,
     username : state.username,
     repos : state.repos
+
   }
 }
 

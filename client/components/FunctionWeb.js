@@ -6,12 +6,13 @@ const FunctionTree = React.createClass({
 
     var style = {
         backgroundColor: "#aaee11",
+        height: 650
         //fontFamily: "sans-serif",
-        textAlign: "center"
+        //textAlign: "center"
     };
 
     return(
-      <div className="col-md-9" style={style}>
+      <div className="row" style={style}>
         <h1>
           THIS IS THE FUNCTION WEB VIEW
         </h1>

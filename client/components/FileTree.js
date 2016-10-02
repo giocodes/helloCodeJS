@@ -1,5 +1,6 @@
 //FileTree.js
 import React from 'react';
+import { Link } from 'react-router';
 
 const FileTree = React.createClass({
 
@@ -8,39 +9,52 @@ const FileTree = React.createClass({
     const username = this.refs.username.value;
     this.props.requestRepos(username);
 
-    fetch('https://api.github.com/users/'+username+'/repos').then(response => {
-      console.log('Fetch!');
-      console.log(response);
-        response.json()
-      }).then(json => {
-        console.log('JSON!');
-        console.log(json);
-        // console.log(store)
-          this.props.repos = json;
-      });
+    fetch('https://api.github.com/users/'+username+'/repos')
+    .then(response => {
+      return response.json()})
+    .then(repos => {
+      this.props.receiveRepos(repos);
+    });
 
+  },
+
+  resetUser() {
+    this.props.requestRepos("");
   },
 
   render (){
 
-    var style = {
-        backgroundColor: "#ffde00",
-        //fontFamily: "sans-serif",
-        textAlign: "center"
+    var divStyle = {
+      backgroundColor: "#ffde00",
+      height: 650
     };
 
-    return(
-      <div className="col-md-12" style={style}>
-        <h1>
-          THIS IS THE FILE TREE
-        </h1>
-        <div className="form-control">
-          <form ref="usernameForm" className="username-form" onSubmit={this.handleSubmit}>
-            <input type="text" ref="username" placeholder="username"/>
-            <input type="submit" hidden />
+    var liStyle = {
+      padding: "2px 15px"
+    }
+
+    var repos = this.props.repos.map((repo, i) =>
+      <li className="list-group-item" key={i} style={liStyle}>{repo.name}</li>);
+
+    if(this.props.username === ""){
+      return(
+        <div className="col-md-12">
+          <form ref="usernameForm" onSubmit={this.handleSubmit}>
+            <div className="form-group col-md-12">
+              <label htmlFor="github-id">Enter Github username:</label>
+              <input id="github-id" className="form-control" type="text" ref="username" placeholder="username"/>
+              <input type="submit" hidden />
+            </div>
           </form>
         </div>
+      )
+    }
 
+    return(
+      <div className="col-md-12">
+        <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
+        <p><strong>{this.props.username}</strong></p>
+        <ul className="list-group"> {repos} </ul>
       </div>
     )
   }

@@ -1,20 +1,20 @@
 //Main.js
 import React from 'react';
 import { Link } from 'react-router';
-require("../../styles/style.css"); 
+require("../../styles/style.css");
 
 import Gist from './gists.js';
 
-let something = 'this text';
+/*let something = 'this text';
 let data;
 fetch('https://api.github.com/users/octocat/gists').then(response => {
   // console.log('Fetch!');
   // console.log(response);
   return response.json()
 }).then(response => {
-  data = response
+  something = response;
   // console.log('JSON!');
-  // console.log(response);
+   console.log(response);
 });
 
 const Main = React.createClass({
@@ -32,7 +32,7 @@ const Main = React.createClass({
   }
 });
 
-export default Main;
+export default Main;*/
 
 // let UserGist = React.createClass({
 //   getInitialState: function() {
