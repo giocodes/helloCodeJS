@@ -36,3 +36,18 @@ export function receiveRepoContents(repoContents){
   }
 }
 
+export function requestFile(activeFile){
+  return {
+    type: 'REQUEST_FILE',
+    activeFile
+
+  }
+}
+
+export function receiveFileContent(activeFileContent){
+  return {
+    type: 'RECEIVE_FILE_CONTENT',
+    activeFileContent
+  }
+}
+

@@ -18,7 +18,9 @@ const defaultState = {
 	username: "",
 	repos: [],
   activeRepo: "",
-  repoContents: []
+  repoContents: [],
+  activeFile: "",
+  activeFileContent: ""
 };
 
 // const store = createStore(rootReducer, defaultState);

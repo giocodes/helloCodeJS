@@ -52,7 +52,7 @@ const Main = React.createClass({
 
         <div className="col-md-5">
           <div className="row">
-            <FunctionWeb />
+            <FunctionWeb {...this.props}/>
           </div>
         </div>
 

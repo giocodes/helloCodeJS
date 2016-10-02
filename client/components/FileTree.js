@@ -32,9 +32,27 @@ const FileTree = React.createClass({
     });
   },
 
+  chooseFile(e) {
+    e.preventDefault();
+    const file = e.target.value;
+    this.props.requestFile(file);
+
+    fetch('https://api.github.com/repos/'+this.props.username+'/'+this.props.activeRepo+'/contents/' + file)
+    .then(response => {
+      return response.json()})
+    .then(fileContent => {
+      console.log(fileContent);
+      this.props.receiveFileContent(atob(fileContent.content));
+    });
+  },
+
   resetUser(e) {
     e.preventDefault();
+    //Reset state
     this.props.requestRepos("");
+    this.props.receiveRepos([]);
+    this.props.requestRepoContents("");
+    this.props.receiveRepoContents([]);
   },
 
   render (){
@@ -52,6 +70,10 @@ const FileTree = React.createClass({
         <button className="list-group-item" value={repo.name} key={i} onClick={this.logRepo} style={liStyle}>{repo.name}</button>
     )
 
+    var contents = this.props.repoContents.map((content, i) =>
+        <button className="list-group-item" value={content.name} key={'content-'+i} style={liStyle} onClick={this.chooseFile}>{content.name}</button>
+    )
+
     if(this.props.username === ""){
       return(
         <div className="col-md-12">
@@ -65,14 +87,24 @@ const FileTree = React.createClass({
         </div>
       )
     }
+    else if(this.props.activeRepo === ""){
+      return(
+        <div className="col-md-12">
+          <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
+          <p><strong>{this.props.username}</strong></p>
+          <ul className="list-group"> {repos} </ul>
+        </div>
+      )
+    }
 
     return(
-      <div className="col-md-12">
-        <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
-        <p><strong>{this.props.username}</strong></p>
-        <ul className="list-group"> {repos} </ul>
-      </div>
-    )
+        <div className="col-md-12">
+          <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
+          <p><strong>{this.props.username}/{this.props.activeRepo}</strong></p>
+          <ul className="list-group"> {contents} </ul>
+        </div>
+      )
+
   }
 });
 

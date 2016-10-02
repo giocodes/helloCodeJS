@@ -6,7 +6,7 @@ require('codemirror/mode/javascript/javascript');
 const Code = React.createClass({
   getInitialState: function() {
     return {
-      code: this.props.code[0]['index.js']
+      code: this.props.activeFileContent
     };
   },
   updateCode: function(newCode) {
@@ -18,14 +18,15 @@ const Code = React.createClass({
     const options = {
       lineNumbers: true,
       readOnly: true,
-      mode: 'javascript'
+      mode: 'javascript',
+      theme: 'blackboard'
     };
 
     return (
-        <div className="col-md-12">
-        <strong>index.js</strong>
+        <div className="col-md-11">
+        <strong>{this.props.activeFile}</strong>
 
-        <Codemirror value={this.state.code} onChange={this.updateCode} options={options} />
+        <Codemirror {...this.props} value={this.props.activeFileContent} options={options} />
         </div>
     )
   }
