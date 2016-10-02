@@ -11,7 +11,8 @@ function mapStateToProps(state) {
     nodes: state.nodes,
     edges: state.edges,
     username : state.username,
-    repos : state.repos
+    repos : state.repos,
+    activeRepo: state.activeRepo
 
   }
 }

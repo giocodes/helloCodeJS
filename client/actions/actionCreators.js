@@ -21,3 +21,18 @@ export function receiveRepos(repos){
 	}
 }
 
+export function requestRepoContents(activeRepo){
+  return {
+    type: 'REQUEST_REPO_CONTENTS',
+    activeRepo
+
+  }
+}
+/*
+export function receiveRepoContents(repoContents){
+  return {
+    type: 'RECEIVE_REPO_CONTENTS',
+    repoContents
+  }
+}*/
+

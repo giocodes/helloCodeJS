@@ -18,7 +18,13 @@ const FileTree = React.createClass({
 
   },
 
-  resetUser() {
+  logRepo(e) {
+    e.preventDefault();
+    console.log(e.target.value);
+  },
+
+  resetUser(e) {
+    e.preventDefault();
     this.props.requestRepos("");
   },
 
@@ -34,7 +40,8 @@ const FileTree = React.createClass({
     }
 
     var repos = this.props.repos.map((repo, i) =>
-      <li className="list-group-item" key={i} style={liStyle}>{repo.name}</li>);
+        <button className="list-group-item" value={repo.name} key={i} onClick={this.logRepo} style={liStyle}>{repo.name}</button>
+    )
 
     if(this.props.username === ""){
       return(

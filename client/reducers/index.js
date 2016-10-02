@@ -8,8 +8,9 @@ import edges from './edges';
 import nodes from './nodes';
 import username from './username';
 import repos from './repos';
+import activeRepo from './activeRepo';
 
-const rootReducer = combineReducers({code, edges, nodes, username, repos, routing: routerReducer });
+const rootReducer = combineReducers({code, edges, nodes, username, repos, activeRepo, routing: routerReducer });
 
 export default rootReducer;
 
