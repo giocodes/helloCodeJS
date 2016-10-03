@@ -3,7 +3,6 @@ const Git = require("nodegit");
 const rmrf = require("rimraf");
 const filewalker = require('filewalker');
 
-
 function buildRepoObject(directory, cb){
 
   let finalObj, repoObj = {};
@@ -32,12 +31,3 @@ function buildRepoObject(directory, cb){
 }
 
 module.exports = buildRepoObject;
-
-/*let myData;
-
-buildRepoObject('https://github.com/kphurley/league-manager.git', function(data){
-  myData = data;
-
-});*/
-
-

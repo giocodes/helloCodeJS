@@ -1,7 +1,6 @@
 //FileTree.js
 import React from 'react';
 import { Link } from 'react-router';
-import buildRepoObject from '../utilities/buildRepoObject';
 
 const FileTree = React.createClass({
 
@@ -44,7 +43,7 @@ const FileTree = React.createClass({
     .then(response => {
       return response.json()})
     .then(fileContent => {
-      console.log(fileContent);
+      //console.log(fileContent);
       this.props.receiveFileContent(atob(fileContent.content));
     });
   },
