@@ -7,8 +7,6 @@ import NodeGen from './NodeGen';
 let firstNode = sampleData[0]
 console.log(firstNode)
 
-console.log(NodeGen.hello)
-
 window.onload = function() {
     // Get a reference to the canvas object
     let canvas = document.getElementById('myCanvas');
