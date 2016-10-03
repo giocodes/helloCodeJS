@@ -23,6 +23,7 @@
     "estraverse": "^4.2.0",
     "express": "^4.14.0",
     "fs": "0.0.1-security",
+    "paper": "^0.10.2",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.3",
     "react-codemirror": "^0.2.6",

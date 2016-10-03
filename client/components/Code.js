@@ -1,7 +1,8 @@
 //Code.js
 import React from 'react';
 import Codemirror from 'react-codemirror';
-require('codemirror/mode/javascript/javascript');
+// Is this no longer needed? - Gio
+// require('codemirror/mode/javascript/javascript');
 
 const Code = React.createClass({
   getInitialState: function() {
