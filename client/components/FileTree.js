@@ -1,6 +1,7 @@
 //FileTree.js
 import React from 'react';
 import { Link } from 'react-router';
+import buildRepoObject from '../utilities/buildRepoObject';
 
 const FileTree = React.createClass({
 
@@ -21,14 +22,16 @@ const FileTree = React.createClass({
   logRepo(e) {
     e.preventDefault();
     const repo = e.target.value;
+    const baseUrl = 'https://api.github.com/repos/'+this.props.username+'/'+repo+'/contents';
     this.props.requestRepoContents(repo);
 
-    fetch('https://api.github.com/repos/'+this.props.username+'/'+repo+'/contents')
+    fetch(baseUrl)
     .then(response => {
       return response.json()})
     .then(repoContents => {
-      console.log(repoContents);
+      //console.log(repoContents);
       this.props.receiveRepoContents(repoContents);
+
     });
   },
 
