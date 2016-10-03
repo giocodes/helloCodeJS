@@ -2,7 +2,6 @@
   font-style: italic;
 }
 
-a, a:hover{
-	color: white;
-	text-decoration: none;
+.list-group-item{
+  padding: 2px, 15px;
 }
