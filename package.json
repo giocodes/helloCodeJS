@@ -20,6 +20,7 @@
     "estraverse": "^4.2.0",
     "express": "^4.14.0",
     "fs": "0.0.1-security",
+    "path": "^0.12.7",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.3",
     "react-dom": "^15.3.2",
