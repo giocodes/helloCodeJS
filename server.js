@@ -1,13 +1,11 @@
 
-var path = require('path');
-var express = require('express');
-var webpack = require('webpack');
+const path = require('path');
+const express = require('express');
+const webpack = require('webpack');
 const logger = require('morgan');
 //var parser = require('./server/parser/parser.js');
-
 const config = require('./webpack.config.dev');
 const buildRepoObject = require('./server/buildRepoObject');
-
 const app = express();
 const compiler = webpack(config);
 
