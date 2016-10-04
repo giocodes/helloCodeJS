@@ -473,7 +473,8 @@ export class TreeNode extends React.Component {
         <li className="list-group-item"
             style={style}
             onDoubleClick={this.doubleClicked}
-            key={node.nodeId}>
+            key={node.nodeId}
+            value={nodeText}>
           {indents}
           {expandCollapseIcon}
 

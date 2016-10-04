@@ -163,7 +163,7 @@ const FileTree = React.createClass({
 
 
     return(
-      <TreeView data={data} levels={0} showBorder={false} />
+      <TreeView {...this.props} data={data} levels={0} showBorder={false} />
     )
 
   }
