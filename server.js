@@ -3,6 +3,7 @@ var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
 var buildRepoObject = require('./server/buildRepoObject');
+var parser = require('./parser/parser.js');
 
 var app = express();
 var compiler = webpack(config);
@@ -15,9 +16,10 @@ app.use(require('webpack-dev-middleware')(compiler, {
 app.use(require('webpack-hot-middleware')(compiler));
 
 app.get('/api/repo', (req, res, next)=>{
-  buildRepoObject(req.query.url, (data)=> {
+  buildRepoObject(req.query.url, (code)=> {
     //the data should be passed to the parser here
-    res.json(data);
+    var nodes = parser(code);
+    res.json({nodes, code});
   })
 })
 
