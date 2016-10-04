@@ -27,6 +27,11 @@ function buildRepoObject(directory, cb){
     })
     .walk();
 
+  })
+  .catch(function(){
+    rmrf("./temp", {}, function(err){
+      console.log(err);
+    });
   });
 }
 

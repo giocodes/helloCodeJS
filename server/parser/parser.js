@@ -4,8 +4,6 @@ var fs = require('fs');
 var chalk = require('chalk');
 var pathMod = require('path');
 
-module.exports = analyzeFiles;
-
 
 // constructor for node object
 var Node = function(id, name, type, filePath, start, end, scope){
@@ -20,30 +18,43 @@ var Node = function(id, name, type, filePath, start, end, scope){
 	this.outgoingEdges = [];
 }
 
-var idCounter = 1; // this counter will provide each node with a unique id
-
+var idCounter; // this counter will provide each node with a unique id
 
 // function that takes in an array of file paths, reads it, parses it into an abstract syntax tree, and calls a recursive function to create nodes and find edgesToBody
 var analyzeFiles = function(files, framework){
 
+	idCounter = 1;
 	var nodes = []; // will collect nodes (node for each definition and invocation)
 	var edgesToBody = {}; // join table between function definitions/invocations and definitions/invocations within them
 	var edgesToDefinition = {}; // join table between function invocations and their original definitions
 	
-	for (var key in files) {
-		var ast = esprima.parse(files[key], {loc: true});
+	// run through each file fed into function to find nodes and same-file edges
+	for (var key in files) {	
+		// ensure that files esprima cannot parse are skipped
+		try {
+			var ast = esprima.parse(files[key], {loc: true});
+		} catch (err) {
+			continue;
+		}
+
+		// create nodes
 		nodes = nodes.concat(createNodesFromAST(edgesToBody, ast, key));
+		
+		// find same-file edges
 		findEdgesInSameFile(nodes, edgesToBody, edgesToDefinition);
 	}
 
+	// find invocations that do not yet have edges to their definitions
 	var remainingInvocations = nodes.filter(function(node){
 		if (node.type === 'invocation' && !edgesToDefinition[node.id]) {
 			return true;
 		}
 	});
 
+	// find cross-file edges between invocations and definitions
 	remainingInvocations.forEach(function(invocation){
 
+		// if framework is angular, see if match exists between name of object that contained function and the name of a factory 
 		if (framework === 'angular') {
 			nodes.forEach(function(node){
 				if (node.type === 'definition' && node.factory && invocation.object && node.factory === invocation.object && node.name === invocation.name) {
@@ -53,24 +64,27 @@ var analyzeFiles = function(files, framework){
 			return;
 		}
 
-		var currentFile = files[invocation.filePath];
+		var currentFile = files[invocation.filePath];  
 		var regexForExport = /module\.exports\s*\=\s*([\w\$]+)/
 		var regex, relativePath;
+
+		// use regex to find file path inside relevant require
 		if (invocation.object) {
 			regex = RegExp(invocation.object + '\\s*\\=\\s*require\\([\'\"](.+)[\'\"]\\)')
 		} else {
 			regex = RegExp(invocation.name + '\\s*\\=\\s*require\\([\'\"](.+)[\'\"]\\)')
 		}
-		
 		if (regex.exec(currentFile)) {
 			relativePath = regex.exec(currentFile)[1];
 		} else {
 			return;
 		}
+
 		var newPath = './' + pathMod.normalize(pathMod.join(invocation.filePath, '../', relativePath));
 		var newFile = files[newPath]
-		nodes.forEach(function(node){
 
+		// looks for function in target file that matches various module export patterns
+		nodes.forEach(function(node){
 			if (node.type === 'definition' && node.filePath === newPath && node.scope === 'global') {
 				if (invocation.object && node.name === invocation.name) {
 					edgesToDefinition[invocation.id] = node.id;
@@ -85,21 +99,22 @@ var analyzeFiles = function(files, framework){
 
 	})
 
+	// transfer incoming and outgoing edges to node objects
 	for (var key in edgesToBody) {
 		edgesToBody[key].forEach(function(node){
+			if (key === 0) {console.log(edgeToBody[key])}
 			nodes[key-1].outgoingEdges.push(node)
 			nodes[node-1].incomingEdges.push(+key)
 		})
 	}
-
 	for (var key in edgesToDefinition) {
 		nodes[key-1].outgoingEdges.push(edgesToDefinition[key])
 		nodes[edgesToDefinition[key]-1].incomingEdges.push(+key)
 	}
 
-	console.log(nodes)
-	console.log(edgesToBody)
-	console.log(edgesToDefinition)
+	// console.log(nodes)
+	// console.log(edgesToBody)
+	// console.log(edgesToDefinition)
 
 	return nodes;
 }
@@ -139,7 +154,9 @@ var createNodesFromAST = function(edgesToBody, ast, pathString, ancestor, scopeA
 			// create node if the current node in the traversal is a definition or invocation
 			if (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression' || node.type === 'ArrowFunctionExpression') {
 				createdNode = checkAndCreateDefinitionNode(node, parent, pathString, scope);
-				scope = scope + '=>' + padLeftZeros(createdNode.id, 10);
+				if (createdNode) {
+					scope = scope + '=>' + padLeftZeros(createdNode.id, 10);
+				}
 			} else if (node.type === 'CallExpression') {
 				createdNode = checkAndCreateInvocationNode(node, parent, pathString, scope);
 				if (node.callee.property && node.callee.property.name === 'factory') {
@@ -157,6 +174,7 @@ var createNodesFromAST = function(edgesToBody, ast, pathString, ancestor, scopeA
 
 				// if there is an ancestor on the ast, then create an edge between the ancestor and the current node
 				if (ast.ancestor) {
+					if (createdNode.id === 0) {console.log(createdNode)}
 					if (edgesToBody[ast.ancestor.id]) {
 						edgesToBody[ast.ancestor.id].push(createdNode.id);
 					} else {
@@ -233,7 +251,8 @@ var checkAndCreateDefinitionNode = function(node, parent, pathString, scope){
 		}
 		// other
 		else {
-			console.log('node blah', node);
+			console.log('pathString', pathString);
+			console.log('node', node);
 			console.log('parent', parent)
 		}
 	}
@@ -258,8 +277,21 @@ var checkAndCreateInvocationNode = function(node, parent, pathString, scope){
 			createdNode.object = node.callee.object.name;
 			console.log(chalk.red('a method named ' + node.callee.property.name + ' on object ' + node.callee.object.name + ' was invoked on line ' + node.callee.property.loc.start.line))
 		} 
+
+		else if (node.callee.type === 'CallExpression') {
+			if (node.callee.callee.type === 'Identifier') {
+				createdNode = new Node(idCounter++, 'function returned from ' + node.callee.callee.name, 'invocation', pathString, node.callee.callee.loc.start, node.callee.callee.loc.end, scope);
+				console.log(chalk.red('a function returned from a function named ' + node.callee.callee.name + ' was invoked on line ' + node.callee.callee.loc.start.line))
+			} else if (node.callee.callee.type === 'MemberExpression') {
+				createdNode = new Node(idCounter++, 'function returned from ' + node.callee.callee.property.name, 'invocation', pathString, node.loc.start, node.loc.end, scope);
+				createdNode.object = node.callee.callee.object.name;
+				console.log(chalk.red('a function returned from a method named ' + node.callee.callee.property.name + ' on object ' + node.callee.callee.object.name + ' was invoked on line ' + node.callee.callee.property.loc.start.line))
+			}
+			
+		}		
 		
 		else {
+			console.log('pathString', pathString);
 			console.log('node', node);
 			console.log('parent', parent);
 		}
@@ -320,15 +352,17 @@ var padLeftZeros = function(num, length) {
 	return '0'.repeat(totalZeros) + num;
 };
 
-var serverPaths = ['./server-side/testFile1.js', './server-side/testFile2.js', './server-side/testFile3.js', './server-side/testFile4.js', './server-side/testFile5.js'];
-var angularPaths = ['./front-angular/compose.controller.js', './front-angular/email.factory.js', './front-angular/emailBox.controller.js', './front-angular/inbox.controller.js', './front-angular/sent.controller.js', './front-angular/singleEmail.controller.js', './front-angular/user.factory.js'];
-var code = {}
+// var serverPaths = ['./server-side/testFile1.js', './server-side/testFile2.js', './server-side/testFile3.js', './server-side/testFile4.js', './server-side/testFile5.js'];
+// var angularPaths = ['./front-angular/compose.controller.js', './front-angular/email.factory.js', './front-angular/emailBox.controller.js', './front-angular/inbox.controller.js', './front-angular/sent.controller.js', './front-angular/singleEmail.controller.js', './front-angular/user.factory.js'];
+// var code = {}
 // angularPaths.forEach(function(path){
 // 	code[path] = fs.readFileSync(path).toString();
 // })
 // analyzeFiles(code, 'angular');
-serverPaths.forEach(function(path){
-	code[path] = fs.readFileSync(path).toString();
-})
-analyzeFiles(code);
+// serverPaths.forEach(function(path){
+// 	code[path] = fs.readFileSync(path).toString();
+// })
+// analyzeFiles(code);
+
+module.exports = analyzeFiles;
 

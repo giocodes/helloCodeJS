@@ -3,7 +3,7 @@ var express = require('express');
 var webpack = require('webpack');
 var config = require('./webpack.config.dev');
 var buildRepoObject = require('./server/buildRepoObject');
-var parser = require('./parser/parser.js');
+var parser = require('./server/parser/parser.js');
 
 var app = express();
 var compiler = webpack(config);
