@@ -19,7 +19,7 @@ const Main = React.createClass({
       };*/
 
     return(
-      <div className="container">
+      <div className="container-fluid">
         <h1>
           <Link to="/">Hellocodebase</Link>
         </h1>

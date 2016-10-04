@@ -34,17 +34,18 @@ const FileTree = React.createClass({
   logRepo(e) {
     e.preventDefault();
     const repo = e.target.value;
-    const baseUrl = 'https://api.github.com/repos/'+this.props.username+'/'+repo+'/contents';
-    this.props.requestRepoContents(repo);
+    console.log(repo);
+    //const baseUrl = 'https://api.github.com/repos/'+this.props.username+'/'+repo+'/contents';
+    //this.props.requestRepoContents(repo);
 
-    fetch(baseUrl)
+    /*fetch(baseUrl)
     .then(response => {
       return response.json()})
     .then(repoContents => {
       //console.log(repoContents);
       this.props.receiveRepoContents(repoContents);
 
-    });
+    });*/
   },
 
   chooseFile(e) {
@@ -163,7 +164,10 @@ const FileTree = React.createClass({
 
 
     return(
-      <TreeView {...this.props} data={data} levels={0} showBorder={false} />
+      <div>
+        <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
+        <TreeView {...this.props} data={data} levels={0} showBorder={false} />
+      </div>
     )
 
   }
