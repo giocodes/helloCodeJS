@@ -23,15 +23,9 @@ const Main = React.createClass({
   },
   /** end of Yi's code*/
   render (){
-    //An example of how we can style things right here if we want to
-    /*var style = {
-        //display: "inline-block",
-        //backgroundColor: "#7824bb",
-        //textAlign: "left"
-      };*/
       console.log('heres the current state \n', this.state)
     return(
-      <div className="container">
+      <div className="container-fluid">
         <h1>
           <Link to="/">Hellocodebase</Link>
         </h1>
@@ -47,14 +41,6 @@ const Main = React.createClass({
 
 
         <div id="code-container" className="col-md-5">
-
-          <div className="row">
-            <Code {...this.props}/>
-          </div>
-
-          <div className="row">
-          <br></br>
-          </div>
 
           <div className="row">
             <Code {...this.props}/>
