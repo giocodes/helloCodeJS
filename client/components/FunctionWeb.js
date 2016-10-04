@@ -8,12 +8,9 @@ import NodeGen from './NodeGen';
 const FunctionTree = React.createClass({
   componentDidMount: function(){
     let canvas = document.getElementById('myCanvas');
-    // // Create an empty project and a view for the canvas:
+    // Create an empty project and a view for the canvas:
     paper.setup(canvas);
-    // // Example line:
 
-
-    // NodeGen.SingleNode(paper,'banana');
     sampleData.map(node => {
         if(node.type === 'definition'){
             new NodeGen.DefinitionNode(paper,node)
@@ -24,21 +21,16 @@ const FunctionTree = React.createClass({
 
     console.log('heres the paper view size', paper.view.size)
   },
+  
 
   render (){
     console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
 
-    let style = {
-        backgroundColor: "#aaee11",
-        height: 850
-        //fontFamily: "sans-serif",
-        //textAlign: "center"
-    };
     let canvasStyle = {
-          backgroundColor: "#E6E6E6",
+          backgroundColor: "#edece8",
           // need to figure out how to make it 100% (percentage instead of pixels)
           width: 500,
-          height: 700
+          height: 900
 
     };
 
