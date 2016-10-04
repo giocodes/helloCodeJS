@@ -77,11 +77,7 @@ const FunctionTree = React.createClass({
     };
 
     return(
-      <div className="row" style={style}>
-        <h1>
-          THIS IS THE FUNCTION WEB VIEW
-        </h1>
-
+      <div className="row">
 
         <canvas id="myCanvas" style={canvasStyle}></canvas>
 

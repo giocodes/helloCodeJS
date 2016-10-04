@@ -11,7 +11,7 @@ function fileTreeBuilder(repoContentObj){
 
   for(let i = 0 ; i< fileStruct.length; i++)
   {
-     buildTree(fileStruct[i], data);
+     buildTree(fileStruct[i], data, keys[i]);
   }
 
   removeEmptyArrays(data);
@@ -21,7 +21,7 @@ function fileTreeBuilder(repoContentObj){
 }
 
 
-function buildTree(parts,treeNode) {
+function buildTree(parts,treeNode, path) {
   if(parts.length === 0)
   {
     return;
@@ -31,14 +31,17 @@ function buildTree(parts,treeNode) {
   {
     if(parts[0] == treeNode[i].text)
     {
-      buildTree(parts.splice(1,parts.length),treeNode[i].nodes);
+      buildTree(parts.splice(1,parts.length),treeNode[i].nodes, path);
       return;
     }
   }
 
   let newNode = {text: parts[0] ,nodes:[]};
+  if(newNode.text.substr(newNode.text.length-3) === '.js'){
+    newNode.path = path;
+  }
   treeNode.push(newNode);
-  buildTree(parts.splice(1,parts.length),newNode.nodes);
+  buildTree(parts.splice(1,parts.length),newNode.nodes, path);
 }
 
 function removeEmptyArrays(trees){

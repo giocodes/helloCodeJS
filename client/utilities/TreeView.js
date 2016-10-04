@@ -57,6 +57,7 @@ class TreeView extends React.Component {
           expanded: childNode.state ? !!childNode.state.expanded : false
         },
         text: childNode.text,
+        path: childNode.path,
         icon: childNode.icon
       }
     });
