@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+<!-- Load the Paper.js library -->
+<script type="text/javascript" src="../../node_modules/paper/dist/paper-full.js"></script>
+<!-- Define inlined PaperScript associate it with myCanvas -->
+<script type="text/paperscript" canvas="myCanvas"> var path = new Path.Circle({
+                center: view.center,
+                radius: 40,
+                strokeColor: 'green',
+                fillColor: 'blue'
+            }
+        )
+
+        //attaching double click event handler
+path.onDoubleClick = function(event) {
+    console.log('hey there');
+}
+
+</script>
+</head>
+<body>
+    <canvas id="myCanvas" resize></canvas>
+</body>
+</html>

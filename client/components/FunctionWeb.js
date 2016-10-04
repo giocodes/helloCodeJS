@@ -14,8 +14,10 @@ window.onload = function() {
     paper.setup(canvas);
     // // Example line:
 
+    console.log('heres the first node', sampleData[0])
+
     // NodeGen.SingleNode(paper,'banana');
-    sampleData.map(node => NodeGen.SingleNode(paper,node.name, node.id))
+    sampleData.map(node => NodeGen.SingleNode(paper, node))
 
     // let path = new paper.Path();
     // path.strokeColor = 'blue';
@@ -52,7 +54,7 @@ window.onload = function() {
     // // Set the content of the text item:
     // text.content = 'banana';
 
-    
+
     // // Draw the view now:
     // paper.view.draw();
   }
@@ -71,7 +73,7 @@ const FunctionTree = React.createClass({
           // need to figure out how to make it 100% (percentage instead of pixels)
           width: 500,
           height: 700
-          
+
     };
 
     return(
@@ -80,7 +82,7 @@ const FunctionTree = React.createClass({
           THIS IS THE FUNCTION WEB VIEW
         </h1>
 
-        
+
         <canvas id="myCanvas" style={canvasStyle}></canvas>
 
       </div>
