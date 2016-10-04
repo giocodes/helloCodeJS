@@ -4,6 +4,8 @@ var fs = require('fs');
 var chalk = require('chalk');
 var pathMod = require('path');
 
+module.exports = analyzeFiles;
+
 
 // constructor for node object
 var Node = function(id, name, type, filePath, start, end, scope){
@@ -14,29 +16,25 @@ var Node = function(id, name, type, filePath, start, end, scope){
 	this.start = start;
 	this.end = end;
 	this.scope = scope;
+	this.incomingEdges = [];
+	this.outgoingEdges = [];
 }
-
-var serverPaths = ['./server-side/testFile1.js', './server-side/testFile2.js', './server-side/testFile3.js', './server-side/testFile4.js', './server-side/testFile5.js'];
-var angularPaths = ['./front-angular/compose.controller.js', './front-angular/email.factory.js', './front-angular/emailBox.controller.js', './front-angular/inbox.controller.js', './front-angular/sent.controller.js', './front-angular/singleEmail.controller.js', './front-angular/user.factory.js'];
 
 var idCounter = 1; // this counter will provide each node with a unique id
 
 
 // function that takes in an array of file paths, reads it, parses it into an abstract syntax tree, and calls a recursive function to create nodes and find edgesToBody
-var analyzeFiles = function(paths, framework){
+var analyzeFiles = function(files, framework){
 
 	var nodes = []; // will collect nodes (node for each definition and invocation)
 	var edgesToBody = {}; // join table between function definitions/invocations and definitions/invocations within them
 	var edgesToDefinition = {}; // join table between function invocations and their original definitions
-	var files = {};
-
-	paths.forEach(function(path){
-		var file = fs.readFileSync(path).toString();
-		files[path] = file;
-		var ast = esprima.parse(file, {loc: true});
-		nodes = nodes.concat(createNodesFromAST(edgesToBody, ast, path));
+	
+	for (var key in files) {
+		var ast = esprima.parse(files[key], {loc: true});
+		nodes = nodes.concat(createNodesFromAST(edgesToBody, ast, key));
 		findEdgesInSameFile(nodes, edgesToBody, edgesToDefinition);
-	})
+	}
 
 	var remainingInvocations = nodes.filter(function(node){
 		if (node.type === 'invocation' && !edgesToDefinition[node.id]) {
@@ -45,6 +43,7 @@ var analyzeFiles = function(paths, framework){
 	});
 
 	remainingInvocations.forEach(function(invocation){
+
 		if (framework === 'angular') {
 			nodes.forEach(function(node){
 				if (node.type === 'definition' && node.factory && invocation.object && node.factory === invocation.object && node.name === invocation.name) {
@@ -73,10 +72,7 @@ var analyzeFiles = function(paths, framework){
 		nodes.forEach(function(node){
 
 			if (node.type === 'definition' && node.filePath === newPath && node.scope === 'global') {
-				console.log(node.factory, invocation.object)
-				if (node.factory && invocation.object && node.factory === invocation.object && node.name === invocation.name) {
-					edgesToDefinition[invocation.id] = node.id;
-				} else if (invocation.object && node.name === invocation.name) {
+				if (invocation.object && node.name === invocation.name) {
 					edgesToDefinition[invocation.id] = node.id;
 				} else if (node.object === 'module' && node.name === 'exports') {
 					edgesToDefinition[invocation.id] = node.id;
@@ -89,11 +85,23 @@ var analyzeFiles = function(paths, framework){
 
 	})
 
+	for (var key in edgesToBody) {
+		edgesToBody[key].forEach(function(node){
+			nodes[key-1].outgoingEdges.push(node)
+			nodes[node-1].incomingEdges.push(+key)
+		})
+	}
+
+	for (var key in edgesToDefinition) {
+		nodes[key-1].outgoingEdges.push(edgesToDefinition[key])
+		nodes[edgesToDefinition[key]-1].incomingEdges.push(+key)
+	}
+
 	console.log(nodes)
 	console.log(edgesToBody)
 	console.log(edgesToDefinition)
 
-	
+	return nodes;
 }
 
 // function that creates nodes from an abstract syntax tree, traveling down the tree recursively to capture edgeToBody relationships
@@ -312,7 +320,15 @@ var padLeftZeros = function(num, length) {
 	return '0'.repeat(totalZeros) + num;
 };
 
-
-// analyzeFiles(angularPaths, 'angular');
-analyzeFiles(serverPaths);
+var serverPaths = ['./server-side/testFile1.js', './server-side/testFile2.js', './server-side/testFile3.js', './server-side/testFile4.js', './server-side/testFile5.js'];
+var angularPaths = ['./front-angular/compose.controller.js', './front-angular/email.factory.js', './front-angular/emailBox.controller.js', './front-angular/inbox.controller.js', './front-angular/sent.controller.js', './front-angular/singleEmail.controller.js', './front-angular/user.factory.js'];
+var code = {}
+// angularPaths.forEach(function(path){
+// 	code[path] = fs.readFileSync(path).toString();
+// })
+// analyzeFiles(code, 'angular');
+serverPaths.forEach(function(path){
+	code[path] = fs.readFileSync(path).toString();
+})
+analyzeFiles(code);
 

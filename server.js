@@ -1,7 +1,11 @@
-const path = require('path');
-const express = require('express');
-const webpack = require('webpack');
+
+var path = require('path');
+var express = require('express');
+var webpack = require('webpack');
 const logger = require('morgan');
+var config = require('./webpack.config.dev');
+var buildRepoObject = require('./server/buildRepoObject');
+var parser = require('./parser/parser.js');
 
 const config = require('./webpack.config.dev');
 const buildRepoObject = require('./server/buildRepoObject');
@@ -19,9 +23,10 @@ app.use(require('webpack-hot-middleware')(compiler));
 app.use(logger('dev'));
 
 app.get('/api/repo', (req, res, next)=>{
-  buildRepoObject(req.query.url, (data)=> {
+  buildRepoObject(req.query.url, (code)=> {
     //the data should be passed to the parser here
-    res.json(data);
+    var nodes = parser(code);
+    res.json({nodes, code});
   })
 })
 
