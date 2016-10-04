@@ -9,7 +9,7 @@ class Node  {
         this.text.fillColor = 'black';
         // Set the content of the text item:
         this.text.content = node.name;
-        
+
         // Add text to group
         // this.group.addChild(this.text)
 
