@@ -1,11 +1,13 @@
-var path = require('path');
-var express = require('express');
-var webpack = require('webpack');
-var config = require('./webpack.config.dev');
-var buildRepoObject = require('./server/buildRepoObject');
+const path = require('path');
+const express = require('express');
+const webpack = require('webpack');
+const logger = require('morgan');
 
-var app = express();
-var compiler = webpack(config);
+const config = require('./webpack.config.dev');
+const buildRepoObject = require('./server/buildRepoObject');
+
+const app = express();
+const compiler = webpack(config);
 
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
@@ -14,6 +16,8 @@ app.use(require('webpack-dev-middleware')(compiler, {
 
 app.use(require('webpack-hot-middleware')(compiler));
 
+app.use(logger('dev'));
+
 app.get('/api/repo', (req, res, next)=>{
   buildRepoObject(req.query.url, (data)=> {
     //the data should be passed to the parser here
@@ -21,11 +25,11 @@ app.get('/api/repo', (req, res, next)=>{
   })
 })
 
-app.get('*', function(req, res) {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-app.listen(7770, 'localhost', function(err) {
+app.listen(7770, 'localhost', (err) => {
   if (err) {
     console.log(err);
     return;

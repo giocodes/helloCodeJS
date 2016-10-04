@@ -18,7 +18,7 @@ const defaultState = {
 	username: "",
 	repos: [],
   activeRepo: "",
-  repoContents: [],
+  repoContents: {},
   activeFile: "",
   activeFileContent: ""
 };

@@ -1,12 +1,14 @@
 //FileTree.js
 import React from 'react';
 import { Link } from 'react-router';
+import fileTreeBuilder from '../utilities/fileTreeBuilder';
+import TreeView from '../utilities/TreeView';
 
 const FileTree = React.createClass({
 
   handleSubmit(e) {
     e.preventDefault();
-    const username = this.refs.username.value;
+    /*const username = this.refs.username.value;
     this.props.requestRepos(username);
 
     fetch('https://api.github.com/users/'+username+'/repos')
@@ -14,7 +16,18 @@ const FileTree = React.createClass({
       return response.json()})
     .then(repos => {
       this.props.receiveRepos(repos);
-    });
+    });*/
+
+    const repo = this.refs.repo.value;
+    this.props.requestRepoContents(repo);
+
+    fetch('http://localhost:7770/api/repo?url=' + repo)
+    .then(response => {
+      return response.json();
+    })
+    .then(repoObj => {
+      this.props.receiveRepoContents(repoObj);
+    })
 
   },
 
@@ -68,44 +81,90 @@ const FileTree = React.createClass({
       padding: "2px 15px"
     }
 
+    var ulStyle = {
+      padding: "0px"
+    }
+
     var repos = this.props.repos.map((repo, i) =>
         <button className="list-group-item" value={repo.name} key={i} onClick={this.logRepo} style={liStyle}>{repo.name}</button>
     )
 
-    var contents = this.props.repoContents.map((content, i) =>
-        <button className="list-group-item" value={content.name} key={'content-'+i} style={liStyle} onClick={this.chooseFile}>{content.name}</button>
-    )
+    //a tree to help with forming file paths
+    var data = fileTreeBuilder(this.props.repoContents);
 
-    if(this.props.username === ""){
+    /*var contents;
+
+    if(fileTree.length !== 0){
+      contents = Object.keys(this.props.repoContents).map((key, i) =>
+        <p key={'key-'+i} style={liStyle} >{key}</p>
+      )
+    }*/
+
+
+
+    //  if(this.props.username === ""){
+    //   return(
+    //     <div className="col-md-12">
+    //       <form ref="usernameForm" onSubmit={this.handleSubmit}>
+    //         <div className="form-group col-md-12">
+    //           {/*<label htmlFor="github-id">Enter Github username:</label>*/}
+    //           <label htmlFor="github-repo">Enter Github repo address:</label>
+    //           {/*<input id="github-id" className="form-control" type="text" ref="username" placeholder="username"/>*/}
+    //           <input id="github-repo" className="form-control" type="text" ref="repo" placeholder="https://github.com/<YOUR USERNAME>/<YOUR REPO>.git"/>
+    //           <input type="submit" hidden />
+    //         </div>
+    //       </form>
+    //     </div>
+    //   )
+    // }
+    // else if(this.props.activeRepo === ""){
+    //   return(
+    //     <div className="col-md-12">
+    //       <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
+    //       <p><strong>{this.props.username}</strong></p>
+    //       <ul className="list-group"> {repos} </ul>
+    //     </div>
+    //   )
+    // }
+
+    // return(
+    //     <div className="col-md-12">
+    //       <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
+    //       <p><strong>{this.props.username}/{this.props.activeRepo}</strong></p>
+    //       <ul className="list-group"> {contents} </ul>
+    //     </div>
+    //   )
+
+    //if(fileTree.length !== 0){
+
+      // return(
+      //   <div className="col-md-12">
+
+      //     <p><strong>{this.props.activeRepo}</strong></p>
+      //     <ul className="list-group"> {contents} </ul>
+      //   </div>
+      // )
+    //}
+    if(this.props.activeRepo === ""){
       return(
         <div className="col-md-12">
           <form ref="usernameForm" onSubmit={this.handleSubmit}>
             <div className="form-group col-md-12">
-              <label htmlFor="github-id">Enter Github username:</label>
-              <input id="github-id" className="form-control" type="text" ref="username" placeholder="username"/>
+              {/*<label htmlFor="github-id">Enter Github username:</label>*/}
+              <label htmlFor="github-repo">Enter Github repo address:</label>
+
+              <input id="github-repo" className="form-control" type="text" ref="repo" placeholder="https://github.com/<YOUR USERNAME>/<YOUR REPO>.git"/>
               <input type="submit" hidden />
             </div>
           </form>
         </div>
       )
     }
-    else if(this.props.activeRepo === ""){
-      return(
-        <div className="col-md-12">
-          <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
-          <p><strong>{this.props.username}</strong></p>
-          <ul className="list-group"> {repos} </ul>
-        </div>
-      )
-    }
+
 
     return(
-        <div className="col-md-12">
-          <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
-          <p><strong>{this.props.username}/{this.props.activeRepo}</strong></p>
-          <ul className="list-group"> {contents} </ul>
-        </div>
-      )
+      <TreeView data={data} levels={0} showBorder={false} />
+    )
 
   }
 });
