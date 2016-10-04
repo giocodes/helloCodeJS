@@ -4,15 +4,13 @@ import paper from 'paper';
 import sampleData from '../data/sample-data';
 import NodeGen from './NodeGen';
 // console.log(sampleData);
-let firstNode = sampleData[0]
-console.log(firstNode)
 
-window.onload = function() {
-    // Get a reference to the canvas object
+const FunctionTree = React.createClass({
+  componentDidMount: function(){
     let canvas = document.getElementById('myCanvas');
     // Create an empty project and a view for the canvas:
     paper.setup(canvas);
-    
+
     sampleData.map(node => {
         if(node.type === 'definition'){
             new NodeGen.DefinitionNode(paper,node)
@@ -20,11 +18,13 @@ window.onload = function() {
             new NodeGen.InvocationNode(paper,node)
         }
     })
-    
-  }
 
-const FunctionTree = React.createClass({
+    console.log('heres the paper view size', paper.view.size)
+  },
+  
+
   render (){
+    console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
 
     let canvasStyle = {
           backgroundColor: "#edece8",
@@ -38,7 +38,6 @@ const FunctionTree = React.createClass({
       <div className="row">
 
         <canvas id="myCanvas" style={canvasStyle}></canvas>
-
       </div>
     )
   }
