@@ -2,7 +2,8 @@
 import React from 'react';
 import Codemirror from 'react-codemirror';
 // Is this no longer needed? - Gio
-// require('codemirror/mode/javascript/javascript');
+// It is needed - this module below is how we are getting syntax highlighting!
+require('codemirror/mode/javascript/javascript');
 
 const Code = React.createClass({
   getInitialState: function() {

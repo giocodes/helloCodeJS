@@ -1,5 +1,5 @@
 //repoContents.js
-function repoContents(state = [], action) {
+function repoContents(state = {}, action) {
 
   switch(action.type) {
     case 'RECEIVE_REPO_CONTENTS':

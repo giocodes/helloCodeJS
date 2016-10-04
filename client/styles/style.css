@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .main {
   font-style: italic;
 }
@@ -5,3 +10,4 @@
 .list-group-item{
   padding: 2px, 15px;
 }
+
