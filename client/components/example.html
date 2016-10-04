@@ -4,19 +4,19 @@
 <!-- Load the Paper.js library -->
 <script type="text/javascript" src="../../node_modules/paper/dist/paper-full.js"></script>
 <!-- Define inlined PaperScript associate it with myCanvas -->
-<script type="text/paperscript" canvas="myCanvas">
-    // Create a circle shaped path with its center at the center
-// of the view and a radius of 30:
-var path = new Path.Circle({
-    center: view.center,
-    radius: 30,
-    strokeColor: 'black'
-});
+<script type="text/paperscript" canvas="myCanvas"> var path = new Path.Circle({
+                center: view.center,
+                radius: 40,
+                strokeColor: 'green',
+                fillColor: 'blue'
+            }
+        )
 
-function onResize(event) {
-    // Whenever the window is resized, recenter the path:
-    path.position = view.center;
+        //attaching double click event handler
+path.onDoubleClick = function(event) {
+    console.log('hey there');
 }
+
 </script>
 </head>
 <body>
