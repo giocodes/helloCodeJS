@@ -17,7 +17,13 @@ window.onload = function() {
     console.log('heres the first node', sampleData[0])
 
     // NodeGen.SingleNode(paper,'banana');
-    sampleData.map(node => NodeGen.SingleNode(paper, node))
+    sampleData.map(node => {
+        if(node.type === 'definition'){
+            new NodeGen.DefinitionNode(paper,node)
+        } else if(node.type === 'invocation'){
+            new NodeGen.InvocationNode(paper,node)
+        }
+    })
 
     // let path = new paper.Path();
     // path.strokeColor = 'blue';
