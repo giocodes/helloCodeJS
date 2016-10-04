@@ -1,14 +1,20 @@
 class Node  {
     constructor(project, node) {
         // Wrap everything into a Group
-        this.startPoint = node.id * 35;
+        this.canvasCenter = project.view._viewSize._width/2
+        this.startPoint = node.id * 70;
         this.group = new project.Group()
 
         // Text Example:
-        this.text = new project.PointText(new project.Point(220, 20 + this.startPoint));
-        this.text.fillColor = 'black';
-        // Set the content of the text item:
-        this.text.content = node.name;
+        this.text = new project.PointText({
+            point: [this.canvasCenter, this.startPoint],
+            content: node.name,
+            fillColor: '#3d3739',
+            fontFamily: 'Arial, Helvetica, sans-serif',
+            fontWeight: 'bold',
+            fontSize: 25,
+            justification: 'center'
+        });
         
         // Add text to group
         // this.group.addChild(this.text)
@@ -38,10 +44,10 @@ class DefinitionNode extends Node {
     }
 
     renderShape(project) {
-        let size = new project.Size(100,30)
-        let rectangle = new project.Rectangle(new project.Point(187.5, this.startPoint), size);
+        let size = new project.Size(20,20)
+        let rectangle = new project.Rectangle(new project.Point(this.canvasCenter-10, 10 + this.startPoint), size);
         this.path = new project.Path.Rectangle(rectangle);
-        this.path.fillColor = 'red';
+        this.path.fillColor = '#b6d2dd';
     }
 }
 class InvocationNode extends Node {
@@ -53,10 +59,9 @@ class InvocationNode extends Node {
 
     renderShape(project){
         this.circle = new project.Path.Circle({
-                center: [250, 10 + this.startPoint],
+                center: [this.canvasCenter, 20 + this.startPoint],
                 radius: 10,
-                strokeColor: 'green',
-                fillColor: 'blue'
+                fillColor: '#749395'
             }
         )
     }
