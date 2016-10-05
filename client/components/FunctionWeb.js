@@ -13,9 +13,9 @@ const FunctionTree = React.createClass({
 
     // Loading only a couple nodes for the curve example
     let firstNode = new NodeGen.DefinitionNode(paper,sampleData[1]);
-    let secondNode = new NodeGen.ConnectInvocation(paper,sampleData[3],firstNode);
-    let third = new NodeGen.ConnectDefinition(paper,sampleData[3],firstNode);
-    console.log(paper.view)
+    let secondNode = new NodeGen.ConnectOutgoing(paper,sampleData[3],firstNode);
+    let third = new NodeGen.ConnectIncoming(paper,sampleData[3],firstNode);
+    // console.log(paper.view)
     paper.view.zoom = 1;
     // sampleData.map(node => {
     //     if(node.type === 'definition'){
