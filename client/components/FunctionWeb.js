@@ -74,16 +74,21 @@ const FunctionTree = React.createClass({
       }
     // Set incoming Nodes
     console.log(node)
-    node.incomingEdges.forEach((item,index) => {
-        // loop throug sampleData[node.id]
-        let length = node.incomingEdges.length
-        new NodeGen.ConnectIncoming(paper,sampleData[item-1],firstNode,index,length)
-    })
-    node.outgoingEdges.forEach((item, index) => {
-        // loop throug sampleData[node.id]
-        let length = node.outgoingEdges.length
-        new NodeGen.ConnectOutgoing(paper,sampleData[item-1],firstNode,index, length)
-    })
+    if(node.incomingEdges.length > 0){
+      node.incomingEdges.forEach((item,index) => {
+          // loop throug sampleData[node.id]
+          let length = node.incomingEdges.length
+          new NodeGen.ConnectIncoming(paper,data[item-1],firstNode,index,length)
+      })
+    }
+
+    if(node.outgoingEdges.length > 0){
+      node.outgoingEdges.forEach((item, index) => {
+          // loop throug sampleData[node.id]
+          let length = node.outgoingEdges.length
+          new NodeGen.ConnectOutgoing(paper,data[item-1],firstNode,index, length)
+      })
+    }
   },
 
   render (){

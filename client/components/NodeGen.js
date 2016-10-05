@@ -61,15 +61,21 @@ class InvocationNode extends Node {
         )
     }
 }
+
+//the difference between ConnectOutgoing and connectIncoming is the relative positioning
 class ConnectOutgoing extends InvocationNode {
     constructor(project,node,origin,index,length) {
         super(...arguments)
+        //xDistribution is a point on where to position
         let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
         this.group.position = new project.Point(this.canvasCenter*1.5,xDistribution)
+        //this is relative positioning
         let fromPoint = origin.group.position.add(new project.Point(10,15));
         let toPoint = this.group.position.add(new project.Point(-10,15));
         this.curve = new project.Path(fromPoint, toPoint);
         this.curve.strokeColor = 'black';
+        console.log('heres this group\n', this.group);
+        this.group.addChild(this.curve);
     }
 }
 
@@ -82,6 +88,8 @@ class ConnectIncoming extends InvocationNode {
         let toPoint = this.group.position.add(new project.Point(10,15));
         this.curve = new project.Path(fromPoint, toPoint);
         this.curve.strokeColor = 'black';
+        console.log('heres this group\n', this.group);
+        this.group.addChild(this.curve);
     }
 }
 
