@@ -11,12 +11,36 @@ const FunctionTree = React.createClass({
     // Create an empty project and a view for the canvas:
     paper.setup(canvas);
 
+    function drawNodes (node){
+      let firstNode;
+      // Set the first node
+      if(node.type === 'definition'){
+            firstNode = new NodeGen.DefinitionNode(paper,node)
+        } else if(node.type === 'invocation'){
+            firstNode = new NodeGen.InvocationNode(paper,node)
+        }
+      // Set incoming Nodes  
+      console.log(node)
+      node.incomingEdges.forEach((item,index) => {
+          // loop throug sampleData[node.id]
+          let length = node.incomingEdges.length
+          new NodeGen.ConnectIncoming(paper,sampleData[3],firstNode,index,length)
+      })
+      node.outgoingEdges.forEach((item, index) => {
+          // loop throug sampleData[node.id]
+          let length = node.outgoingEdges.length
+          new NodeGen.ConnectOutgoing(paper,sampleData[3],firstNode,index, length)
+      })
+    }
+
+    drawNodes(sampleData[6])
+
     // Loading only a couple nodes for the curve example
-    let firstNode = new NodeGen.DefinitionNode(paper,sampleData[1]);
-    let secondNode = new NodeGen.ConnectOutgoing(paper,sampleData[3],firstNode);
-    let third = new NodeGen.ConnectIncoming(paper,sampleData[3],firstNode);
-    // console.log(paper.view)
-    paper.view.zoom = 1;
+    // let firstNode = new NodeGen.DefinitionNode(paper,sampleData[1]);
+    // let secondNode = new NodeGen.ConnectOutgoing(paper,sampleData[3],firstNode);
+    // let third = new NodeGen.ConnectIncoming(paper,sampleData[3],firstNode);
+
+    // Draw all nodes on sampleData
     // sampleData.map(node => {
     //     if(node.type === 'definition'){
     //         new NodeGen.DefinitionNode(paper,node)

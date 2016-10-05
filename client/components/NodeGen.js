@@ -2,10 +2,11 @@ class Node  {
     constructor(project, node) {
         // Wrap everything into a Group
         this.canvasCenter = project.view._viewSize._width/2
+        this.canvasMiddle = project.view._viewSize._height/2
         this.startPoint = node.id * 70;
         this.group = new project.Group()
         this.text = new project.PointText({
-            point: [this.canvasCenter, this.startPoint],
+            point: [this.canvasCenter, this.canvasMiddle],
             content: node.name,
             fillColor: '#3d3739',
             fontFamily: 'Arial, Helvetica, sans-serif',
@@ -39,7 +40,7 @@ class DefinitionNode extends Node {
 
     renderShape(project) {
         let size = new project.Size(20,20)
-        let rectangle = new project.Rectangle(new project.Point(this.canvasCenter-10, 10 + this.startPoint), size);
+        let rectangle = new project.Rectangle(new project.Point(this.canvasCenter-10, 10 + this.canvasMiddle), size);
         this.path = new project.Path.Rectangle(rectangle);
         this.path.fillColor = '#b6d2dd';
     }
@@ -53,7 +54,7 @@ class InvocationNode extends Node {
 
     renderShape(project){
         this.circle = new project.Path.Circle({
-                center: [this.canvasCenter, 20 + this.startPoint],
+                center: [this.canvasCenter, 20 + this.canvasMiddle],
                 radius: 10,
                 fillColor: '#749395'
             }
@@ -61,9 +62,10 @@ class InvocationNode extends Node {
     }
 }
 class ConnectOutgoing extends InvocationNode {
-    constructor(project,node,origin) {
+    constructor(project,node,origin,index,length) {
         super(...arguments)
-        this.group.position = new project.Point(this.canvasCenter*1.5,origin.startPoint)
+        let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
+        this.group.position = new project.Point(this.canvasCenter*1.5,xDistribution)
         let fromPoint = origin.group.position.add(new project.Point(10,15));
         let toPoint = this.group.position.add(new project.Point(-10,15));
         this.curve = new project.Path(fromPoint, toPoint);
@@ -72,9 +74,10 @@ class ConnectOutgoing extends InvocationNode {
 }
 
 class ConnectIncoming extends InvocationNode {
-    constructor(project,node,origin) {
+    constructor(project,node,origin,index, length) {
         super(...arguments)
-        this.group.position = new project.Point(this.canvasCenter*.5,origin.startPoint)
+        let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
+        this.group.position = new project.Point(this.canvasCenter*.5,xDistribution)
         let fromPoint = origin.group.position.add(new project.Point(-10,15));
         let toPoint = this.group.position.add(new project.Point(10,15));
         this.curve = new project.Path(fromPoint, toPoint);
