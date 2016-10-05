@@ -1,9 +1,8 @@
-
 const path = require('path');
 const express = require('express');
 const webpack = require('webpack');
 const logger = require('morgan');
-//var parser = require('./server/parser/parser.js');
+const parser = require('./server/parser/parser.js');
 const config = require('./webpack.config.dev');
 const buildRepoObject = require('./server/buildRepoObject');
 const app = express();
@@ -21,8 +20,8 @@ app.use(logger('dev'));
 app.get('/api/repo', (req, res, next)=>{
   buildRepoObject(req.query.url, (code)=> {
     //the data should be passed to the parser here
-    //var nodes = parser(code);
-    res.json(code);
+    var nodes = parser(code);
+    res.json({nodes, code});
   })
 })
 
