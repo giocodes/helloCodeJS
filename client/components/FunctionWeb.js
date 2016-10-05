@@ -64,6 +64,7 @@ const FunctionTree = React.createClass({
 
   drawNodes: function(data,nodeId){
     let node = data[nodeId-1]
+    console.log(node)
     let firstNode;
     // Set the first node
     if(node.type === 'definition'){
