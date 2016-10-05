@@ -60,7 +60,7 @@ class InvocationNode extends Node {
         )
     }
 }
-class ConnectInvocation extends InvocationNode {
+class ConnectOutgoing extends InvocationNode {
     constructor(project,node,origin) {
         super(...arguments)
         this.group.position = new project.Point(this.canvasCenter*1.5,origin.startPoint)
@@ -71,7 +71,7 @@ class ConnectInvocation extends InvocationNode {
     }
 }
 
-class ConnectDefinition extends InvocationNode {
+class ConnectIncoming extends InvocationNode {
     constructor(project,node,origin) {
         super(...arguments)
         this.group.position = new project.Point(this.canvasCenter*.5,origin.startPoint)
@@ -83,10 +83,10 @@ class ConnectDefinition extends InvocationNode {
 }
 
 const NodeGen = {
-    DefinitionNode: DefinitionNode,
-    InvocationNode: InvocationNode,
-    ConnectInvocation: ConnectInvocation,
-    ConnectDefinition: ConnectDefinition
+    DefinitionNode,
+    InvocationNode,
+    ConnectOutgoing,
+    ConnectIncoming
 }
 
 export default NodeGen
