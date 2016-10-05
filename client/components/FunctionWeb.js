@@ -78,7 +78,7 @@ const FunctionTree = React.createClass({
       node.incomingEdges.forEach((item,index) => {
           // loop throug sampleData[node.id]
           let length = node.incomingEdges.length
-          new NodeGen.ConnectIncoming(paper,data[item-1],firstNode,index,length)
+          new NodeGen.ConnectIncoming(paper,sampleData[item-1],firstNode,index,length)
       })
     }
 
