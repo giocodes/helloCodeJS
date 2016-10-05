@@ -10,8 +10,20 @@ import Code from './Code';
 import FunctionWeb from './FunctionWeb';
 
 const Main = React.createClass({
-  render (){
+  /** Yi's code to wire up the components */
+  getInitialState : function(){
+    return {toggledFuncID: null };
+  },
 
+  toggleActiveFunc : function(){
+  /** Need to rewire this to accept arbitrary id **/
+    console.log('toggleActive Funct triggered!')
+    console.log('heres the id we got\n', 25)
+    this.setState({toggledFuncID: 25})
+  },
+  /** end of Yi's code*/
+  render (){
+      console.log('heres the current state \n', this.state)
     return(
       <div className="container-fluid">
         <h1>
@@ -38,10 +50,11 @@ const Main = React.createClass({
 
         <div className="col-md-5">
           <div className="row">
-            <FunctionWeb {...this.props}/>
+            <FunctionWeb {...this.props} {...this.state}/>
           </div>
         </div>
 
+        <button type="button" onClick = {this.toggleActiveFunc}> Rerender Canvas </button>
       </div>
     )
   }

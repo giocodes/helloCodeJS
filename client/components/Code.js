@@ -1,8 +1,10 @@
 //Code.js
 import React from 'react';
+
 //import CodeMirror from 'react-codemirror';
 // Is this no longer needed? - Gio
 // It is needed - this module below is how we are getting syntax highlighting!
+
 require('codemirror/mode/javascript/javascript');
 const CodeMirror = require('codemirror');
 
