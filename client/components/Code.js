@@ -1,36 +1,53 @@
 //Code.js
 import React from 'react';
-import Codemirror from 'react-codemirror';
-// getting syntax highlighting!
+
+//import CodeMirror from 'react-codemirror';
+// Is this no longer needed? - Gio
+// It is needed - this module below is how we are getting syntax highlighting!
+
 require('codemirror/mode/javascript/javascript');
+const CodeMirror = require('codemirror');
 
 const Code = React.createClass({
-  getInitialState: function() {
-    return {
-      code: this.props.activeFileContent
-    };
+
+  componentWillReceiveProps(nextProps) {
+    if(nextProps.activeFileContent !== this.props.activeFileContent){
+      this.codeMirror.setValue(nextProps.activeFileContent);
+    }
   },
-  updateCode: function(newCode) {
-    this.setState({
-      code: newCode
-    });
+
+  componentDidMount() {
+
+    this.codeMirror = CodeMirror( // eslint-disable-line new-cap
+      this.refs.container,
+      {
+        lineNumbers: true,
+        readOnly: false,
+        mode: 'javascript',
+        theme: 'blackboard',
+        value: this.props.activeFileContent
+      }
+    );
+
+    this.codeMirror.on('cursorActivity', ()=>{
+      console.log('DAT CURSOR BRO',
+        this.codeMirror.getCursor());
+
+    })
+
   },
-  render: function() {
-    const options = {
-      lineNumbers: true,
-      readOnly: true,
-      mode: 'javascript',
-      theme: 'blackboard'
-    };
+
+  render() {
 
     return (
-        <div className="col-md-11">
-        <strong>{this.props.activeFile}</strong>
 
-        <Codemirror {...this.props} value={this.props.activeFileContent} options={options} />
+        <div className="col-md-11" ref="container">
+
         </div>
     )
   }
 });
 
 export default Code;
+
+
