@@ -60,10 +60,23 @@ class InvocationNode extends Node {
         )
     }
 }
+class ConnectInvocation extends InvocationNode {
+    constructor(project,node,origin) {
+        super(...arguments)
+        this.group.position = new project.Point(this.canvasCenter*1.5,origin.startPoint)
+        let from = origin.group.position;
+        let through = new project.Point(this.canvasCenter*1.5,1+origin.startPoint);
+        let to = this.group.position;
+        this.curve = new project.Path(from, to);
+        // this.curve = new project.Curve(from,through,through,to)
+        this.curve.strokeColor = 'black';
+    }
+}
 
 const NodeGen = {
     DefinitionNode: DefinitionNode,
-    InvocationNode: InvocationNode
+    InvocationNode: InvocationNode,
+    ConnectInvocation: ConnectInvocation
 }
 
 export default NodeGen

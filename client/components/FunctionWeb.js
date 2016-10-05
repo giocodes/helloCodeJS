@@ -11,13 +11,16 @@ const FunctionTree = React.createClass({
     // Create an empty project and a view for the canvas:
     paper.setup(canvas);
 
-    sampleData.map(node => {
-        if(node.type === 'definition'){
-            new NodeGen.DefinitionNode(paper,node)
-        } else if(node.type === 'invocation'){
-            new NodeGen.InvocationNode(paper,node)
-        }
-    })
+    // Loading only a couple nodes for the curve example
+    let firstNode = new NodeGen.DefinitionNode(paper,sampleData[1]);
+    let secondNode = new NodeGen.ConnectInvocation(paper,sampleData[3],firstNode);
+    // sampleData.map(node => {
+    //     if(node.type === 'definition'){
+    //         new NodeGen.DefinitionNode(paper,node)
+    //     } else if(node.type === 'invocation'){
+    //         new NodeGen.InvocationNode(paper,node)
+    //     }
+    // })
 
     console.log('heres the paper view size', paper.view.size)
   },
