@@ -11,7 +11,8 @@ const FunctionTree = React.createClass({
     // Create an empty project and a view for the canvas:
     paper.setup(canvas);
 
-    function drawNodes (node){
+    function drawNodes (data,nodeId){
+      let node = data[nodeId-1]
       let firstNode;
       // Set the first node
       if(node.type === 'definition'){
@@ -24,16 +25,16 @@ const FunctionTree = React.createClass({
       node.incomingEdges.forEach((item,index) => {
           // loop throug sampleData[node.id]
           let length = node.incomingEdges.length
-          new NodeGen.ConnectIncoming(paper,sampleData[3],firstNode,index,length)
+          new NodeGen.ConnectIncoming(paper,sampleData[item-1],firstNode,index,length)
       })
       node.outgoingEdges.forEach((item, index) => {
           // loop throug sampleData[node.id]
           let length = node.outgoingEdges.length
-          new NodeGen.ConnectOutgoing(paper,sampleData[3],firstNode,index, length)
+          new NodeGen.ConnectOutgoing(paper,sampleData[item-1],firstNode,index, length)
       })
     }
 
-    drawNodes(sampleData[6])
+    drawNodes(sampleData,7)
 
     // Loading only a couple nodes for the curve example
     // let firstNode = new NodeGen.DefinitionNode(paper,sampleData[1]);
