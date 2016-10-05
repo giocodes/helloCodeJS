@@ -3,8 +3,9 @@
   padding: 0;
 }
 
-.main {
-  font-style: italic;
+#root {
+  background-color: #242526;
+  color: white;
 }
 
 .list-group-item{

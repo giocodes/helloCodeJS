@@ -63,7 +63,10 @@ const Code = React.createClass({
   render() {
 
     return (
-      <div className="col-md-11" ref="container">
+      <div>
+        <strong>{this.props.activeFile}</strong>
+        <div className="col-md-11" ref="container">
+        </div>
       </div>
     )
   }

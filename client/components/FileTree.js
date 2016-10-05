@@ -85,8 +85,9 @@ const FileTree = React.createClass({
 
 
     return(
-      <div>
+      <div className="container-fluid" style={{overflow: "hidden"}}>
         <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
+        <p><strong>{this.props.activeRepo.substr(18)}</strong></p>
         <TreeView {...this.props} data={data} levels={0} showBorder={false} onDoubleClick={this.chooseFile} />
       </div>
     )
