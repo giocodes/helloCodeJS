@@ -55,7 +55,7 @@ const FunctionTree = React.createClass({
 
   clearViz: function(){
       // not sure why I have to do it like this but otherwise only some of the group items get removed
-      console.log('running clearViz\n', paper.project.activeLayer)
+
       paper.project.activeLayer.children.forEach(group =>
       {
         group.removeChildren();
@@ -64,7 +64,6 @@ const FunctionTree = React.createClass({
 
   drawNodes: function(data,nodeId){
     let node = data[nodeId-1]
-    console.log(node)
     let firstNode;
     // Set the first node
     if(node.type === 'definition'){
@@ -73,12 +72,11 @@ const FunctionTree = React.createClass({
           firstNode = new NodeGen.InvocationNode(paper,node, false, 6)
       }
     // Set incoming Nodes
-    console.log(node)
     if(node.incomingEdges.length > 0){
       node.incomingEdges.forEach((item,index) => {
           // loop throug sampleData[node.id]
           let length = node.incomingEdges.length
-          new NodeGen.ConnectIncoming(paper,sampleData[item-1],firstNode,index,length)
+          new NodeGen.ConnectIncoming(paper,data[item-1],firstNode,index,length)
       })
     }
 
@@ -104,7 +102,7 @@ const FunctionTree = React.createClass({
 
     return(
       <div className="row">
-
+        <strong>Function Web</strong>
         <canvas id="myCanvas" style={canvasStyle}></canvas>
       </div>
     )
