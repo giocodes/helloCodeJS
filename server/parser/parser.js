@@ -80,7 +80,7 @@ var analyzeFiles = function(files, framework){
 			return;
 		}
 
-		var newPath = './' + pathMod.normalize(pathMod.join(invocation.filePath, '../', relativePath));
+		var newPath = pathMod.normalize(pathMod.join(invocation.filePath, '../', relativePath));
 		var newFile = files[newPath]
 
 		// looks for function in target file that matches various module export patterns
