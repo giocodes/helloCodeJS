@@ -15,11 +15,11 @@ const FunctionTree = React.createClass({
       let firstNode;
       // Set the first node
       if(node.type === 'definition'){
-            firstNode = new NodeGen.DefinitionNode(paper,node)
+            firstNode = new NodeGen.DefinitionNode(paper,node, false, 6)
         } else if(node.type === 'invocation'){
-            firstNode = new NodeGen.InvocationNode(paper,node)
+            firstNode = new NodeGen.InvocationNode(paper,node, false, 6)
         }
-      // Set incoming Nodes  
+      // Set incoming Nodes
       console.log(node)
       node.incomingEdges.forEach((item,index) => {
           // loop throug sampleData[node.id]
@@ -51,7 +51,32 @@ const FunctionTree = React.createClass({
 
     // console.log('heres the paper view size', paper.view.size)
   },
-  
+
+  componentWillUpdate: function(nextProps, nextState){
+    let toggledID = nextProps.toggledFuncID
+
+    if(toggledID !== null){
+       this.clearViz();
+      var toggNode = sampleData[toggledID];
+
+        if(toggNode.type === 'definition'){
+            new NodeGen.DefinitionNode(paper,toggNode)
+        } else if(toggNode.type === 'invocation'){
+            new NodeGen.InvocationNode(paper,toggNode)
+        }
+
+    }
+
+  },
+
+  clearViz: function(){
+      // not sure why I have to do it like this but otherwise only some of the group items get removed
+      console.log('running clearViz\n', paper.project.activeLayer)
+      paper.project.activeLayer.children.forEach(group =>
+      {
+        group.removeChildren();
+      })
+  },
 
   render (){
     // console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
