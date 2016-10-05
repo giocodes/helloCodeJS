@@ -45,7 +45,7 @@ class DefinitionNode extends Node {
     }
 }
 class InvocationNode extends Node {
-    constructor(project,node) {
+    constructor(project, node) {
         super(...arguments)
         this.group.addChildren([this.circle,this.text])
 
@@ -64,11 +64,20 @@ class ConnectInvocation extends InvocationNode {
     constructor(project,node,origin) {
         super(...arguments)
         this.group.position = new project.Point(this.canvasCenter*1.5,origin.startPoint)
-        let from = origin.group.position;
-        let through = new project.Point(this.canvasCenter*1.5,1+origin.startPoint);
-        let to = this.group.position;
-        this.curve = new project.Path(from, to);
-        // this.curve = new project.Curve(from,through,through,to)
+        let fromPoint = origin.group.position.add(new project.Point(10,15));
+        let toPoint = this.group.position.add(new project.Point(-10,15));
+        this.curve = new project.Path(fromPoint, toPoint);
+        this.curve.strokeColor = 'black';
+    }
+}
+
+class ConnectDefinition extends InvocationNode {
+    constructor(project,node,origin) {
+        super(...arguments)
+        this.group.position = new project.Point(this.canvasCenter*.5,origin.startPoint)
+        let fromPoint = origin.group.position.add(new project.Point(-10,15));
+        let toPoint = this.group.position.add(new project.Point(10,15));
+        this.curve = new project.Path(fromPoint, toPoint);
         this.curve.strokeColor = 'black';
     }
 }
@@ -76,7 +85,8 @@ class ConnectInvocation extends InvocationNode {
 const NodeGen = {
     DefinitionNode: DefinitionNode,
     InvocationNode: InvocationNode,
-    ConnectInvocation: ConnectInvocation
+    ConnectInvocation: ConnectInvocation,
+    ConnectDefinition: ConnectDefinition
 }
 
 export default NodeGen
