@@ -18,6 +18,7 @@ const FileTree = React.createClass({
     })
     .then(repoObj => {
       this.props.receiveRepoContents(repoObj.code);
+      this.props.receiveNodes(repoObj.nodes);
     })
 
   },
