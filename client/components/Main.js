@@ -17,13 +17,13 @@ const Main = React.createClass({
 
   toggleActiveFunc : function(){
   /** Need to rewire this to accept arbitrary id **/
-    console.log('toggleActive Funct triggered!')
-    console.log('heres the id we got\n', 25)
+    // console.log('toggleActive Funct triggered!')
+    // console.log('heres the id we got\n', 25)
     this.setState({toggledFuncID: 25})
   },
   /** end of Yi's code*/
   render (){
-      console.log('heres the current state \n', this.state)
+      // console.log('heres the current state \n', this.state)
     return(
       <div className="container-fluid">
         <h1>

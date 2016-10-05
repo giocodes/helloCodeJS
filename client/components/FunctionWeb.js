@@ -11,26 +11,82 @@ const FunctionTree = React.createClass({
     // Create an empty project and a view for the canvas:
     paper.setup(canvas);
 
-    sampleData.map(node => {
-        if(node.type === 'definition'){
-            new NodeGen.DefinitionNode(paper,node)
+    function drawNodes (data,nodeId){
+      let node = data[nodeId-1]
+      let firstNode;
+      // Set the first node
+      if(node.type === 'definition'){
+            firstNode = new NodeGen.DefinitionNode(paper,node, false, 6)
         } else if(node.type === 'invocation'){
-            new NodeGen.InvocationNode(paper,node)
+            firstNode = new NodeGen.InvocationNode(paper,node, false, 6)
         }
-    })
+      // Set incoming Nodes
+      console.log(node)
+      node.incomingEdges.forEach((item,index) => {
+          // loop throug sampleData[node.id]
+          let length = node.incomingEdges.length
+          new NodeGen.ConnectIncoming(paper,sampleData[item-1],firstNode,index,length)
+      })
+      node.outgoingEdges.forEach((item, index) => {
+          // loop throug sampleData[node.id]
+          let length = node.outgoingEdges.length
+          new NodeGen.ConnectOutgoing(paper,sampleData[item-1],firstNode,index, length)
+      })
+    }
 
-    console.log('heres the paper view size', paper.view.size)
+    drawNodes(sampleData,7)
+
+    // Loading only a couple nodes for the curve example
+    // let firstNode = new NodeGen.DefinitionNode(paper,sampleData[1]);
+    // let secondNode = new NodeGen.ConnectOutgoing(paper,sampleData[3],firstNode);
+    // let third = new NodeGen.ConnectIncoming(paper,sampleData[3],firstNode);
+
+    // Draw all nodes on sampleData
+    // sampleData.map(node => {
+    //     if(node.type === 'definition'){
+    //         new NodeGen.DefinitionNode(paper,node)
+    //     } else if(node.type === 'invocation'){
+    //         new NodeGen.InvocationNode(paper,node)
+    //     }
+    // })
+
+    // console.log('heres the paper view size', paper.view.size)
   },
-  
+
+  componentWillUpdate: function(nextProps, nextState){
+    let toggledID = nextProps.toggledFuncID
+
+    if(toggledID !== null){
+       this.clearViz();
+      var toggNode = sampleData[toggledID];
+
+        if(toggNode.type === 'definition'){
+            new NodeGen.DefinitionNode(paper,toggNode)
+        } else if(toggNode.type === 'invocation'){
+            new NodeGen.InvocationNode(paper,toggNode)
+        }
+
+    }
+
+  },
+
+  clearViz: function(){
+      // not sure why I have to do it like this but otherwise only some of the group items get removed
+      console.log('running clearViz\n', paper.project.activeLayer)
+      paper.project.activeLayer.children.forEach(group =>
+      {
+        group.removeChildren();
+      })
+  },
 
   render (){
-    console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
+    // console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
 
     let canvasStyle = {
           backgroundColor: "#edece8",
           // need to figure out how to make it 100% (percentage instead of pixels)
           width: 500,
-          height: 900
+          height: 600
 
     };
 
