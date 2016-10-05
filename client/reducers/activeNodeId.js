@@ -1,5 +1,5 @@
 //activeNodeId.js
-function activeNodeId(state=0, action) {
+function activeNodeId(state={}, action) {
 
   switch(action.type) {
     case 'SET_ACTIVE_NODE_ID':

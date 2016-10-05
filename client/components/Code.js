@@ -31,14 +31,18 @@ const Code = React.createClass({
 
     this.codeMirror.on('cursorActivity', ()=>{
       let cursor = this.codeMirror.getCursor();
-      this.props.setActiveNodeId(this.findChosenNode(cursor.line+1, cursor.ch) || 0);
+      let foundId = this.findChosenNode(cursor.line+1, cursor.ch);
+      if(foundId > 0){
+        this.props.setActiveNodeId(foundId);
+      }
+
     })
 
   },
 
   findChosenNode(line, ch){
 
-    return this.props.nodes
+    const foundNodes = this.props.nodes
     .filter(node => this.isInBoundsOfClick(node, line, ch))
     .sort((a,b)=>{
       let colDiff = 0.0;
@@ -47,7 +51,13 @@ const Code = React.createClass({
       }
       return (b.start.line-a.start.line) + colDiff;
     })
-    .map(node => node.id)[0];
+    .map(node => node.id);
+
+    if(foundNodes.length > 0) {
+      return foundNodes[0];
+    }
+
+    return this.props.activeNodeId;
 
   },
 
@@ -63,7 +73,10 @@ const Code = React.createClass({
   render() {
 
     return (
-      <div className="col-md-11" ref="container">
+      <div>
+        <strong>{this.props.activeFile}</strong>
+        <div className="col-md-11" ref="container">
+        </div>
       </div>
     )
   }

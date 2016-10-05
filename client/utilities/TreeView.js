@@ -1,3 +1,12 @@
+/*
+  Almost all of this code was adapted under the MIT license
+  from the TreeView component found here:
+
+  https://github.com/eliftech/treeview-react-bootstrap
+
+ */
+
+
 import React from 'react'
 import _ from 'lodash';
 

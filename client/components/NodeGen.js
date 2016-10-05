@@ -1,6 +1,7 @@
 class Node  {
     constructor(project, node) {
         // Wrap everything into a Group
+
         this.canvasCenter = project.view._viewSize._width/2
         this.canvasMiddle = project.view._viewSize._height/2
         this.startPoint = node.id * 70;
@@ -74,7 +75,6 @@ class ConnectOutgoing extends InvocationNode {
         let toPoint = this.group.position.add(new project.Point(-10,15));
         this.curve = new project.Path(fromPoint, toPoint);
         this.curve.strokeColor = 'black';
-        console.log('heres this group\n', this.group);
         this.group.addChild(this.curve);
     }
 }
@@ -88,7 +88,6 @@ class ConnectIncoming extends InvocationNode {
         let toPoint = this.group.position.add(new project.Point(10,15));
         this.curve = new project.Path(fromPoint, toPoint);
         this.curve.strokeColor = 'black';
-        console.log('heres this group\n', this.group);
         this.group.addChild(this.curve);
     }
 }

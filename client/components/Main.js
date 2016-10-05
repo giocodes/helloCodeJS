@@ -27,7 +27,7 @@ const Main = React.createClass({
     return(
       <div className="container-fluid">
         <h1>
-          <Link to="/">Hellocodebase</Link>
+          <Link to="/">helloCode.js</Link>
         </h1>
 
         <div id="sidebar" className="col-md-2">
@@ -54,7 +54,6 @@ const Main = React.createClass({
           </div>
         </div>
 
-        <button type="button" onClick = {this.toggleActiveFunc}> Rerender Canvas </button>
       </div>
     )
   }
