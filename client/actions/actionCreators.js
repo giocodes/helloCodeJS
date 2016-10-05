@@ -51,3 +51,17 @@ export function receiveFileContent(activeFileContent){
   }
 }
 
+export function receiveNodes(nodes){
+  return {
+    type: 'RECEIVE_NODES',
+    nodes
+  }
+}
+
+export function setActiveNodeId(activeNodeId){
+  return {
+    type: 'SET_ACTIVE_NODE_ID',
+    activeNodeId
+  }
+}
+

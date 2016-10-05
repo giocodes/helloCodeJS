@@ -20,7 +20,8 @@ const defaultState = {
   activeRepo: "",
   repoContents: {},
   activeFile: "",
-  activeFileContent: ""
+  activeFileContent: "",
+  activeNodeId: 0
 };
 
 // const store = createStore(rootReducer, defaultState);
