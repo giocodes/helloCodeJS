@@ -15,8 +15,8 @@ function mapStateToProps(state) {
     activeRepo: state.activeRepo,
     repoContents: state.repoContents,
     activeFile: state.activeFile,
-    activeFileContent: state.activeFileContent
-
+    activeFileContent: state.activeFileContent,
+    activeNodeId: state.activeNodeId
   }
 }
 
