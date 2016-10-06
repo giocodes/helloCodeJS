@@ -25,9 +25,15 @@ app.get('/api/repo', (req, res, next)=>{
   })
 })
 
+// Serve Bootsrap, jQuery and favicon
+app.use('/bootstrap', express.static(__dirname + '/node_modules/bootstrap/dist'));
+app.use('/jquery', express.static(__dirname + '/node_modules/jquery/dist'));
+app.use(express.static(__dirname + '/public'));
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'index.html'));
 });
+
 
 app.listen(7770, 'localhost', (err) => {
   if (err) {
