@@ -18,7 +18,7 @@ const FileTree = React.createClass({
 
   },
 
-
+  //not doing anything right now - wire this up to RepoSelector??
   resetUser(e) {
     e.preventDefault();
     //Reset state
@@ -37,7 +37,6 @@ const FileTree = React.createClass({
       return(
         <div>
           <span><strong>{this.props.activeRepo.substr(18)}</strong></span>
-          <span className="glyphicon glyphicon-remove" aria-hidden="true" onClick={this.resetUser} style={{float: "right"}}></span>
           <TreeView
             {...this.props}
             data={data}
