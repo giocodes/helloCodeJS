@@ -9,6 +9,7 @@ require("../styles/codemirror.css");
 import FileTree from './FileTree';
 import Code from './Code';
 import FunctionWeb from './FunctionWeb';
+import RepoSelector from './RepoSelector';
 
 const Main = React.createClass({
   /** Yi's code to wire up the components */
@@ -26,34 +27,43 @@ const Main = React.createClass({
   render (){
       // console.log('heres the current state \n', this.state)
     return(
+      // Main Cointainer
       <div className="container-fluid">
-        <h1>
-          <Link to="/">helloCode.js</Link>
-        </h1>
+        {/*Navbar Container*/}
+        <div id="navbar" className="col-sm-12">
+          {/*Branding*/}
+          <div className="col-sm-3 row">
+            <h1><Link to="/">helloCode.js</Link></h1>
+          </div>
+          {/*Repo Selector*/}
+          <div className="col-sm-8">
+            <RepoSelector {...this.props}/>
+          </div>
+          {/*Options Selector*/}
+          <div className="col-sm-1">
+            <div id="options"></div>
+          </div>
 
-        <div id="sidebar" className="col-md-2">
+        </div>
 
-          <div className="row">
-            <FileTree {...this.props}/>
+        {/*Panels Container*/}
+        <div className="col-sm-12 row">
+          {/*File Tree Container*/}
+          <div id="fileTree" className="col-sm-2 row">
+              <FileTree {...this.props}/>
+          </div>
+          {/*Code Mirror Container*/}
+          <div id="code-container" className="col-sm-5 row">
+              <Code {...this.props}/>
+          </div>
+          {/*Paper Container*/}
+          <div className="col-sm-5 row">
+              <FunctionWeb {...this.props} {...this.state}/>
           </div>
 
         </div>
 
 
-
-        <div id="code-container" className="col-md-5">
-
-          <div className="row">
-            <Code {...this.props}/>
-          </div>
-
-        </div>
-
-        <div className="col-md-5">
-          <div className="row">
-            <FunctionWeb {...this.props} {...this.state}/>
-          </div>
-        </div>
 
       </div>
     )
