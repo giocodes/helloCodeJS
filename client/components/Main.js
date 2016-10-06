@@ -1,6 +1,7 @@
 //Main.js
 import React from 'react';
 import { Link } from 'react-router';
+// require("bootstrap-loader");
 require("../styles/style.css");
 require("../styles/codemirror.css");
 
