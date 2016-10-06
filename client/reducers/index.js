@@ -3,8 +3,8 @@ import { combineReducers, applyMiddleware } from 'redux';
 import { routerReducer } from 'react-router-redux';
 import store from '../store';
 
-import code from './code';
-import edges from './edges';
+//import code from './code';
+//import edges from './edges';
 import nodes from './nodes';
 import username from './username';
 import repos from './repos';
@@ -13,8 +13,9 @@ import repoContents from './repoContents';
 import activeFile from './activeFile';
 import activeFileContent from './activeFileContent';
 import activeNodeId from './activeNodeId';
+import activeNodeLoc from './activeNodeLoc';
 
-const rootReducer = combineReducers({code, edges, nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, routing: routerReducer });
+const rootReducer = combineReducers({nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, activeNodeLoc, routing: routerReducer });
 
 export default rootReducer;
 

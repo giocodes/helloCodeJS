@@ -65,3 +65,10 @@ export function setActiveNodeId(activeNodeId){
   }
 }
 
+export function setActiveNodeLoc(activeNodeLoc){
+  return {
+    type: 'SET_ACTIVE_NODE_LOC',
+    activeNodeLoc
+  }
+}
+

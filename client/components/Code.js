@@ -11,9 +11,35 @@ const CodeMirror = require('codemirror');
 const Code = React.createClass({
 
   componentWillReceiveProps(nextProps) {
+
     if(nextProps.activeFileContent !== this.props.activeFileContent){
       this.codeMirror.setValue(nextProps.activeFileContent);
     }
+
+    if(nextProps.activeNodeId !== this.props.activeNodeId){
+      //set the active file to the file from the node (if they're different)
+      //console.log('activeNodeId has changed to: ', nextProps.activeNodeId);
+      let activeNode = this.props.nodes[nextProps.activeNodeId-1];
+      if(activeNode.filePath !== this.props.activeFile){
+        this.props.requestFile(activeNode.filePath);
+        this.props.receiveFileContent(this.props.repoContents[activeNode.filePath]);
+        this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column})
+
+      }
+    }
+
+    if(nextProps.activeNodeLoc !== this.props.activeNodeLoc){
+      this.codeMirror.scrollIntoView(nextProps.activeNodeLoc);
+      //console.dir(this.codeMirror.getDoc());
+      //const testAnchorLoc = {line: nextProps.activeNodeLoc, ch: nextProps.activeNodeLoc + 5};
+      this.codeMirror.getDoc().addLineClass(nextProps.activeNodeLoc.line-1, "background", "highlight");
+    }
+
+  },
+
+  jumpToNode(e){
+    e.preventDefault();
+    this.props.setActiveNodeId(this.refs.selectedNode.value);
   },
 
   componentDidMount() {
@@ -74,9 +100,23 @@ const Code = React.createClass({
 
     return (
       <div className="col-md-11">
+      <div>
         <strong>{this.props.activeFile}</strong>
         <div ref="container">
         </div>
+      </div>
+
+      <div>
+        <form ref="nodeSelectForm" onSubmit={this.jumpToNode}>
+            <div className="form-group col-md-12">
+
+              <label htmlFor="nodeSelect">Enter node number:</label>
+
+              <input id="nodeSelect" className="form-control" type="text" ref="selectedNode" placeholder="Node id#"/>
+              <input type="submit" hidden />
+            </div>
+          </form>
+      </div>
       </div>
     )
   }
