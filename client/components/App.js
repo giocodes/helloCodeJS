@@ -17,7 +17,8 @@ function mapStateToProps(state) {
     activeFile: state.activeFile,
     activeFileContent: state.activeFileContent,
     activeNodeId: state.activeNodeId,
-    activeNodeLoc: state.activeNodeLoc
+    activeNodeLoc: state.activeNodeLoc,
+    isLoading: state.isLoading
   }
 }
 

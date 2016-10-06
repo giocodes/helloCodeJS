@@ -1,8 +1,5 @@
 //RepoSelector.js
 import React from 'react';
-//import { Link } from 'react-router';
-//import fileTreeBuilder from '../utilities/fileTreeBuilder';
-//import TreeView from '../utilities/TreeView';
 
 const RepoSelector = React.createClass({
 
@@ -11,7 +8,7 @@ const RepoSelector = React.createClass({
 
     const repo = this.refs.repo.value;
     this.props.requestRepoContents(repo);
-
+    this.props.toggleLoading(true);
     fetch('http://localhost:7770/api/repo?url=' + repo)
     .then(response => {
       return response.json();
@@ -19,6 +16,7 @@ const RepoSelector = React.createClass({
     .then(repoObj => {
       this.props.receiveRepoContents(repoObj.code);
       this.props.receiveNodes(repoObj.nodes);
+      this.props.toggleLoading(false);
     })
   },
 
@@ -26,7 +24,7 @@ const RepoSelector = React.createClass({
     return (
       <form ref="usernameForm" onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <input autocomplete="false" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
+          <input autoComplete="false" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
           <input type="submit" hidden />
         </div>
       </form>

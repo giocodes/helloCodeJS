@@ -22,7 +22,8 @@ const defaultState = {
   activeFile: "",
   activeFileContent: "",
   activeNodeId: 0,
-  activeNodeLoc: {}
+  activeNodeLoc: {},
+  isLoading: false
 };
 
 // const store = createStore(rootReducer, defaultState);

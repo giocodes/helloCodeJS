@@ -33,7 +33,11 @@ const FileTree = React.createClass({
     //a tree to help with forming file paths
     var data = fileTreeBuilder(this.props.repoContents);
 
-    if(this.props.activeRepo.length > 0){
+    if(this.props.isLoading){
+      return (<div><img src="/loading-icon.gif" /></div>)
+    }
+
+    else if(this.props.activeRepo.length > 0){
       return(
         <div>
           <span><strong>{this.props.activeRepo.substr(18)}</strong></span>
@@ -51,6 +55,8 @@ const FileTree = React.createClass({
         </div>
       )
     }
+
+
 
     return (<div>No repo selected.</div>)
 

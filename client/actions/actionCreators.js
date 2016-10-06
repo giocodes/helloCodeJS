@@ -72,3 +72,10 @@ export function setActiveNodeLoc(activeNodeLoc){
   }
 }
 
+export function toggleLoading(isLoading){
+  return {
+    type: 'TOGGLE_LOADING',
+    isLoading
+  }
+}
+
