@@ -79,17 +79,14 @@ const FunctionTree = React.createClass({
   render (){
     // console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
     let canvasStyle = {
-          backgroundColor: "#edece8",
+          backgroundColor: "#4C4C4C",
           // need to figure out how to make it 100% (percentage instead of pixels)
           width: 500,
           height: 600
     };
 
     return(
-      <div className="row">
-        <strong>Function Web</strong>
         <canvas id="myCanvas" style={canvasStyle}></canvas>
-      </div>
     )
   }
 });

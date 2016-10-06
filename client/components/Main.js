@@ -26,34 +26,48 @@ const Main = React.createClass({
   render (){
       // console.log('heres the current state \n', this.state)
     return(
+      // Main Cointainer
       <div className="container-fluid">
-        <h1>
-          <Link to="/">helloCode.js</Link>
-        </h1>
-
-        <div id="sidebar" className="col-md-2">
-
-          <div className="row">
-            <FileTree {...this.props}/>
+        {/*Navbar Container*/}
+        <div id="navbar" className="col-sm-12">
+          {/*Branding*/}
+          <div className="col-sm-3 row">
+            <h1><Link to="/">helloCode.js</Link></h1>
+          </div>
+          {/*Repo Selector*/}
+          <div className="col-sm-8">
+            <form ref="usernameForm" onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <input autocomplete="false" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
+                <input type="submit" hidden />
+              </div>
+            </form>
+          </div>
+          {/*Options Selector*/}
+          <div className="col-sm-1">
+            <div id="options"></div>
           </div>
 
         </div>
 
-
-
-        <div id="code-container" className="col-md-5">
-
-          <div className="row">
-            <Code {...this.props}/>
+        {/*Panels Container*/}
+        <div className="col-sm-12 row">
+          {/*File Tree Container*/}
+          <div id="fileTree" className="col-sm-2 row">
+              <FileTree {...this.props}/>
+          </div>
+          {/*Code Mirror Container*/}
+          <div id="code-container" className="col-sm-5 row">
+              <Code {...this.props}/>
+          </div>
+          {/*Paper Container*/}
+          <div className="col-sm-5 row">
+              <FunctionWeb {...this.props} {...this.state}/>
           </div>
 
-        </div>
+        </div> 
 
-        <div className="col-md-5">
-          <div className="row">
-            <FunctionWeb {...this.props} {...this.state}/>
-          </div>
-        </div>
+
 
       </div>
     )

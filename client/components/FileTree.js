@@ -47,23 +47,6 @@ const FileTree = React.createClass({
 
   render (){
 
-    /*var divStyle = {
-      backgroundColor: "#ffde00",
-      height: 650
-    };
-
-    var liStyle = {
-      padding: "2px 15px"
-    }
-
-    var ulStyle = {
-      padding: "0px"
-    }
-
-    var repos = this.props.repos.map((repo, i) =>
-        <button className="list-group-item" value={repo.name} key={i} onClick={this.logRepo} style={liStyle}>{repo.name}</button>
-    )*/
-
     //a tree to help with forming file paths
     var data = fileTreeBuilder(this.props.repoContents);
 
@@ -73,7 +56,7 @@ const FileTree = React.createClass({
           <form ref="usernameForm" onSubmit={this.handleSubmit}>
             <div className="form-group col-md-12">
               {/*<label htmlFor="github-id">Enter Github username:</label>*/}
-              <label htmlFor="github-repo">Enter Github repo address:</label>
+              <label htmlFor="github-repo">Enter Github repo address here</label>
 
               <input id="github-repo" className="form-control" type="text" ref="repo" placeholder="Repo URL"/>
               <input type="submit" hidden />
@@ -83,24 +66,22 @@ const FileTree = React.createClass({
       )
     }
 
-
     return(
-      <div className="container-fluid">
-        <span><strong>{this.props.activeRepo.substr(18)}</strong></span>
-        <span className="glyphicon glyphicon-remove" aria-hidden="true" onClick={this.resetUser} style={{float: "right"}}></span>
-        <TreeView
-          {...this.props}
-          data={data}
-          levels={0}
-          showBorder={false}
-          onDoubleClick={this.chooseFile}
-          color={"white"}
-          backColor={"#25406B"}
-          expandIcon={"glyphicon glyphicon-folder-close"}
-          collapseIcon={"glyphicon glyphicon-folder-open"}
-        />
-
-      </div>
+        <div>
+          <span><strong>{this.props.activeRepo.substr(18)}</strong></span>
+          <span className="glyphicon glyphicon-remove" aria-hidden="true" onClick={this.resetUser} style={{float: "right"}}></span>
+          <TreeView
+            {...this.props}
+            data={data}
+            levels={0}
+            showBorder={false}
+            onDoubleClick={this.chooseFile}
+            color={"white"}
+            backColor={"#25406B"}
+            expandIcon={"glyphicon glyphicon-folder-close"}
+            collapseIcon={"glyphicon glyphicon-folder-open"}
+          />
+        </div>
     )
 
   }

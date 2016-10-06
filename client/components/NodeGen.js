@@ -9,7 +9,7 @@ class Node  {
         this.text = new project.PointText({
             point: [this.canvasCenter, this.canvasMiddle],
             content: node.name,
-            fillColor: '#3d3739',
+            fillColor: '#FFFFFF',
             fontFamily: 'Arial, Helvetica, sans-serif',
             fontWeight: 'bold',
             fontSize: 25,
