@@ -489,7 +489,7 @@ export class TreeNode extends React.Component {
           {expandCollapseIcon}
 
           {removeButton}
-          {nodeText}
+          &nbsp;&nbsp;{nodeText}
           {badges}
           {addButton}
           {newNode}

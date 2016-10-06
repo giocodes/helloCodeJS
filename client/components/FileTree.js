@@ -27,7 +27,7 @@ const FileTree = React.createClass({
   //This function is what will be passed into 'OnDoubleClick'
   chooseFile(data, node) {
 
-    if(node.text.substr(node.text.length-3)==='.js'){
+    if(node.text.endsWith('.js')){
       console.log(node.path);
       this.props.requestFile(node.path);
       this.props.receiveFileContent(this.props.repoContents[node.path]);
@@ -47,7 +47,7 @@ const FileTree = React.createClass({
 
   render (){
 
-    var divStyle = {
+    /*var divStyle = {
       backgroundColor: "#ffde00",
       height: 650
     };
@@ -62,7 +62,7 @@ const FileTree = React.createClass({
 
     var repos = this.props.repos.map((repo, i) =>
         <button className="list-group-item" value={repo.name} key={i} onClick={this.logRepo} style={liStyle}>{repo.name}</button>
-    )
+    )*/
 
     //a tree to help with forming file paths
     var data = fileTreeBuilder(this.props.repoContents);
@@ -75,7 +75,7 @@ const FileTree = React.createClass({
               {/*<label htmlFor="github-id">Enter Github username:</label>*/}
               <label htmlFor="github-repo">Enter Github repo address:</label>
 
-              <input id="github-repo" className="form-control" type="text" ref="repo" placeholder="https://github.com/<YOUR USERNAME>/<YOUR REPO>.git"/>
+              <input id="github-repo" className="form-control" type="text" ref="repo" placeholder="Repo URL"/>
               <input type="submit" hidden />
             </div>
           </form>
@@ -85,10 +85,21 @@ const FileTree = React.createClass({
 
 
     return(
-      <div className="container-fluid" style={{overflow: "hidden"}}>
-        <p><strong>{this.props.activeRepo.substr(18)}</strong></p>
-        <TreeView {...this.props} data={data} levels={0} showBorder={false} onDoubleClick={this.chooseFile} />
-        <button className="btn btn-primary" onClick={this.resetUser}>Reset</button>
+      <div className="container-fluid">
+        <span><strong>{this.props.activeRepo.substr(18)}</strong></span>
+        <span className="glyphicon glyphicon-remove" aria-hidden="true" onClick={this.resetUser} style={{float: "right"}}></span>
+        <TreeView
+          {...this.props}
+          data={data}
+          levels={0}
+          showBorder={false}
+          onDoubleClick={this.chooseFile}
+          color={"white"}
+          backColor={"#25406B"}
+          expandIcon={"glyphicon glyphicon-folder-close"}
+          collapseIcon={"glyphicon glyphicon-folder-open"}
+        />
+
       </div>
     )
 
