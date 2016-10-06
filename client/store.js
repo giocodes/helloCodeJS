@@ -21,7 +21,8 @@ const defaultState = {
   repoContents: {},
   activeFile: "",
   activeFileContent: "",
-  activeNodeId: 0
+  activeNodeId: 0,
+  hoveredOverNodeId: 0
 };
 
 // const store = createStore(rootReducer, defaultState);

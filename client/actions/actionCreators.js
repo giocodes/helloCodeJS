@@ -65,3 +65,10 @@ export function setActiveNodeId(activeNodeId){
   }
 }
 
+
+export function setHoveredOverNodeId(hoveredOverNodeId){
+  return {
+    type: 'SET_HOVERED_OVER_NODE_ID',
+    hoveredOverNodeId
+  }
+}

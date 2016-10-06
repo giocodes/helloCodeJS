@@ -38,7 +38,7 @@ const Main = React.createClass({
           <div className="col-sm-8">
             <form ref="usernameForm" onSubmit={this.handleSubmit}>
               <div className="form-group">
-                <input autocomplete="false" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
+                <input autoComplete="false" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
                 <input type="submit" hidden />
               </div>
             </form>
@@ -65,7 +65,7 @@ const Main = React.createClass({
               <FunctionWeb {...this.props} {...this.state}/>
           </div>
 
-        </div> 
+        </div>
 
 
 

@@ -1,5 +1,5 @@
 class Node  {
-    constructor(project,node,origin,index, length, setActiveNodeIdFunc) {
+    constructor(project,node,origin,index, length, setActiveNodeIdFunc, setHoveredOverNodeIdFunc) {
         // Wrap everything into a Group
 
         this.canvasCenter = project.view._viewSize._width/2
@@ -12,19 +12,27 @@ class Node  {
             fillColor: '#FFFFFF',
             fontFamily: 'Arial, Helvetica, sans-serif',
             fontWeight: 'bold',
-            fontSize: 25,
+            fontSize: 15,
             justification: 'center'
         });
         this.group.nodeId = node.id;
+        console.log('in node, ' , setActiveNodeIdFunc)
         //adding Doubleclick Event handler
-        this.registerEventListeners(setActiveNodeIdFunc);
+        this.registerEventListeners(setActiveNodeIdFunc, setHoveredOverNodeIdFunc);
         this.renderShape(project);
     }
 
-    registerEventListeners(toggleActive) {
+    registerEventListeners(toggleActive, toggleHover) {
         this.group.onDoubleClick = function(event){
-            console.log('heres toggleActive ', toggleActive)
+            console.log('heres node toggleActive ', toggleActive)
+        },
 
+        this.group.onClick = function(event){
+            console.log('single click event was registered ', event)
+        },
+
+        this.group.onMouseEnter = function(event){
+            toggleHover(this.nodeId)
         }
     }
 
@@ -66,7 +74,7 @@ class InvocationNode extends Node {
 
 //the difference between ConnectOutgoing and connectIncoming is the relative positioning
 class ConnectOutgoingInvocation extends InvocationNode {
-    constructor(project,node,origin,index,length, setActiveNodeIdFunc) {
+    constructor(project,node,origin,index,length, setActiveNodeIdFunc, setHoveredOverNodeIdFunc) {
         super(...arguments)
         //xDistribution is a point on where to position
         let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
@@ -79,16 +87,27 @@ class ConnectOutgoingInvocation extends InvocationNode {
         this.group.addChild(this.curve);
     }
 
-    registerEventListeners(toggleActive) {
+    registerEventListeners(toggleActive, toggleHover) {
         this.group.onDoubleClick = function(event){
             toggleActive(this.nodeId)
+        },
+
+        this.group.onClick = function(event){
+            console.log('single click event was registered ', event)
+        },
+
+        this.group.onMouseEnter = function(event){
+            console.log('heres nodeId we are toggle hovering , ', this.nodeId)
+            toggleHover(this.nodeId)
         }
     }
 }
 
 class ConnectIncomingInvocation extends InvocationNode {
-    constructor(project,node,origin,index, length, setActiveNodeIdFunc) {
+    constructor(project,node,origin,index, length, setActiveNodeIdFunc, setHoveredOverNodeIdFunc) {
         super(...arguments)
+        //xDistribution is a point on where to position
+
         let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
         this.group.position = new project.Point(this.canvasCenter*.5,xDistribution)
         let fromPoint = origin.group.position.add(new project.Point(-10,15));
@@ -98,17 +117,27 @@ class ConnectIncomingInvocation extends InvocationNode {
         this.group.addChild(this.curve);
     }
 
-    registerEventListeners(toggleActive) {
+    registerEventListeners(toggleActive, toggleHover) {
         this.group.onDoubleClick = function(event){
             toggleActive(this.nodeId)
+        },
+
+        this.group.onClick = function(event){
+            console.log('single click event was registered ', event)
+        },
+
+        this.group.onMouseEnter = function(event){
+            console.log('heres nodeId we are toggle hovering , ', this.nodeId)
+            toggleHover(this.nodeId)
         }
     }
 }
 
 class ConnectOutgoingDefinition extends DefinitionNode {
-    constructor(project,node,origin,index,length, setActiveNodeIdFunc) {
+    constructor(project,node,origin,index,length, setActiveNodeIdFunc, setHoveredOverNodeIdFunc) {
         super(...arguments)
         //xDistribution is a point on where to position
+
         let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
         this.group.position = new project.Point(this.canvasCenter*1.5,xDistribution)
         //this is relative positioning
@@ -119,15 +148,24 @@ class ConnectOutgoingDefinition extends DefinitionNode {
         this.group.addChild(this.curve);
     }
 
-    registerEventListeners(toggleActive) {
+    registerEventListeners(toggleActive, toggleHover) {
         this.group.onDoubleClick = function(event){
             toggleActive(this.nodeId)
+        },
+
+        this.group.onClick = function(event){
+            console.log('single click event was registered ', event)
+        },
+
+        this.group.onMouseEnter = function(event){
+            console.log('heres nodeId we are toggle hovering , ', this.nodeId)
+            toggleHover(this.nodeId)
         }
     }
 }
 
 class ConnectIncomingDefinition extends DefinitionNode {
-    constructor(project,node,origin,index, length, setActiveNodeIdFunc) {
+    constructor(project,node,origin,index, length, setActiveNodeIdFunc, setHoveredOverNodeIdFunc) {
         super(...arguments)
         let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
         this.group.position = new project.Point(this.canvasCenter*.5,xDistribution)
@@ -138,9 +176,18 @@ class ConnectIncomingDefinition extends DefinitionNode {
         this.group.addChild(this.curve);
     }
 
-    registerEventListeners(toggleActive) {
+    registerEventListeners(toggleActive, toggleHover) {
         this.group.onDoubleClick = function(event){
             toggleActive(this.nodeId)
+        },
+
+        this.group.onClick = function(event){
+            console.log('single click event was registered ', event)
+        },
+
+        this.group.onMouseEnter = function(event){
+            console.log('heres nodeId we are toggle hovering , ', this.nodeId)
+            toggleHover(this.nodeId)
         }
     }
 }
