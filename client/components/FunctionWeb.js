@@ -37,20 +37,27 @@ const FunctionTree = React.createClass({
   },
 
   drawNodes: function(data,nodeId){
+    console.log('heres the data\n', data)
     let node = data[nodeId-1]
     let firstNode;
+    let lengthToCenterNode = 6;
     // Set the first node
     if(node.type === 'definition'){
-          firstNode = new NodeGen.DefinitionNode(paper,node, false, 6)
+          firstNode = new NodeGen.DefinitionNode(paper,node, false, lengthToCenterNode)
       } else if(node.type === 'invocation'){
-          firstNode = new NodeGen.InvocationNode(paper,node, false, 6)
+          firstNode = new NodeGen.InvocationNode(paper,node, false, lengthToCenterNode)
       }
     // Set incoming Nodes
     if(node.incomingEdges.length > 0){
       node.incomingEdges.forEach((item,index) => {
           // loop throug sampleData[node.id]
           let length = node.incomingEdges.length
-          new NodeGen.ConnectIncoming(paper,data[item-1],firstNode,index,length)
+          if(data[item-1].type === 'definition'){
+            new NodeGen.ConnectIncomingDefinition(paper,data[item-1],firstNode,index,length, this.props.setActiveNodeId)
+          }
+          else if(data[item-1].type ==='invocation'){
+            new NodeGen.ConnectIncomingInvocation(paper,data[item-1],firstNode,index,length, this.props.setActiveNodeId)
+          }
       })
     }
 
@@ -58,7 +65,13 @@ const FunctionTree = React.createClass({
       node.outgoingEdges.forEach((item, index) => {
           // loop throug sampleData[node.id]
           let length = node.outgoingEdges.length
-          new NodeGen.ConnectOutgoing(paper,data[item-1],firstNode,index, length)
+          if(data[item-1].type ==='definition')
+          {
+            new NodeGen.ConnectOutgoingDefinition(paper,data[item-1],firstNode,index, length, this.props.setActiveNodeId)
+          }
+          else if(data[item-1].type ==='invocation'){
+            new NodeGen.ConnectOutgoingInvocation(paper,data[item-1],firstNode,index, length, this.props.setActiveNodeId)
+          }
       })
     }
   },
