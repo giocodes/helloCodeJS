@@ -27,6 +27,10 @@ const FunctionTree = React.createClass({
       this.drawLegend()
       }
     }
+
+    if (this.holder !== nextProps.hoveredOverNodeId){
+
+    }
     console.log('heres the nextprops hoverOverId ,', nextProps.hoveredOverNodeId)
   },
 
