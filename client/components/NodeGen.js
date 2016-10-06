@@ -1,5 +1,5 @@
 class Node  {
-    constructor(project, node) {
+    constructor(project,node,origin,index, length, setActiveNodeIdFunc) {
         // Wrap everything into a Group
 
         this.canvasCenter = project.view._viewSize._width/2
@@ -15,15 +15,16 @@ class Node  {
             fontSize: 25,
             justification: 'center'
         });
+        this.group.nodeId = node.id;
         //adding Doubleclick Event handler
-        this.registerEventListeners();
+        this.registerEventListeners(setActiveNodeIdFunc);
         this.renderShape(project);
     }
 
-    registerEventListeners() {
+    registerEventListeners(toggleActive) {
         this.group.onDoubleClick = function(event){
-            console.log('a group got doubleclicked')
-            console.log(this.group)
+            console.log('heres toggleActive ', toggleActive)
+
         }
     }
 
@@ -64,8 +65,8 @@ class InvocationNode extends Node {
 }
 
 //the difference between ConnectOutgoing and connectIncoming is the relative positioning
-class ConnectOutgoing extends InvocationNode {
-    constructor(project,node,origin,index,length) {
+class ConnectOutgoingInvocation extends InvocationNode {
+    constructor(project,node,origin,index,length, setActiveNodeIdFunc) {
         super(...arguments)
         //xDistribution is a point on where to position
         let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
@@ -77,10 +78,16 @@ class ConnectOutgoing extends InvocationNode {
         this.curve.strokeColor = 'black';
         this.group.addChild(this.curve);
     }
+
+    registerEventListeners(toggleActive) {
+        this.group.onDoubleClick = function(event){
+            toggleActive(this.nodeId)
+        }
+    }
 }
 
-class ConnectIncoming extends InvocationNode {
-    constructor(project,node,origin,index, length) {
+class ConnectIncomingInvocation extends InvocationNode {
+    constructor(project,node,origin,index, length, setActiveNodeIdFunc) {
         super(...arguments)
         let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
         this.group.position = new project.Point(this.canvasCenter*.5,xDistribution)
@@ -90,13 +97,61 @@ class ConnectIncoming extends InvocationNode {
         this.curve.strokeColor = 'black';
         this.group.addChild(this.curve);
     }
+
+    registerEventListeners(toggleActive) {
+        this.group.onDoubleClick = function(event){
+            toggleActive(this.nodeId)
+        }
+    }
+}
+
+class ConnectOutgoingDefinition extends DefinitionNode {
+    constructor(project,node,origin,index,length, setActiveNodeIdFunc) {
+        super(...arguments)
+        //xDistribution is a point on where to position
+        let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
+        this.group.position = new project.Point(this.canvasCenter*1.5,xDistribution)
+        //this is relative positioning
+        let fromPoint = origin.group.position.add(new project.Point(10,15));
+        let toPoint = this.group.position.add(new project.Point(-10,15));
+        this.curve = new project.Path(fromPoint, toPoint);
+        this.curve.strokeColor = 'black';
+        this.group.addChild(this.curve);
+    }
+
+    registerEventListeners(toggleActive) {
+        this.group.onDoubleClick = function(event){
+            toggleActive(this.nodeId)
+        }
+    }
+}
+
+class ConnectIncomingDefinition extends DefinitionNode {
+    constructor(project,node,origin,index, length, setActiveNodeIdFunc) {
+        super(...arguments)
+        let xDistribution = (index + 1) * (project.view._viewSize._height / (length+1))
+        this.group.position = new project.Point(this.canvasCenter*.5,xDistribution)
+        let fromPoint = origin.group.position.add(new project.Point(-10,15));
+        let toPoint = this.group.position.add(new project.Point(10,15));
+        this.curve = new project.Path(fromPoint, toPoint);
+        this.curve.strokeColor = 'black';
+        this.group.addChild(this.curve);
+    }
+
+    registerEventListeners(toggleActive) {
+        this.group.onDoubleClick = function(event){
+            toggleActive(this.nodeId)
+        }
+    }
 }
 
 const NodeGen = {
     DefinitionNode,
     InvocationNode,
-    ConnectOutgoing,
-    ConnectIncoming
+    ConnectOutgoingInvocation,
+    ConnectIncomingInvocation,
+    ConnectOutgoingDefinition,
+    ConnectIncomingDefinition
 }
 
 export default NodeGen
