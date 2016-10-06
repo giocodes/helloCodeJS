@@ -1,8 +1,7 @@
 //Main.js
 import React from 'react';
 import { Link } from 'react-router';
-// require("bootstrap-loader");
-require("../styles/style.css");
+require("../styles/style.scss"); 
 require("../styles/codemirror.css");
 
 //Other Needed Components
@@ -38,7 +37,7 @@ const Main = React.createClass({
           <div className="col-sm-8">
             <form ref="usernameForm" onSubmit={this.handleSubmit}>
               <div className="form-group">
-                <input autocomplete="false" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
+                <input autoComplete="off" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
                 <input type="submit" hidden />
               </div>
             </form>

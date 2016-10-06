@@ -1,0 +1,71 @@
+/*Theme Variables*/
+$font-stack:    Helvetica, sans-serif;
+$theme-background-1: #4C4C4C;
+$theme-background-2: #333;
+$theme-highlight-1: #FFCC66;
+$theme-text: #FFFFFF;
+
+/*Global properties*/
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: $theme-background-1;
+  color: $theme-text;
+  a {
+  	color: $theme-highlight-1;
+  }
+
+}
+
+/*Branding*/
+#navbar{
+
+}
+
+/*Navbar*/
+#github-repo {
+  height: 40px;
+  margin: 20px 0;
+  border: none; 
+  color: theme-text;
+  font-size: 2.1em;
+  outline:none;
+	background-color: $theme-background-2
+}
+
+/*Options*/
+#options {
+	float: right;
+    background-image: url(/options.png);
+    width: 40px;
+    height: 40px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: 20px 0;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: $theme-text;
+}
+
+.form-control:-moz-placeholder {
+    color: $theme-text;
+}
+
+.form-control::-moz-placeholder {
+    color: $theme-text;
+}
+
+.form-control:-ms-input-placeholder {
+    color: $theme-text;
+}
+
+/*File Tree*/
+.list-group-item{
+  padding: 2px, 15px;
+}
+
+

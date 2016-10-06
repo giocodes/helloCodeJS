@@ -1,7 +1,7 @@
 //Main.js
 import React from 'react';
 import { Link } from 'react-router';
-require("../../styles/style.css");
+// require("../../styles/style.css");
 
 import Gist from './gists.js';
 
