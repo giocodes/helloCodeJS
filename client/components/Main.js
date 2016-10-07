@@ -31,11 +31,11 @@ const Main = React.createClass({
         {/*Navbar Container*/}
         <div id="navbar" className="col-sm-12">
           {/*Branding*/}
-          <div className="col-sm-2">
+          <div className="col-sm-1 row">
             <h3><Link to="/">helloCode.js</Link></h3>
           </div>
           {/*Repo Selector*/}
-          <div className="col-sm-8">
+          <div className="col-sm-10">
             <RepoSelector {...this.props}/>
           </div>
           {/*Options Selector*/}
@@ -46,17 +46,17 @@ const Main = React.createClass({
         </div>
 
         {/*Panels Container*/}
-        <div id="panels-container" className="col-sm-12 row">
-          {/*File Tree Container*/}
-          <div id="fileTree" className="col-sm-2 row">
+        <div id="panels-container" className="col-sm-12">
+          {/*File Tree Container col-sm-2 col-md-1 row*/ }
+          <div id="fileTree" className="">
               <FileTree {...this.props}/>
           </div>
-          {/*Code Mirror Container*/}
-          <div id="code-container" className="col-sm-5 row">
+          {/*Code Mirror Container col-sm-5 col-lg-4*/}
+          <div id="code-container" className="">
               <Code {...this.props}/>
           </div>
-          {/*Paper Container*/}
-          <div id="paper-container" className="col-sm-5 row">
+          {/*Paper Container col-sm-5 col-md-6 col-lg-7*/}
+          <div id="paper-container" className="">
               <FunctionWeb {...this.props} {...this.state}/>
           </div>
 

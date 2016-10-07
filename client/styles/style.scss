@@ -4,7 +4,11 @@ $theme-background-1: #4C4C4C;
 $theme-background-2: #333;
 $theme-highlight-1: #FFCC66;
 $theme-highlight-2: #eac25e;
-$theme-text: #FFFFFF;
+$theme-text: #eee;
+
+@mixin background-color($color){
+  background-color: $color
+};
 
 /*Global properties*/
 
@@ -15,7 +19,7 @@ body {
   a {
   	color: $theme-highlight-1;
   }
-  a:hover{
+  a:hover, a:focus{
    color: $theme-highlight-2;
    text-decoration: none;
   }
@@ -23,7 +27,8 @@ body {
 }
 // Root Container
 #root {
-    background-image: url(/login-page-background.svg),linear-gradient(180deg,#4C4C4C,#333);
+    // background-image: url(/login-page-background.svg),linear-gradient(180deg,#4C4C4C,#333);
+    background-image: linear-gradient(180deg,#4C4C4C,#333);
     background-position: 50%;
     min-height: 100vh;
     width: 100vw;
@@ -39,16 +44,17 @@ body {
 
 }
 
-/*Navbar*/
+/*Repo Selector*/
 
 #github-repo {
+  color: #eee;
   height: 40px;
-  margin: 12px 0;
-  border: none; 
+  margin: 12px 10px 12px 10%;
+  border: none;
   font-size: 1.5em;
-  outline:none;
-	background-color: $theme-background-2;
-  width: 100%;
+  outline: none;
+  background-color: #333;
+  width: 65%;
 }
 
 /*Options*/
@@ -80,16 +86,52 @@ body {
 
 // Panels Layout
 #panels-container {
-  
+  overflow: hidden;
+
+  #fileTree{
+    width: 15%;
+    float: left;
+  }
+  #code-container{
+    .CodeMirror{
+      width: 40%;
+      height:500px;
+      float: left;
+    }
+  }
   #paper-container{
+    width: 45%;
     height: 500px;
+    overflow: hidden;
+    float: left;
   }
 }
 
 
 /*File Tree*/
-.list-group-item{
-  padding: 2px, 15px;
+#fileTree{
+  ul {
+    padding: 0;
+  }
+  .list-group {
+      padding-top: 5px;
+      border-radius: 0; 
+      -webkit-box-shadow: 0 0 0 rgba(0,0,0,.0);
+      box-shadow: 0 0 0 rgba(0,0,0,.0);
+  }
+  .list-group-item{
+    padding: 5px 3px;
+    @include background-color(hsla(0, 0%, 30%, 0) !important);
+  }
 }
+
+// Code Mirror
+.cm-s-blackboard.CodeMirror{
+  @include background-color($theme-background-2 !important);
+}
+.cm-s-blackboard .CodeMirror-gutters{
+  @include background-color(#272626 !important);
+}
+
 
 

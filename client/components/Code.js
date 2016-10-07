@@ -47,7 +47,9 @@ const Code = React.createClass({
         readOnly: false,
         mode: 'javascript',
         theme: 'blackboard',
-        value: this.props.activeFileContent
+        value: this.props.activeFileContent,
+        lineWrapping: true,
+        scrollbarStyle: 'null'
       }
     );
 
@@ -100,7 +102,7 @@ const Code = React.createClass({
   render() {
 
     return (
-      <div className="col-md-11">
+      <div>
         <strong>{this.props.activeFile}</strong>
         <div ref="container">
         </div>

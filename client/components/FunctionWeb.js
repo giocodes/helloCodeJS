@@ -6,13 +6,25 @@ import NodeGen from './NodeGen';
 // console.log(sampleData);
 
 const FunctionTree = React.createClass({
-  canvasWidth: 500,
-  canvasHeight: 500,
-  componentDidMount: function(){
-    // make canvas 100% width and height
-    // this.canvasSize = document.getElementById('paper-container');
+
+  componentWillMount: function(){
+
+  },
+  resizeCanvas: function() { 
     let canvas = document.getElementById('myCanvas');
+    let canvasWidth = document.getElementById('paper-container').offsetWidth;
+    let canvasHeight = document.getElementById('paper-container').offsetHeight;
+    console.log(canvasWidth,canvasHeight)
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight; 
+  },
+
+  componentDidMount: function(){
     // Create an empty project and a view for the canvas:
+    // make canvas 100% width and height
+    // window.onresize = this.resizeCanvas();
+    let canvas = document.getElementById('myCanvas');
+    this.resizeCanvas()
     paper.setup(canvas);
 
   },
@@ -37,6 +49,7 @@ const FunctionTree = React.createClass({
       {
         group.removeChildren();
       })
+      this.resizeCanvas();
   },
 
   drawNodes: function(data,nodeId){
@@ -80,22 +93,13 @@ const FunctionTree = React.createClass({
   },
 
   render (){
-    // console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
-    this.canvasWidth = document.getElementById('paper-container').offsetWidth;
-    this.canvasHeight = document.getElementById('paper-container').offsetHeight;
-    let canvasStyle = {
-          backgroundColor: "#333",
-          // need to figure out how to make it 100% (percentage instead of pixels)
-          width: this.canvasWidth,
-          height: this.canvasHeight
-    };
-
-    if(this.props.isLoading){
-          return (<div><img src="/loading-icon_amaze.gif" /></div>)
-    }
+    // Commented out animation because it breaks resizing
+    // if(this.props.isLoading){
+    //       return (<div><img src="/loading-icon_amaze.gif" /></div>)
+    // } 
 
     return(
-        <canvas id="myCanvas" style={canvasStyle}></canvas>
+        <canvas id="myCanvas"></canvas>
     )
   }
 });
