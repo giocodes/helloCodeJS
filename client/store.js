@@ -22,6 +22,7 @@ const defaultState = {
   activeFile: "",
   activeFileContent: "",
   activeNodeId: 0,
+  hoveredOverNodeId: 0,
   activeNodeLoc: {},
   isLoading: false
 };
