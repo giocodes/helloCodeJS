@@ -90,6 +90,10 @@ const FunctionTree = React.createClass({
           height: this.canvasHeight
     };
 
+    if(this.props.isLoading){
+          return (<div><img src="/loading-icon_amaze.gif" /></div>)
+    }
+
     return(
         <canvas id="myCanvas" style={canvasStyle}></canvas>
     )

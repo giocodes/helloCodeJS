@@ -7,16 +7,18 @@ import Main from './Main';
 
 function mapStateToProps(state) {
   return {
-    code: state.code,
+    //code: state.code,
     nodes: state.nodes,
-    edges: state.edges,
+    //edges: state.edges,
     username : state.username,
     repos : state.repos,
     activeRepo: state.activeRepo,
     repoContents: state.repoContents,
     activeFile: state.activeFile,
     activeFileContent: state.activeFileContent,
-    activeNodeId: state.activeNodeId
+    activeNodeId: state.activeNodeId,
+    activeNodeLoc: state.activeNodeLoc,
+    isLoading: state.isLoading
   }
 }
 
