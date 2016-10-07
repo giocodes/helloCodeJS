@@ -9,6 +9,7 @@ require("../styles/codemirror.css");
 import FileTree from './FileTree';
 import Code from './Code';
 import FunctionWeb from './FunctionWeb';
+import RepoSelector from './RepoSelector';
 
 const Main = React.createClass({
   /** Yi's code to wire up the components */
@@ -36,12 +37,7 @@ const Main = React.createClass({
           </div>
           {/*Repo Selector*/}
           <div className="col-sm-8">
-            <form ref="usernameForm" onSubmit={this.handleSubmit}>
-              <div className="form-group">
-                <input autocomplete="false" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
-                <input type="submit" hidden />
-              </div>
-            </form>
+            <RepoSelector {...this.props}/>
           </div>
           {/*Options Selector*/}
           <div className="col-sm-1">
@@ -65,7 +61,7 @@ const Main = React.createClass({
               <FunctionWeb {...this.props} {...this.state}/>
           </div>
 
-        </div> 
+        </div>
 
 
 
