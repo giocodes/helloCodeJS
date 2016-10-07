@@ -48,15 +48,15 @@ const Main = React.createClass({
         {/*Panels Container*/}
         <div id="panels-container" className="col-sm-12">
           {/*File Tree Container col-sm-2 col-md-1 row*/ }
-          <div id="fileTree" className="">
+          <div id="fileTree" className="babies center">
               <FileTree {...this.props}/>
           </div>
           {/*Code Mirror Container col-sm-5 col-lg-4*/}
-          <div id="code-container" className="">
+          <div id="code-container" className="hidepanel">
               <Code {...this.props}/>
           </div>
           {/*Paper Container col-sm-5 col-md-6 col-lg-7*/}
-          <div id="paper-container" className="">
+          <div id="paper-container" className="hidepanel">
               <FunctionWeb {...this.props} {...this.state}/>
           </div>
 

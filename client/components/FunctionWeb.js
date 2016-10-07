@@ -7,14 +7,16 @@ import NodeGen from './NodeGen';
 
 const FunctionTree = React.createClass({
 
-  componentWillMount: function(){
-
+  componentDidUpdate(){
+    if(this.props.activeNodeId !== 0){
+      window.document.getElementById('paper-container').className='fadeinpanel';
+      // window.document.getElementById('paper-container').style.visibility='visible';
+    } 
   },
   resizeCanvas: function() { 
     let canvas = document.getElementById('myCanvas');
     let canvasWidth = document.getElementById('paper-container').offsetWidth;
     let canvasHeight = document.getElementById('paper-container').offsetHeight;
-    console.log(canvasWidth,canvasHeight)
     canvas.width = canvasWidth;
     canvas.height = canvasHeight; 
   },
@@ -99,7 +101,12 @@ const FunctionTree = React.createClass({
     // } 
 
     return(
+        <div>
+        <div id="paper-title" className="">
+          Functions Web
+        </div>
         <canvas id="myCanvas"></canvas>
+      </div>
     )
   }
 });

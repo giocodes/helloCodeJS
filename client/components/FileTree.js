@@ -5,6 +5,11 @@ import fileTreeBuilder from '../utilities/fileTreeBuilder';
 import TreeView from '../utilities/TreeView';
 
 const FileTree = React.createClass({
+    componentDidUpdate(){
+    if(this.props.activeRepo !== ""){
+      window.document.getElementById('fileTree').className="left";
+    } 
+  },
 
   //Plugs into TreeView API.
   //This function is what will be passed into 'OnDoubleClick'
@@ -40,7 +45,9 @@ const FileTree = React.createClass({
     else if(this.props.activeRepo.length > 0){
       return(
         <div>
-          <span><strong>{this.props.activeRepo.substr(18)}</strong></span>
+          <div id="tree-title" className="">
+            {this.props.activeRepo.substr(18)}
+          </div>
           <TreeView
             {...this.props}
             data={data}
