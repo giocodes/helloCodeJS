@@ -6,8 +6,15 @@ require('codemirror/mode/javascript/javascript');
 const CodeMirror = require('codemirror');
 
 const Code = React.createClass({
-
+  componentDidUpdate(){
+    if(this.props.activeFile !== ""){
+      window.document.getElementById('fileTree').className="overleft";
+      window.document.getElementById('code-container').className='fadeinpanel';
+      // window.document.getElementById('code-container').style.visibility='visible';
+    } 
+  },
   componentWillReceiveProps(nextProps) {
+
 
     let activeNode;
 
@@ -47,7 +54,9 @@ const Code = React.createClass({
         readOnly: false,
         mode: 'javascript',
         theme: 'blackboard',
-        value: this.props.activeFileContent
+        value: this.props.activeFileContent,
+        lineWrapping: true,
+        scrollbarStyle: 'null'
       }
     );
 
@@ -98,13 +107,15 @@ const Code = React.createClass({
   },
 
   render() {
-
-    return (
-      <div className="col-md-11">
-        <strong>{this.props.activeFile}</strong>
+    return(
+      <div>
+        <div id="code-title" className="">
+          {this.props.activeFile}
+        </div>
         <div ref="container">
         </div>
       </div>
+      
     )
   }
 });
