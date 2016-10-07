@@ -9,6 +9,9 @@ $theme-text: #eee;
 @mixin background-color($color){
   background-color: $color
 };
+@mixin color($color){
+  color: $color
+};
 
 /*Global properties*/
 
@@ -181,6 +184,18 @@ body {
   .list-group-item{
     padding: 5px 3px;
     @include background-color(hsla(0, 0%, 30%, 0) !important);
+  }
+  .list-group-item:hover{
+    @include background-color($theme-highlight-1 !important);
+    @include color($theme-background-2 !important);
+    font-weight: bold;
+    span {
+      @include color($theme-background-2 !important);
+      
+    }
+    span:hover{
+      font-weight: bold;
+    }
   }
 }
 
