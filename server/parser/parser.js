@@ -28,7 +28,7 @@ var analyzeFiles = function(files, framework){
 	var nodes = []; // will collect nodes (node for each definition and invocation)
 	var edgesToBody = {}; // join table between function definitions/invocations and definitions/invocations within them
 	var edgesToDefinition = {}; // join table between function invocations and their original definitions
-	var esprimaSourceType = framework === 'esm' ? 'module' : 'script';
+	var esprimaSourceType = 'module' //framework === 'esm' ? 'module' : 'script';
 
 	// run through each file fed into function to find nodes and same-file edges
 	for (var key in files) {	
@@ -200,9 +200,13 @@ var createNodesFromAST = function(edgesToBody, ast, pathString, ancestor, scopeA
 			}
 			else if (node.type === 'ExportNamedDeclaration') {
 				if (node.declaration) {
-					node.declaration.declarations.forEach(function(decl) {
-						createNodesFromAST(edgesToBody, decl, pathString, 'esmExport', scope, nodes);
-					})
+					if (node.declaration.declarations) {
+						node.declaration.declarations.forEach(function(decl) {
+							createNodesFromAST(edgesToBody, decl, pathString, 'esmExport', scope, nodes);
+						})
+					} else {
+						createNodesFromAST(edgesToBody, node.declaration, pathString, 'esmExport', scope, nodes);
+					}
 				} 
 			}
 			else if (node.type === 'ExportDefaultDeclaration') {
