@@ -26,15 +26,15 @@ const Main = React.createClass({
       // console.log('heres the current state \n', this.state)
     return(
       // Main Cointainer
-      <div className="container-fluid">
+      <div className="row">
         {/*Navbar Container*/}
         <div id="navbar" className="col-sm-12">
           {/*Branding*/}
-          <div className="col-sm-3 row">
-            <h1><Link to="/">helloCode.js</Link></h1>
+          <div className="col-sm-2">
+            <h3><Link to="/">helloCode.js</Link></h3>
           </div>
           {/*Repo Selector*/}
-          <div className="col-sm-8">
+          <div className="col-sm-9">
             <form ref="usernameForm" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <input autoComplete="off" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
@@ -50,7 +50,7 @@ const Main = React.createClass({
         </div>
 
         {/*Panels Container*/}
-        <div className="col-sm-12 row">
+        <div id="panels-container" className="col-sm-12 row">
           {/*File Tree Container*/}
           <div id="fileTree" className="col-sm-2 row">
               <FileTree {...this.props}/>
@@ -60,7 +60,7 @@ const Main = React.createClass({
               <Code {...this.props}/>
           </div>
           {/*Paper Container*/}
-          <div className="col-sm-5 row">
+          <div id="paper-container" className="col-sm-5 row">
               <FunctionWeb {...this.props} {...this.state}/>
           </div>
 

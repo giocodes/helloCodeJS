@@ -6,8 +6,11 @@ import NodeGen from './NodeGen';
 // console.log(sampleData);
 
 const FunctionTree = React.createClass({
-
+  canvasWidth: 500,
+  canvasHeight: 500,
   componentDidMount: function(){
+    // make canvas 100% width and height
+    // this.canvasSize = document.getElementById('paper-container');
     let canvas = document.getElementById('myCanvas');
     // Create an empty project and a view for the canvas:
     paper.setup(canvas);
@@ -78,11 +81,13 @@ const FunctionTree = React.createClass({
 
   render (){
     // console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
+    this.canvasWidth = document.getElementById('paper-container').offsetWidth;
+    this.canvasHeight = document.getElementById('paper-container').offsetHeight;
     let canvasStyle = {
-          backgroundColor: "#4C4C4C",
+          backgroundColor: "#333",
           // need to figure out how to make it 100% (percentage instead of pixels)
-          width: 500,
-          height: 600
+          width: this.canvasWidth,
+          height: this.canvasHeight
     };
 
     return(
