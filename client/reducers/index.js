@@ -13,10 +13,11 @@ import repoContents from './repoContents';
 import activeFile from './activeFile';
 import activeFileContent from './activeFileContent';
 import activeNodeId from './activeNodeId';
+import hoveredOverNodeId from './hoveredOverNodeId'
 import activeNodeLoc from './activeNodeLoc';
 import isLoading from './isLoading';
 
-const rootReducer = combineReducers({nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, activeNodeLoc, isLoading, routing: routerReducer });
+const rootReducer = combineReducers({nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, activeNodeLoc, isLoading, hoveredOverNodeId, routing: routerReducer });
 
 export default rootReducer;
 

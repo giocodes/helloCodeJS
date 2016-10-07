@@ -17,6 +17,7 @@ function mapStateToProps(state) {
     activeFile: state.activeFile,
     activeFileContent: state.activeFileContent,
     activeNodeId: state.activeNodeId,
+    hoveredOverNodeId: state.hoveredOverNodeId
     activeNodeLoc: state.activeNodeLoc,
     isLoading: state.isLoading
   }
