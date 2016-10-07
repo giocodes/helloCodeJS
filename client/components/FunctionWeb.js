@@ -1,9 +1,8 @@
 //FunctionTree.js
 import React from 'react';
 import paper from 'paper';
-import sampleData from '../data/sample-data';
 import NodeGen from './NodeGen';
-// console.log(sampleData);
+import HoverOver from './HoverOver';
 
 const FunctionTree = React.createClass({
 
@@ -11,7 +10,6 @@ const FunctionTree = React.createClass({
     let canvas = document.getElementById('myCanvas');
     // Create an empty project and a view for the canvas:
     paper.setup(canvas);
-
   },
   // Active node holder
   holder : null,
@@ -31,7 +29,6 @@ const FunctionTree = React.createClass({
     if (this.holder !== nextProps.hoveredOverNodeId){
 
     }
-    console.log('heres the nextprops hoverOverId ,', nextProps.hoveredOverNodeId)
   },
 
   clearViz: function(){
@@ -132,8 +129,12 @@ const FunctionTree = React.createClass({
     }
   },
 
+  showHover: function(){
+      return this.props.hoveredOverNodeId !== 0
+
+  },
+
   render (){
-    // console.log('heres the current ActiveFuncID in the child\n', this.props.toggledFuncID)
     let canvasStyle = {
           backgroundColor: "#4C4C4C",
           // need to figure out how to make it 100% (percentage instead of pixels)
@@ -142,7 +143,14 @@ const FunctionTree = React.createClass({
     };
 
     return(
-        <canvas id="myCanvas" style={canvasStyle}></canvas>
+        <div>
+            <canvas id="myCanvas" style={canvasStyle}></canvas>
+            {
+              this.showHover() ?
+                <HoverOver  {...this.props} {...this.state}/>
+                : null
+            }
+        </div>
     )
   }
 });

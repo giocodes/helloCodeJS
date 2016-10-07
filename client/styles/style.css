@@ -6,7 +6,6 @@
 }
 
 
-
 body {
   background-color: #4C4C4C;
   color: white;
@@ -27,7 +26,7 @@ body a {
     height: 40px;
     margin: 20px 0;
 	background: none;
-    border: 1px solid #4C4C4C; 
+    border: 1px solid #4C4C4C;
     color: white;
     font-size: 2.1em;
     outline:none;
@@ -64,6 +63,10 @@ body a {
 
 .list-group-item{
   padding: 2px, 15px;
+}
+
+.highlight{
+  background-color: rgba(255, 255, 0, 0.3);
 }
 
 

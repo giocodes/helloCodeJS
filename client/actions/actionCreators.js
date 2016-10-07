@@ -72,9 +72,17 @@ export function setHoveredOverNodeId(hoveredOverNodeId){
   }
 }
 
-export function doneHover(){
+export function setActiveNodeLoc(activeNodeLoc){
   return {
-    type: 'DONE_HOVER',
-    hoveredOverNodeId
+    type: 'SET_ACTIVE_NODE_LOC',
+    activeNodeLoc
   }
 }
+
+export function toggleLoading(isLoading){
+  return {
+    type: 'TOGGLE_LOADING',
+    isLoading
+  }
+}
+

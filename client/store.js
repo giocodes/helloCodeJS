@@ -12,9 +12,9 @@ import edges from './data/edges'; //{edgesToDefinition...{}, edgesToBody...{}}
 
 // create an object for the default data
 const defaultState = {
-	code,
+	//code,
 	nodes,
-	edges,
+	//edges,
 	username: "",
 	repos: [],
   activeRepo: "",
@@ -22,7 +22,9 @@ const defaultState = {
   activeFile: "",
   activeFileContent: "",
   activeNodeId: 0,
-  hoveredOverNodeId: 0
+  hoveredOverNodeId: 0,
+  activeNodeLoc: {},
+  isLoading: false
 };
 
 // const store = createStore(rootReducer, defaultState);

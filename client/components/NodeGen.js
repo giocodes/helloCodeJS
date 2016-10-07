@@ -33,6 +33,11 @@ class Node  {
 
         this.group.onMouseEnter = function(event){
             toggleHover(this.nodeId)
+        },
+
+        this.group.onMouseLeave = function(event){
+            console.log('we are done hovering', this.nodeId)
+            toggleHover(0)
         }
     }
 
@@ -99,6 +104,11 @@ class ConnectOutgoingInvocation extends InvocationNode {
         this.group.onMouseEnter = function(event){
             console.log('heres nodeId we are toggle hovering , ', this.nodeId)
             toggleHover(this.nodeId)
+        },
+
+        this.group.onMouseLeave = function(event){
+            console.log('we are done hovering ' , this.nodeId)
+            toggleHover(0)
         }
     }
 }
@@ -129,6 +139,11 @@ class ConnectIncomingInvocation extends InvocationNode {
         this.group.onMouseEnter = function(event){
             console.log('heres nodeId we are toggle hovering , ', this.nodeId)
             toggleHover(this.nodeId)
+        },
+
+        this.group.onMouseLeave = function(event){
+            console.log('we are done hovering ' , this.nodeId)
+            toggleHover(0)
         }
     }
 }
@@ -160,6 +175,11 @@ class ConnectOutgoingDefinition extends DefinitionNode {
         this.group.onMouseEnter = function(event){
             console.log('heres nodeId we are toggle hovering , ', this.nodeId)
             toggleHover(this.nodeId)
+        },
+
+        this.group.onMouseLeave = function(event){
+            console.log('we are done hovering ', this.nodeId)
+            toggleHover(0)
         }
     }
 }
@@ -186,8 +206,11 @@ class ConnectIncomingDefinition extends DefinitionNode {
         },
 
         this.group.onMouseEnter = function(event){
-            console.log('heres nodeId we are toggle hovering , ', this.nodeId)
             toggleHover(this.nodeId)
+        },
+
+        this.group.onMouseLeave = function(event){
+            toggleHover(0)
         }
     }
 }
