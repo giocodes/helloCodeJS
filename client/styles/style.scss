@@ -1,0 +1,214 @@
+/*Theme Variables*/
+$font-stack:    Helvetica, sans-serif;
+$theme-background-1: #4C4C4C;
+$theme-background-2: #333;
+$theme-highlight-1: #FFCC66;
+$theme-highlight-2: #eac25e;
+$theme-text: #eee;
+
+@mixin background-color($color){
+  background-color: $color
+};
+@mixin color($color){
+  color: $color
+};
+
+/*Global properties*/
+
+body {
+  box-sizing: border-box;
+  background-color: $theme-background-1;
+  color: $theme-text;
+  a {
+  	color: $theme-highlight-1;
+  }
+  a:hover, a:focus{
+   color: $theme-highlight-2;
+   text-decoration: none;
+  }
+
+}
+// Root Container
+#root {
+    // background-image: url(/login-page-background.svg),linear-gradient(180deg,#4C4C4C,#333);
+    background-image: linear-gradient(180deg,#4C4C4C,#333);
+    background-position: 50%;
+    min-height: 100vh;
+    width: 100vw;
+    padding: 0 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/*Branding*/
+#navbar{
+
+}
+
+/*Repo Selector*/
+
+#github-repo {
+  color: #eee;
+  height: 40px;
+  margin: 15px 10px 12px 10%;
+  border: none;
+  font-size: 1.5em;
+  outline: none;
+  background-color: #333;
+  width: 65%;
+}
+
+/*Options*/
+#options {
+	float: right;
+  background-image: url(/options.png);
+  width: 30px;
+  height: 30px;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 18px 0;
+}
+
+.form-control::-webkit-input-placeholder {
+    color: $theme-text;
+}
+
+.form-control:-moz-placeholder {
+    color: $theme-text;
+}
+
+.form-control::-moz-placeholder {
+    color: $theme-text;
+}
+
+.form-control:-ms-input-placeholder {
+    color: $theme-text;
+}
+
+// Panels Layout
+.babies {
+  display: inline
+}
+
+#panels-container {
+  overflow-x: hidden;
+  white-space: nowrap;
+
+  .center{
+    margin-left :40%;
+  }
+  .left{
+    margin-left :0;
+    -webkit-transition: margin-left 1s; /* Safari */
+    transition: margin-left 1s; 
+  }
+  .overleft{
+    margin-left :-14%; 
+    -webkit-transition: margin-left 1s; /* Safari */
+    transition: margin-left 1s;
+  }
+  .overleft:hover{
+    margin-left :-2%; 
+  }
+  .hidepanel{
+    opacity: 0;
+  }
+  .fadeinpanel{
+    opacity: 1;
+    -webkit-transition: opacity 1s;
+  }
+
+  #fileTree{
+    width: 15%;
+    float: left;
+    display: inline-block;
+  }
+  #fileTree:hover{
+    margin-left :0px;
+  }
+  #code-container{
+    width: 40%;
+    padding-left: 5px;
+    float: left;
+    display: inline-block;
+    #code-title{
+      background-color: #FFCC66;
+      color: black;
+      font-weight: bold;
+      clear: both;
+      text-align: center;
+    }
+
+    .CodeMirror{
+      width: 100%;
+      height:500px;
+      float: left;
+      .highlight{
+        background-color: rgba(255, 255, 0, 0.3);
+      }
+    }
+  }
+  #paper-container{
+    width: 59%;
+    padding-left: 10px;
+    overflow: hidden;
+    height: 500px;
+    float: none;
+    display: inline-block;
+    #paper-title{
+      background-color: #FFCC66;
+      color: black;
+      font-weight: bold;
+      clear: both;
+      text-align: center;
+    }
+  }
+}
+
+/*File Tree*/
+#fileTree{
+  #tree-title{
+    background-color: #FFCC66;
+    color: black;
+    font-weight: bold;
+  }
+
+  ul {
+    padding: 0;
+  }
+  .list-group {
+      padding-top: 5px;
+      border-radius: 0; 
+      -webkit-box-shadow: 0 0 0 rgba(0,0,0,.0);
+      box-shadow: 0 0 0 rgba(0,0,0,.0);
+  }
+  .list-group-item{
+    padding: 5px 3px;
+    @include background-color(hsla(0, 0%, 30%, 0) !important);
+  }
+  .list-group-item:hover{
+    @include background-color($theme-highlight-1 !important);
+    @include color($theme-background-2 !important);
+    font-weight: bold;
+    span {
+      @include color($theme-background-2 !important);
+      
+    }
+    span:hover{
+      font-weight: bold;
+    }
+  }
+}
+
+// Code Mirror
+.cm-s-blackboard.CodeMirror{
+  @include background-color($theme-background-2 !important);
+}
+.cm-s-blackboard .CodeMirror-gutters{
+  @include background-color(#272626 !important);
+}
+
+
+

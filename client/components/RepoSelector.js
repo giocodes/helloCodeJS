@@ -24,7 +24,7 @@ const RepoSelector = React.createClass({
     return (
       <form ref="usernameForm" onSubmit={this.handleSubmit}>
         <div className="form-group">
-          <input autoComplete="false" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
+          <input autoComplete="off" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
           <input type="submit" hidden />
         </div>
       </form>
