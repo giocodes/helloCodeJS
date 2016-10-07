@@ -450,9 +450,7 @@ var findRemainingEsmExports = function(ast, nodes, pathString){
 
 };
 
-// var es6Paths = ['./esModules/testFile6.js', './esModules/testFile7.js', './esModules/testFile8.js', './esModules/testFile9.js']
-// var serverPaths = ['./server-side/testFile1.js', './server-side/testFile2.js', './server-side/testFile3.js', './server-side/testFile4.js', './server-side/testFile5.js'];
-// var angularPaths = ['./front-angular/compose.controller.js', './front-angular/email.factory.js', './front-angular/emailBox.controller.js', './front-angular/inbox.controller.js', './front-angular/sent.controller.js', './front-angular/singleEmail.controller.js', './front-angular/user.factory.js'];
+
 // var code = {}
 // angularPaths.forEach(function(path){
 // 	code[path] = fs.readFileSync(path).toString();
