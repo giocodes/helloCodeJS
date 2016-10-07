@@ -3,6 +3,7 @@ var estraverse = require('estraverse');
 var fs = require('fs');
 var chalk = require('chalk');
 var pathMod = require('path');
+var babelCore = require("babel-core");
 
 
 // constructor for node object
@@ -33,10 +34,19 @@ var analyzeFiles = function(files, framework){
 	// run through each file fed into function to find nodes and same-file edges
 	for (var key in files) {	
 		// ensure that files esprima cannot parse are skipped
+		var ast;
 		try {
-			var ast = esprima.parse(files[key], {loc: true, sourceType: esprimaSourceType});
+			ast = esprima.parse(files[key], {loc: true, sourceType: esprimaSourceType});
 		} catch (err) {
-			continue;
+			try {
+				var transformedCode = babelCore.transform(files[key], {plugins: ["transform-react-jsx"]}).code;
+				transformedCode = "// ** helloCode note **\n// this file was transpiled from JSX to Javascript \n\n" + transformedCode;
+				ast = esprima.parse(transformedCode, {loc: true, sourceType: esprimaSourceType});
+				files[key] = transformedCode;
+			} catch(err) {
+				continue;
+			}
+
 		}
 
 		// create nodes
@@ -87,7 +97,7 @@ var analyzeFiles = function(files, framework){
 			var newFile = files[newPath];
 		}
 		// following ES6 module pattern 
-		else if (esModuleImports[invocation.filePath][invocation.name]) {
+		else if (esModuleImports[invocation.filePath][invocation.name] && esModuleImports[invocation.filePath][invocation.name].source) {
 			var importData = esModuleImports[invocation.filePath][invocation.name];
 			var sourcePath = pathMod.normalize(pathMod.join(invocation.filePath, '../', importData.source));
 		}
@@ -139,7 +149,7 @@ var analyzeFiles = function(files, framework){
 	// console.log('edgesToBody', edgesToBody)
 	// console.log('edgesToDefinition', edgesToDefinition)
 	
-	return nodes;
+	return {nodes: nodes, code: files};
 }
 
 // function that creates nodes from an abstract syntax tree, traveling down the tree recursively to capture edgeToBody relationships
@@ -188,13 +198,13 @@ var createNodesFromAST = function(edgesToBody, ast, pathString, ancestor, scopeA
 			if (node.type === 'ImportDeclaration') {
 				node.specifiers.forEach(function(specifier){
 					if (specifier.type === 'ImportSpecifier') {
-						esModuleImports[pathString][specifier.local.name] = {default: false, source: node.source.value, importedName: specifier.imported.name};
+						esModuleImports[pathString][specifier.local.name] = {default: false, source: node.source.value || "b", importedName: specifier.imported.name};
 					}
 					else if (specifier.type === 'ImportDefaultSpecifier') {
-						esModuleImports[pathString][specifier.local.name] = {default: true, source: node.source.value, importedName: specifier.local.name};
+						esModuleImports[pathString][specifier.local.name] = {default: true, source: node.source.value || "b", importedName: specifier.local.name};
 					}
 					else if (specifier.type === 'ImportNamespaceSpecifier') {
-						esModuleImports[pathString][specifier.local.name] = {default: false, source: node.source.value, importedName: specifier.local.name};
+						esModuleImports[pathString][specifier.local.name] = {default: false, source: node.source.value || "b", importedName: specifier.local.name};
 					}
 				});
 			}
