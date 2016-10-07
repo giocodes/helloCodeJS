@@ -135,8 +135,9 @@ var analyzeFiles = function(files, framework){
 		nodes[edgesToDefinition[key]-1].incomingEdges.push(+key)
 	}
 
-	console.log('nodes', nodes)
-	console.log('edgesToDefinition', edgesToDefinition)
+	// console.log('nodes', nodes)
+	// console.log('edgesToBody', edgesToBody)
+	// console.log('edgesToDefinition', edgesToDefinition)
 	
 	return nodes;
 }
