@@ -19,6 +19,5 @@ import isLoading from './isLoading';
 
 const rootReducer = combineReducers({nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, activeNodeLoc, isLoading, hoveredOverNodeId, routing: routerReducer });
 
-
 export default rootReducer;
 

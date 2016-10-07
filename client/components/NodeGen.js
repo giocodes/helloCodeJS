@@ -158,9 +158,20 @@ class ConnectOutgoingDefinition extends DefinitionNode {
         //this is relative positioning
         let fromPoint = origin.group.position.add(new project.Point(10,15));
         let toPoint = this.group.position.add(new project.Point(-10,15));
-        this.curve = new project.Path(fromPoint, toPoint);
-        this.curve.strokeColor = 'black';
-        this.group.addChild(this.curve);
+        console.log('from', fromPoint);
+        console.log('to', toPoint);
+        // this.curve = new project.Path(fromPoint, toPoint);
+        // this.curve.strokeColor = 'black';
+        // this.group.addChild(this.curve);
+        this.drawArc(project,fromPoint,toPoint);
+    }
+    drawArc(project,start,end){
+        let middlePoint = (start.x + end.x)/3;
+        let seg1 = new project.Segment(start,null, new project.Point(middlePoint,0));
+        let seg2 = new project.Segment(end,new project.Point(-1 * middlePoint,40),null);
+        let testCurve = new project.Path(seg1, seg2);
+        testCurve.strokeColor = 'black';
+        this.group.addChild(testCurve);
     }
 
     registerEventListeners(toggleActive, toggleHover) {

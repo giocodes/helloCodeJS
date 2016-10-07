@@ -3,6 +3,7 @@ var estraverse = require('estraverse');
 var fs = require('fs');
 var chalk = require('chalk');
 var pathMod = require('path');
+var babelCore = require("babel-core");
 
 
 // constructor for node object
@@ -19,6 +20,7 @@ var Node = function(id, name, type, filePath, start, end, scope){
 }
 
 var idCounter; // this counter will provide each node with a unique id
+var esModuleImports = {};
 
 // function that takes in an array of file paths, reads it, parses it into an abstract syntax tree, and calls a recursive function to create nodes and find edgesToBody
 var analyzeFiles = function(files, framework){
@@ -27,18 +29,31 @@ var analyzeFiles = function(files, framework){
 	var nodes = []; // will collect nodes (node for each definition and invocation)
 	var edgesToBody = {}; // join table between function definitions/invocations and definitions/invocations within them
 	var edgesToDefinition = {}; // join table between function invocations and their original definitions
-	
+	var esprimaSourceType = 'module' //framework === 'esm' ? 'module' : 'script';
+
 	// run through each file fed into function to find nodes and same-file edges
 	for (var key in files) {	
 		// ensure that files esprima cannot parse are skipped
+		var ast;
 		try {
-			var ast = esprima.parse(files[key], {loc: true});
+			ast = esprima.parse(files[key], {loc: true, sourceType: esprimaSourceType});
 		} catch (err) {
-			continue;
+			try {
+				var transformedCode = babelCore.transform(files[key], {plugins: ["transform-react-jsx"]}).code;
+				transformedCode = "// ** helloCode note **\n// this file was transpiled from JSX to Javascript \n\n" + transformedCode;
+				ast = esprima.parse(transformedCode, {loc: true, sourceType: esprimaSourceType});
+				files[key] = transformedCode;
+			} catch(err) {
+				continue;
+			}
+
 		}
 
 		// create nodes
 		nodes = nodes.concat(createNodesFromAST(edgesToBody, ast, key));
+
+		// find and log ES6 module pattern exports not logged in createNodesFromAST
+		findRemainingEsmExports(ast, nodes, key)
 		
 		// find same-file edges
 		findEdgesInSameFile(nodes, edgesToBody, edgesToDefinition);
@@ -74,17 +89,35 @@ var analyzeFiles = function(files, framework){
 		} else {
 			regex = RegExp(invocation.name + '\\s*\\=\\s*require\\([\'\"](.+)[\'\"]\\)')
 		}
+
+		// following CommonJS pattern
 		if (regex.exec(currentFile)) {
 			relativePath = regex.exec(currentFile)[1];
-		} else {
+			var newPath = pathMod.normalize(pathMod.join(invocation.filePath, '../', relativePath));
+			var newFile = files[newPath];
+		}
+		// following ES6 module pattern 
+		else if (esModuleImports[invocation.filePath][invocation.name] && esModuleImports[invocation.filePath][invocation.name].source) {
+			var importData = esModuleImports[invocation.filePath][invocation.name];
+			var sourcePath = pathMod.normalize(pathMod.join(invocation.filePath, '../', importData.source));
+		}
+		else {
 			return;
 		}
 
-		var newPath = pathMod.normalize(pathMod.join(invocation.filePath, '../', relativePath));
-		var newFile = files[newPath]
-
 		// looks for function in target file that matches various module export patterns
 		nodes.forEach(function(node){
+
+			if (importData) {
+				if (importData.default && node.filePath === sourcePath && node.defaultExport) {
+					edgesToDefinition[invocation.id] = node.id;
+				}
+				else if (node.filePath === sourcePath && importData.importedName === node.exportedName) {
+					edgesToDefinition[invocation.id] = node.id;
+				}
+			}
+
+
 			if (node.type === 'definition' && node.filePath === newPath && node.scope === 'global') {
 				if (invocation.object && node.name === invocation.name) {
 					edgesToDefinition[invocation.id] = node.id;
@@ -112,11 +145,11 @@ var analyzeFiles = function(files, framework){
 		nodes[edgesToDefinition[key]-1].incomingEdges.push(+key)
 	}
 
-	// console.log(nodes)
-	// console.log(edgesToBody)
-	// console.log(edgesToDefinition)
-
-	return nodes;
+	// console.log('nodes', nodes)
+	// console.log('edgesToBody', edgesToBody)
+	// console.log('edgesToDefinition', edgesToDefinition)
+	
+	return {nodes: nodes, code: files};
 }
 
 // function that creates nodes from an abstract syntax tree, traveling down the tree recursively to capture edgeToBody relationships
@@ -126,12 +159,22 @@ var createNodesFromAST = function(edgesToBody, ast, pathString, ancestor, scopeA
 
 	// attaching ancestory to ast so that it can be passed into traversal callback
 	if (ast && ancestor) {
-		ast.ancestor = ancestor;
-		ast.scope = scopeAbove;
+		if (ancestor === 'esmExport') {
+			ast.export = true;
+		} else if (ancestor === 'esmDefaultExport') {
+			ast.defaultExport = true;
+		} else {
+			ast.ancestor = ancestor;
+			ast.scope = scopeAbove;
+		}
 	}
 
 	if (ast && factory) {
 		ast.factory = factory;
+	}
+
+	if (!esModuleImports[pathString]) {
+		esModuleImports[pathString] = {};
 	}
 
 	// traverse the ast
@@ -150,12 +193,51 @@ var createNodesFromAST = function(edgesToBody, ast, pathString, ancestor, scopeA
 			} else {
 				scope = 'global';
 			}
+
+
+			if (node.type === 'ImportDeclaration') {
+				node.specifiers.forEach(function(specifier){
+					if (specifier.type === 'ImportSpecifier') {
+						esModuleImports[pathString][specifier.local.name] = {default: false, source: node.source.value || "b", importedName: specifier.imported.name};
+					}
+					else if (specifier.type === 'ImportDefaultSpecifier') {
+						esModuleImports[pathString][specifier.local.name] = {default: true, source: node.source.value || "b", importedName: specifier.local.name};
+					}
+					else if (specifier.type === 'ImportNamespaceSpecifier') {
+						esModuleImports[pathString][specifier.local.name] = {default: false, source: node.source.value || "b", importedName: specifier.local.name};
+					}
+				});
+			}
+			else if (node.type === 'ExportNamedDeclaration') {
+				if (node.declaration) {
+					if (node.declaration.declarations) {
+						node.declaration.declarations.forEach(function(decl) {
+							createNodesFromAST(edgesToBody, decl, pathString, 'esmExport', scope, nodes);
+						})
+					} else {
+						createNodesFromAST(edgesToBody, node.declaration, pathString, 'esmExport', scope, nodes);
+					}
+				} 
+			}
+			else if (node.type === 'ExportDefaultDeclaration') {
+				if (node.declaration.type === 'FunctionDeclaration' || node.declaration.type === 'FunctionExpression' || node.declaration.type === 'ArrowFunctionExpression') {
+					createNodesFromAST(edgesToBody, node.declaration, pathString, 'esmDefaultExport', scope, nodes);
+				}
+
+			}
+
 			
 			// create node if the current node in the traversal is a definition or invocation
 			if (node.type === 'FunctionDeclaration' || node.type === 'FunctionExpression' || node.type === 'ArrowFunctionExpression') {
 				createdNode = checkAndCreateDefinitionNode(node, parent, pathString, scope);
 				if (createdNode) {
 					scope = scope + '=>' + padLeftZeros(createdNode.id, 10);
+					if (ast.export) {
+						createdNode.esmExport = true;
+						createdNode.exportedName = createdNode.name;
+					} else if (ast.defaultExport) {
+						createdNode.esmDefaultExport = true;
+					}
 				}
 			} else if (node.type === 'CallExpression') {
 				createdNode = checkAndCreateInvocationNode(node, parent, pathString, scope);
@@ -352,6 +434,33 @@ var padLeftZeros = function(num, length) {
 	return '0'.repeat(totalZeros) + num;
 };
 
+var findRemainingEsmExports = function(ast, nodes, pathString){
+
+	estraverse.traverse(ast, {
+		enter: function(node, parent) {
+			if (node.type === 'ExportNamedDeclaration' && node.specifiers.length) {
+				node.specifiers.forEach(function(spec) {
+					nodes.forEach(function(n){
+						if (n.filePath === pathString && n.name === spec.local.name && n.scope === 'global'){
+							n.esmExport = true;
+							n.exportedName = spec.exported.name;
+						}
+					})
+				})
+			}
+			else if (node.type === 'ExportDefaultDeclaration' && node.declaration.type === 'Identifier') {
+				nodes.forEach(function(n){
+					if (n.filePath === pathString && n.name === node.declaration.name && n.scope === 'global'){
+						n.defaultExport = true;
+					}
+				})
+			}
+		}
+	})
+
+};
+
+// var es6Paths = ['./esModules/testFile6.js', './esModules/testFile7.js', './esModules/testFile8.js', './esModules/testFile9.js']
 // var serverPaths = ['./server-side/testFile1.js', './server-side/testFile2.js', './server-side/testFile3.js', './server-side/testFile4.js', './server-side/testFile5.js'];
 // var angularPaths = ['./front-angular/compose.controller.js', './front-angular/email.factory.js', './front-angular/emailBox.controller.js', './front-angular/inbox.controller.js', './front-angular/sent.controller.js', './front-angular/singleEmail.controller.js', './front-angular/user.factory.js'];
 // var code = {}
@@ -362,7 +471,11 @@ var padLeftZeros = function(num, length) {
 // serverPaths.forEach(function(path){
 // 	code[path] = fs.readFileSync(path).toString();
 // })
-// analyzeFiles(code);
+// analyzeFiles(code, 'esm');
+// es6Paths.forEach(function(path){
+// 	code[path] = fs.readFileSync(path).toString();
+// })
+// analyzeFiles(code, 'esm');
 
 module.exports = analyzeFiles;
 

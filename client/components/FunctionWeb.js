@@ -6,9 +6,26 @@ import HoverOver from './HoverOver';
 
 const FunctionTree = React.createClass({
 
-  componentDidMount: function(){
+  componentDidUpdate(){
+    if(this.props.activeNodeId !== 0){
+      window.document.getElementById('paper-container').className='fadeinpanel';
+      // window.document.getElementById('paper-container').style.visibility='visible';
+    }
+  },
+  resizeCanvas: function() {
     let canvas = document.getElementById('myCanvas');
+    let canvasWidth = document.getElementById('paper-container').offsetWidth;
+    let canvasHeight = document.getElementById('paper-container').offsetHeight;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
+  },
+
+  componentDidMount: function(){
     // Create an empty project and a view for the canvas:
+    // make canvas 100% width and height
+    // window.onresize = this.resizeCanvas();
+    let canvas = document.getElementById('myCanvas');
+    this.resizeCanvas()
     paper.setup(canvas);
   },
   // Active node holder
@@ -37,6 +54,7 @@ const FunctionTree = React.createClass({
       {
         group.removeChildren();
       })
+      this.resizeCanvas();
   },
   //Have Gio use his CSS/Design Eye here to make the legend look better
   drawLegend: function(){
@@ -144,7 +162,10 @@ const FunctionTree = React.createClass({
 
     return(
         <div>
-            <canvas id="myCanvas" style={canvasStyle}></canvas>
+        <div id="paper-title" className="">
+          Functions Web
+        </div>
+            <canvas id="myCanvas"></canvas>
             {
               this.showHover() ?
                 <HoverOver  {...this.props} {...this.state}/>

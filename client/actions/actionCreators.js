@@ -72,6 +72,13 @@ export function setHoveredOverNodeId(hoveredOverNodeId){
   }
 }
 
+export function doneHover(){
+  return {
+    type: 'DONE_HOVER',
+    hoveredOverNodeId
+  }
+}
+
 export function setActiveNodeLoc(activeNodeLoc){
   return {
     type: 'SET_ACTIVE_NODE_LOC',
