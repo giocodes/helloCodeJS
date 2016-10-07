@@ -28,7 +28,6 @@ const FunctionTree = React.createClass({
     let canvas = document.getElementById('myCanvas');
     this.resizeCanvas()
     paper.setup(canvas);
-
   },
   // Active node holder
   holder : null,
