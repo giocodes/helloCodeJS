@@ -85,9 +85,9 @@ const FunctionTree = React.createClass({
           height: 600
     };
 
-    if(this.props.isLoading){
+    /*if(this.props.isLoading){
           return (<div><img src="/loading-icon_amaze.gif" /></div>)
-    }
+    }*/
 
     return(
         <canvas id="myCanvas" style={canvasStyle}></canvas>
