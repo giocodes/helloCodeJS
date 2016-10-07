@@ -39,7 +39,7 @@ const FileTree = React.createClass({
     var data = fileTreeBuilder(this.props.repoContents);
 
     if(this.props.isLoading){
-      return (<div><img src="/loading-icon.gif" /></div>)
+      return (<div><img src="/balls.svg" /></div>)
     }
 
     else if(this.props.activeRepo.length > 0){
