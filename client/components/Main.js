@@ -1,7 +1,7 @@
 //Main.js
 import React from 'react';
 import { Link } from 'react-router';
-require("../styles/style.scss"); 
+require("../styles/style.scss");
 require("../styles/codemirror.css");
 
 //Other Needed Components

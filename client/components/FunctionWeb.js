@@ -1,9 +1,8 @@
 //FunctionTree.js
 import React from 'react';
 import paper from 'paper';
-import sampleData from '../data/sample-data';
 import NodeGen from './NodeGen';
-// console.log(sampleData);
+import HoverOver from './HoverOver';
 
 const FunctionTree = React.createClass({
 
@@ -11,14 +10,14 @@ const FunctionTree = React.createClass({
     if(this.props.activeNodeId !== 0){
       window.document.getElementById('paper-container').className='fadeinpanel';
       // window.document.getElementById('paper-container').style.visibility='visible';
-    } 
+    }
   },
-  resizeCanvas: function() { 
+  resizeCanvas: function() {
     let canvas = document.getElementById('myCanvas');
     let canvasWidth = document.getElementById('paper-container').offsetWidth;
     let canvasHeight = document.getElementById('paper-container').offsetHeight;
     canvas.width = canvasWidth;
-    canvas.height = canvasHeight; 
+    canvas.height = canvasHeight;
   },
 
   componentDidMount: function(){
@@ -47,7 +46,6 @@ const FunctionTree = React.createClass({
     if (this.holder !== nextProps.hoveredOverNodeId){
 
     }
-    console.log('heres the nextprops hoverOverId ,', nextProps.hoveredOverNodeId)
   },
 
   clearViz: function(){
@@ -149,6 +147,11 @@ const FunctionTree = React.createClass({
     }
   },
 
+  showHover: function(){
+      return this.props.hoveredOverNodeId !== 0
+
+  },
+
   render (){
     let canvasStyle = {
           backgroundColor: "#4C4C4C",
@@ -156,13 +159,19 @@ const FunctionTree = React.createClass({
           width: 500,
           height: 600
     };
+
     return(
         <div>
         <div id="paper-title" className="">
           Functions Web
         </div>
-        <canvas id="myCanvas"></canvas>
-      </div>
+            <canvas id="myCanvas"></canvas>
+            {
+              this.showHover() ?
+                <HoverOver  {...this.props} {...this.state}/>
+                : null
+            }
+        </div>
     )
   }
 });

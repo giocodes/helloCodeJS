@@ -20,8 +20,8 @@ app.use(logger('dev'));
 app.get('/api/repo', (req, res, next)=>{
   buildRepoObject(req.query.url, (code)=> {
     //the data should be passed to the parser here
-    var nodes = parser(code);
-    res.json({nodes, code});
+    var parserData = parser(code);
+    res.json(parserData);
   })
 })
 
