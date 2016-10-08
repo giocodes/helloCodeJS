@@ -235,16 +235,6 @@ const findCrossFileEdges = function(code, framework){
 	// find cross-file edges between invocations and definitions
 	remainingInvocations.forEach(function(invocation){
 
-		// if framework is angular, see if match exists between name of object that contained function and the name of a factory 
-		// if (framework === 'angular') {
-		// 	nodes.forEach(function(node){
-		// 		if (node.type === 'definition' && node.factory && invocation.object && node.factory === invocation.object && node.name === invocation.name) {
-		// 			edgesToDefinition[invocation.id] = node.id;
-		// 		}
-		// 	});
-		// 	return;
-		// }
-
 		var sourcePath, sourceFile;
 		var currentFile = code[invocation.filePath];  
 		var regexToCaptureModuleExport = /module\.exports\s*\=\s*([\w\$]+)/
@@ -264,13 +254,6 @@ const findCrossFileEdges = function(code, framework){
 
 		// looks for function in target file that matches various module export patterns
 		nodes.forEach(function(node){
-
-			if (node.factory && invocation.object && node.factory === invocation.object && node.name === 'deleteEmail') {
-				console.log('factory', node.factory)
-				console.log('invocation.object', invocation.object)
-				console.log('node.name', node.name)
-				console.log('invocation.name', invocation.name)
-			}
 
 			if (importData) {
 				if (importData.default && node.filePath === sourcePath) {
@@ -294,7 +277,8 @@ const findCrossFileEdges = function(code, framework){
 				} else if (node.name === regexToCaptureModuleExport.exec(sourceFile)[1]) {
 					edgesToDefinition[invocation.id] = node.id;
 				}
-			} else if (node.factory && node.type === 'definition' && invocation.object && node.factory === invocation.object && node.name === invocation.name) {
+			} 
+			else if (node.factory && node.type === 'definition' && invocation.object && node.factory === invocation.object && node.name === invocation.name) {
 				if (node.type === 'definition' && node.factory && invocation.object && node.factory === invocation.object && node.name === invocation.name) {
 					edgesToDefinition[invocation.id] = node.id;
 				}
