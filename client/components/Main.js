@@ -1,7 +1,7 @@
 //Main.js
 import React from 'react';
 import { Link } from 'react-router';
-require("../styles/style.scss"); 
+require("../styles/style.scss");
 require("../styles/codemirror.css");
 
 //Other Needed Components
@@ -57,7 +57,7 @@ const Main = React.createClass({
           </div>
           {/*Paper Container col-sm-5 col-md-6 col-lg-7*/}
           <div id="paper-container" className="hidepanel">
-              <FunctionWeb {...this.props} {...this.state}/>
+              <FunctionWeb {...this.props} />
           </div>
 
         </div>
