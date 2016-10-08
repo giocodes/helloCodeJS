@@ -8,11 +8,11 @@ class PaperNode  {
     this.y = yPos;
     this.group = new this.project.Group()
     this.text = new this.project.PointText({
-        point: [this.x, this.y-15],
+        point: [this.x, this.y-5],
         content: node.name,
-        fillColor: '#FFFFFF',
-        fontFamily: 'Arial, Helvetica, sans-serif',
-        fontWeight: 'bold',
+        fillColor: '#000000',
+        //fontFamily: 'Arial, Helvetica, sans-serif',
+        //fontWeight: 'bold',
         fontSize: 15,
         justification: 'center'
     });
@@ -21,7 +21,7 @@ class PaperNode  {
     this.nodeId = node.id;
   }
 
-  registerEventListeners(toggleActive, toggleHover) {
+  /*registerEventListeners(toggleActive, toggleHover) {
 
     let thisNode = this;
 
@@ -36,7 +36,7 @@ class PaperNode  {
     this.group.onMouseEnter = function(event){
         toggleHover(thisNode.nodeId)
     }
-  }
+  }*/
 
   static getHeight(){
     return 20; //replace this at some point to better determine overall size
