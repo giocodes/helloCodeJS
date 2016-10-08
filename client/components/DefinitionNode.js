@@ -1,6 +1,10 @@
 //DefinitionNode.js
 import PaperNode from './PaperNode';
 
+const style = {
+
+}
+
 class DefinitionNode extends PaperNode {
   constructor(project, xPos, yPos) {
     super(...arguments)

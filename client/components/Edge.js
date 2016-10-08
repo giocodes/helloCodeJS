@@ -1,4 +1,9 @@
 //Edge.js
+
+const style = {
+
+}
+
 class Edge{
   //project = a reference to the project object in paper
   //src = the source of the edge (PaperNode)
@@ -21,6 +26,7 @@ class Edge{
     var connector = new this.project.Path(r1seg, r2seg);
 
     connector.strokeColor = 'black';
+    connector.sendToBack();
   }
 
 }

@@ -1,6 +1,10 @@
 //InvocationNode.js
 import PaperNode from './PaperNode';
 
+const style = {
+
+}
+
 class InvocationNode extends PaperNode {
   constructor(project, xPos, yPos) {
     super(...arguments)
