@@ -1,56 +1,77 @@
 import paper from 'paper';
+import PaperNode from './PaperNode';
 import DefinitionNode from './DefinitionNode';
 import InvocationNode from './InvocationNode';
 
 class Paper {
 
   constructor(canvas){
-    this.project = new paper.PaperScope();
+    paper.setup(canvas);
     this.canvas = canvas;
-    this.project.setup(canvas);
-    this.activeLayer = new this.project.Layer();
-    this.center = this.project.view.center;
-    console.dir(this.project.view);
-    //this.defineEventHandlers();
+    this.center = paper.project.view.center;
+    this.activeNodes = [];
   }
 
-  /*defineEventHandlers(){
-    this.project.view.onResize(evt =>
-      this.center = this.project.view.center
-    )
-  }*/
-
   clearScreen() {
-    this.activeLayer.children.forEach(group => {
-        group.removeChildren();
+    paper.project.clear();
+    this.activeNodes = [];
+  }
+
+  //paperNode is a reference to a paperNode object which has the node props
+  //as well as some position data
+  drawTree(startingNodeId, nodeList) {
+    const startingNode = nodeList[startingNodeId-1];
+    let paperNode = this.drawNode(startingNode, this.center.x, this.center.y);
+    this.drawConnectedNodes(paperNode, nodeList, true);
+    this.drawConnectedNodes(paperNode, nodeList, false);
+  }
+
+  drawConnectedNodes(paperNode, nodeList, isOutgoing){
+    let horizOffsetValue = this.calculateHorizontalOffset();
+    let horizontalOffset = isOutgoing ? horizOffsetValue : -horizOffsetValue;
+    let connectedNodes = isOutgoing ? paperNode.outgoingEdges : paperNode.incomingEdges;
+    let numOfEdges = connectedNodes.length;
+    let offsetY = this.calculateVerticalOffset(numOfEdges);
+    let currentY = 0; //shaky.  might need to revist.
+    connectedNodes.forEach(nodeId => {
+      currentY = currentY + offsetY;
+      let newNode = this.drawNode(nodeList[nodeId-1], paperNode.x + horizontalOffset, currentY);
+      //this.drawConnection(paperNode, newNode);
     })
   }
 
-  drawTree(startingNodeId, nodeList) {
-    this.drawNode(nodeList[startingNodeId], this.center.x, this.center.y);
+  calculateVerticalOffset(numOfEdges){
+    const verticalSpace = paper.project.view.size.height;
+    return (verticalSpace - (PaperNode.getHeight()*numOfEdges)) / (numOfEdges + 1);
+  }
+
+  calculateHorizontalOffset(){
+    const horizontalSpace = paper.project.view.size.width;
+    return horizontalSpace/4;
   }
 
   drawNode(node, xPos, yPos){
     let paperNode;
-    //console.log(node.type);
     switch(node.type){
       case 'definition':
-        paperNode = new DefinitionNode(this.project, xPos, yPos, node.name);
+        paperNode = new DefinitionNode(paper, xPos, yPos, node);
         break;
       case 'invocation':
-        paperNode = new InvocationNode(this.project, xPos, yPos, node.name);
+        paperNode = new InvocationNode(paper, xPos, yPos, node);
         break;
       default:
         paperNode = null;
     }
-
     paperNode.renderNode();
+    //console.log(paper.project.activeLayer)
+    return paperNode;
   }
 
-  drawConnection(fromNode, toNode){
+  drawConnection(fromPaperNode, toPaperNode){
 
   }
 
+  //TODO - Need a resize handler
 
 }
 

@@ -27,14 +27,17 @@ const FunctionTree = React.createClass({
     if (this.holder !== nextProps.activeNodeId){
       if(this.paper) {
         this.paper.clearScreen();
+        //console.log('1', this.paper.activeLayer.children);
+        if (nextProps.activeNodeId !== 0){
+          this.paper.drawTree(nextProps.activeNodeId, nextProps.nodes);
+          //console.log('2', this.paper.activeLayer.children);
+        //this.drawNodes(nextProps.nodes);
+        //this.drawLegend()
+        }
       }
       this.holder = nextProps.activeNodeId;
       // Prevent trying to drawNodes without activeNode
-      if (nextProps.activeNodeId !== 0){
-        this.paper.drawTree(nextProps.activeNodeId, nextProps.nodes);
-      //this.drawNodes(nextProps.nodes);
-      //this.drawLegend()
-      }
+
     }
 
     if (this.holder !== nextProps.hoveredOverNodeId){

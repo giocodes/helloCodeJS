@@ -4,15 +4,17 @@ import PaperNode from './PaperNode';
 class InvocationNode extends PaperNode {
   constructor(project, xPos, yPos) {
     super(...arguments)
-    this.group.addChildren([this.circle,this.text])
+    //this.group.addChild(this.text);
   }
 
   renderNode(){
+    //console.log('inv node', this.project);
     this.circle = new this.project.Path.Circle({
-      center: [this.xPos, 20 + this.yPos],
+      center: [this.x, 20 + this.y],
       radius: 10,
       fillColor: '#749395'
     })
+    //this.group.addChild(this.circle);
   }
 }
 

@@ -2,20 +2,22 @@
 class PaperNode  {
   //project is a reference to the project in paper this node will belong to
   //will be rendered at (xPos, yPos) in the canvas
-  constructor(project, xPos, yPos, name) {
-    this.project = project;
-    this.xPos = xPos;
-    this.yPos = yPos;
-    this.group = new this.project.Group()
+  constructor(paper, xPos, yPos, node) {
+    this.project = paper;
+    this.x = xPos;
+    this.y = yPos;
+    //this.group = new this.project.Group()
     this.text = new this.project.PointText({
-        point: [this.xPos, this.yPos],
-        content: name,
+        point: [this.x, this.y],
+        content: node.name,
         fillColor: '#FFFFFF',
         fontFamily: 'Arial, Helvetica, sans-serif',
         fontWeight: 'bold',
         fontSize: 15,
         justification: 'center'
     });
+    this.outgoingEdges = node.outgoingEdges;
+    this.incomingEdges = node.incomingEdges;
   }
 
   registerEventListeners(toggleActive, toggleHover) {
@@ -32,6 +34,9 @@ class PaperNode  {
     }
   }
 
+  static getHeight(){
+    return 20; //replace this at some point to better determine overall size
+  }
 }
 
 export default PaperNode;
