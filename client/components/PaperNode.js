@@ -33,9 +33,9 @@ class PaperNode  {
       console.log('single click event was registered ', event)
     }
 
-    /*this.group.onMouseEnter = function(event){
-        toggleHover(this.nodeId)
-    }*/
+    this.group.onMouseEnter = function(event){
+        toggleHover(thisNode.nodeId)
+    }
   }
 
   static getHeight(){
