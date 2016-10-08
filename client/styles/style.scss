@@ -130,6 +130,7 @@ body {
   }
   #code-container{
     width: 40%;
+    height: 89vh;
     padding-left: 5px;
     float: left;
     display: inline-block;
@@ -143,7 +144,7 @@ body {
 
     .CodeMirror{
       width: 100%;
-      height:500px;
+      height: 89vh;
       float: left;
       .highlight{
         background-color: rgba(255, 255, 0, 0.3);
@@ -152,6 +153,7 @@ body {
   }
   #paper-container{
     width: 59%;
+    height: 89vh;
     padding-left: 10px;
     overflow: hidden;
     height: 500px;
