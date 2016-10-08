@@ -40,7 +40,7 @@ const FunctionTree = React.createClass({
     if (this.holder !== nextProps.hoveredOverNodeId){
 
     }
-    console.log('heres the nextprops hoverOverId ,', nextProps.hoveredOverNodeId)
+    //console.log('heres the nextprops hoverOverId ,', nextProps.hoveredOverNodeId)
   },
 
   /*clearViz: function(){

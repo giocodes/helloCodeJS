@@ -9,8 +9,16 @@ class Paper {
     this.canvas = canvas;
     this.project.setup(canvas);
     this.activeLayer = new this.project.Layer();
-    this.center = {x: canvas.width/2, y: canvas.height/2}
+    this.center = this.project.view.center;
+    console.dir(this.project.view);
+    //this.defineEventHandlers();
   }
+
+  /*defineEventHandlers(){
+    this.project.view.onResize(evt =>
+      this.center = this.project.view.center
+    )
+  }*/
 
   clearScreen() {
     this.activeLayer.children.forEach(group => {
@@ -18,19 +26,19 @@ class Paper {
     })
   }
 
-  drawTree(startingNode, nodeList) {
-    this.drawNode(startingNode, this.center.x, this.center.y);
+  drawTree(startingNodeId, nodeList) {
+    this.drawNode(nodeList[startingNodeId], this.center.x, this.center.y);
   }
 
   drawNode(node, xPos, yPos){
     let paperNode;
-
+    //console.log(node.type);
     switch(node.type){
       case 'definition':
-        paperNode = new DefinitionNode(this.project, xPos, yPos);
+        paperNode = new DefinitionNode(this.project, xPos, yPos, node.name);
         break;
       case 'invocation':
-        paperNode = new InvocationNode(this.project, xPos, yPos);
+        paperNode = new InvocationNode(this.project, xPos, yPos, node.name);
         break;
       default:
         paperNode = null;

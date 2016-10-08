@@ -1,5 +1,5 @@
 //InvocationNode.js
-import PaperNode from './Node';
+import PaperNode from './PaperNode';
 
 class InvocationNode extends PaperNode {
   constructor(project, xPos, yPos) {

@@ -2,14 +2,14 @@
 class PaperNode  {
   //project is a reference to the project in paper this node will belong to
   //will be rendered at (xPos, yPos) in the canvas
-  constructor(project, xPos, yPos) {
+  constructor(project, xPos, yPos, name) {
     this.project = project;
     this.xPos = xPos;
     this.yPos = yPos;
     this.group = new this.project.Group()
     this.text = new this.project.PointText({
         point: [this.xPos, this.yPos],
-        content: node.name,
+        content: name,
         fillColor: '#FFFFFF',
         fontFamily: 'Arial, Helvetica, sans-serif',
         fontWeight: 'bold',
