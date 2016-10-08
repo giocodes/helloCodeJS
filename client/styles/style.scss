@@ -102,15 +102,15 @@ body {
   .left{
     margin-left :0;
     -webkit-transition: margin-left 1s; /* Safari */
-    transition: margin-left 1s; 
+    transition: margin-left 1s;
   }
   .overleft{
-    margin-left :-14%; 
+    margin-left :-14%;
     -webkit-transition: margin-left 1s; /* Safari */
     transition: margin-left 1s;
   }
   .overleft:hover{
-    margin-left :-2%; 
+    margin-left :-2%;
   }
   .hidepanel{
     opacity: 0;
@@ -156,7 +156,6 @@ body {
     height: 89vh;
     padding-left: 10px;
     overflow: hidden;
-    height: 500px;
     float: none;
     display: inline-block;
     #paper-title{
@@ -182,7 +181,7 @@ body {
   }
   .list-group {
       padding-top: 5px;
-      border-radius: 0; 
+      border-radius: 0;
       -webkit-box-shadow: 0 0 0 rgba(0,0,0,.0);
       box-shadow: 0 0 0 rgba(0,0,0,.0);
   }
@@ -196,7 +195,7 @@ body {
     font-weight: bold;
     span {
       @include color($theme-background-2 !important);
-      
+
     }
     span:hover{
       font-weight: bold;
@@ -212,5 +211,11 @@ body {
   @include background-color(#272626 !important);
 }
 
+
+// Canvas
+canvas {
+  width: 100%;
+  height: 100%;
+}
 
 
