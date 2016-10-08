@@ -6,9 +6,9 @@ class PaperNode  {
     this.project = paper;
     this.x = xPos;
     this.y = yPos;
-    //this.group = new this.project.Group()
+    this.group = new this.project.Group()
     this.text = new this.project.PointText({
-        point: [this.x, this.y],
+        point: [this.x, this.y-15],
         content: node.name,
         fillColor: '#FFFFFF',
         fontFamily: 'Arial, Helvetica, sans-serif',
@@ -18,20 +18,24 @@ class PaperNode  {
     });
     this.outgoingEdges = node.outgoingEdges;
     this.incomingEdges = node.incomingEdges;
+    this.nodeId = node.id;
   }
 
   registerEventListeners(toggleActive, toggleHover) {
+
+    let thisNode = this;
+
     this.group.onDoubleClick = function(event){
-        console.log('heres node toggleActive ', toggleActive)
+      toggleActive(thisNode.nodeId);
     },
 
     this.group.onClick = function(event){
-        console.log('single click event was registered ', event)
-    },
-
-    this.group.onMouseEnter = function(event){
-        toggleHover(this.nodeId)
+      console.log('single click event was registered ', event)
     }
+
+    /*this.group.onMouseEnter = function(event){
+        toggleHover(this.nodeId)
+    }*/
   }
 
   static getHeight(){

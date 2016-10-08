@@ -17,7 +17,7 @@ const FunctionTree = React.createClass({
 
   componentDidMount: function(){
     let canvas = document.getElementById('myCanvas');
-    this.paper = new Paper(canvas);
+    this.paper = new Paper(canvas, this.props.setActiveNodeId, this.props.setHoveredOverNodeId);
   },
   // Active node holder
   holder : null,
@@ -168,41 +168,3 @@ const FunctionTree = React.createClass({
 
 export default FunctionTree;
 
-
-//Regarding drawing the tree of nodes - I want it to function like this:
-//
-//startingNode...the starting node (NOT AN ID),
-//nodeSet is the data set of all active nodes
-//
-//drawTree(startingNode, nodeSet){
-//
-//  drawNode(startingNode, center.x, center.y);
-//
-//  let numOfEdges = startingNode.outgoingEdges.length;
-//  for all of the nodeIds in outgoingEdges,
-//  draw the nodes with an offset
-//  draw the connection
-//
-//  numOfEdges = startingNode.incomingEdges.length;
-//  for all of the nodeIds in incomingEdges,
-//  draw the nodes with an offset
-//  draw the connection
-//
-//  --- could possibly support more levels by recursively calling drawTree
-//
-//}
-//
-//drawNode(nodeId, xPos, yPos){
-//
-//  draw the node at xPos, yPos
-//
-//}
-//
-//
-//
-//needs to take in Node objects
-//drawConnection(fromNode, toNode){
-//
-// draw the connection between fromNode and toNode
-//
-//}

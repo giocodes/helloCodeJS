@@ -2,14 +2,17 @@ import paper from 'paper';
 import PaperNode from './PaperNode';
 import DefinitionNode from './DefinitionNode';
 import InvocationNode from './InvocationNode';
+import Edge from './Edge';
 
 class Paper {
 
-  constructor(canvas){
+  constructor(canvas, toggleActiveFn, toggleHoverFn){
     paper.setup(canvas);
     this.canvas = canvas;
     this.center = paper.project.view.center;
     this.activeNodes = [];
+    this.toggleActive = toggleActiveFn;
+    this.toggleHover = toggleHoverFn;
   }
 
   clearScreen() {
@@ -36,7 +39,7 @@ class Paper {
     connectedNodes.forEach(nodeId => {
       currentY = currentY + offsetY;
       let newNode = this.drawNode(nodeList[nodeId-1], paperNode.x + horizontalOffset, currentY);
-      //this.drawConnection(paperNode, newNode);
+      isOutgoing ? this.drawEdge(paperNode, newNode) : this.drawEdge(newNode, paperNode);
     })
   }
 
@@ -62,13 +65,14 @@ class Paper {
       default:
         paperNode = null;
     }
+    paperNode.registerEventListeners(this.toggleActive, this.toggleHover);
     paperNode.renderNode();
-    //console.log(paper.project.activeLayer)
     return paperNode;
   }
 
-  drawConnection(fromPaperNode, toPaperNode){
-
+  drawEdge(fromPaperNode, toPaperNode){
+    const edge = new Edge(paper, fromPaperNode, toPaperNode);
+    edge.draw();
   }
 
   //TODO - Need a resize handler
