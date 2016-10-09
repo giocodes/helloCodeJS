@@ -57,7 +57,7 @@ const Main = React.createClass({
           </div>
           {/*Paper Container col-sm-5 col-md-6 col-lg-7*/}
           <div id="paper-container" className="hidepanel">
-              <FunctionWeb {...this.props} {...this.state}/>
+              <FunctionWeb {...this.props} />
           </div>
 
         </div>
