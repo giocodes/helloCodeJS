@@ -11,6 +11,12 @@ const FunctionTree = React.createClass({
       window.document.getElementById('paper-container').className='fadeinpanel';
       // window.document.getElementById('paper-container').style.visibility='visible';
     }
+
+    if(this.showHover()){
+      let hoverOnlyBox = window.document.getElementById('hover-only-box')
+    }
+
+    console.log('heres showHover, ', this.showHover())
   },
 
   componentDidMount: function(){

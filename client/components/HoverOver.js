@@ -12,12 +12,23 @@ const HoverOver = React.createClass({
     let hoverOverStyle = {
           backgroundColor: "#7ec0ee",
           // need to figure out how to make it 100% (percentage instead of pixels)
-          width: 100,
-          height: 100
+          width: 700,
+          height: 80
     };
+    let hoveredOverNode = this.props.nodes[this.props.hoveredOverNodeId-1]
+    let funcName = hoveredOverNode.name,
+        funcType = hoveredOverNode.type,
+        funcFilePath = hoveredOverNode.filePath,
+        funcNumbIncNodes = hoveredOverNode.incomingEdges.length,
+        funcNumbOutNodes = hoveredOverNode.outgoingEdges.length;
 
     return(
-        <div style={hoverOverStyle}> Hovered Over Node showed up </div>
+        <div id="hover-only-box" style={hoverOverStyle}>
+            <div> Func Name {funcName} </div>
+            <div> File Path {funcFilePath} </div>
+           <div> Numb incoming Edges {funcNumbIncNodes} </div>
+           <div> Numb outgoing Edges {funcNumbOutNodes} </div>
+        </div>
 
     )
   }
