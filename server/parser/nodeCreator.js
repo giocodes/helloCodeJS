@@ -1,4 +1,4 @@
-const Node = require('./nodeConstructor');
+const Node = require('./nodeConstructor'); 
 
 // function that creates nodes for function declarations and expressions
 const createDefinitionNode = function(id, node, parent, pathString, scope){
@@ -45,6 +45,9 @@ const createDefinitionNode = function(id, node, parent, pathString, scope){
 		else if (parent && parent.type === 'ExpressionStatement') {
 			createdNode = new Node(id, '(anonymous)', 'definition', pathString, node.loc.start, node.loc.end, scope);
 		}
+		else if (parent && parent.type === 'MethodDefinition') {
+			createdNode = new Node(id, parent.key.name, 'definition', pathString, node.loc.start, node.loc.end, scope);
+		}
 		// other
 		else {
 			// console.log('pathString', pathString);
@@ -81,7 +84,11 @@ const createInvocationNode = function(id, node, parent, pathString, scope){
 			createdNode.object = node.callee.callee.object.name;
 			// console.log(chalk.red('a function returned from a method named ' + node.callee.callee.property.name + ' on object ' + node.callee.callee.object.name + ' was invoked on line ' + node.callee.callee.property.loc.start.line))
 		}	
-	}		
+	}	
+
+	else if (node.callee.type === 'Super') {
+		createdNode = new Node(id, 'super', 'invocation', pathString, node.loc.start, node.loc.end, scope);
+	} 	
 	
 	else {
 		// console.log('pathString', pathString);
