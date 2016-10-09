@@ -46,6 +46,11 @@ class InvocationNode extends PaperNode {
     this.group.onMouseEnter = function(event){
       toggleHover(thisNode.nodeId)
     }
+
+    this.group.onMouseLeave = function(event){
+    console.log('we are done hovering', this.nodeId)
+    toggleHover(0)
+    }
   }
 
   colorAsActive(){
