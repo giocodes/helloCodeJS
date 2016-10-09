@@ -66,23 +66,19 @@ const createInvocationNode = function(id, node, parent, pathString, scope){
 
 	if (node.callee.type === 'Identifier') {
 		createdNode = new Node(id, node.callee.name, 'invocation', pathString, node.loc.start, node.loc.end, scope);
-		// console.log(chalk.red('a function named ' + node.callee.name + ' was invoked on line ' + node.callee.loc.start.line))
 	} 
 	
 	else if (node.callee.type === 'MemberExpression') {
 		createdNode = new Node(id, node.callee.property.name, 'invocation', pathString, node.loc.start, node.loc.end, scope);
 		createdNode.object = node.callee.object.name;
-		// console.log(chalk.red('a method named ' + node.callee.property.name + ' on object ' + node.callee.object.name + ' was invoked on line ' + node.callee.property.loc.start.line))
 	} 
 
 	else if (node.callee.type === 'CallExpression') {
 		if (node.callee.callee.type === 'Identifier') {
 			createdNode = new Node(id, 'function returned from ' + node.callee.callee.name, 'invocation', pathString, node.callee.callee.loc.start, node.callee.callee.loc.end, scope);
-			// console.log(chalk.red('a function returned from a function named ' + node.callee.callee.name + ' was invoked on line ' + node.callee.callee.loc.start.line))
 		} else if (node.callee.callee.type === 'MemberExpression') {
 			createdNode = new Node(id, 'function returned from ' + node.callee.callee.property.name, 'invocation', pathString, node.loc.start, node.loc.end, scope);
 			createdNode.object = node.callee.callee.object.name;
-			// console.log(chalk.red('a function returned from a method named ' + node.callee.callee.property.name + ' on object ' + node.callee.callee.object.name + ' was invoked on line ' + node.callee.callee.property.loc.start.line))
 		}	
 	}	
 
