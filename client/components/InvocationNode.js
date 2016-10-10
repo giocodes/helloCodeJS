@@ -48,7 +48,7 @@ class InvocationNode extends PaperNode {
       if(!(this.children[0].shadowBlur === 12)){
         console.log('If on click is working')
 
-        this.children[0].shadowColor = '#ffff00';
+        this.children[0].shadowColor = '#8aff3d';
         this.children[0].shadowBlur = 12;
         toggleHighlighted(thisNode.nodeId)
 
