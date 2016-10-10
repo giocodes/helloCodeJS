@@ -73,22 +73,22 @@ body {
 #options{
   background-image: url(/options.png);
 }
-#new-code{
-  background-image: url(/new.svg);
+#navbar-github{
+  background-image: url(/github.png);
   &:hover {
-    background-image: url(/new-hover.svg);
+    background-image: url(/github-hover.png);
   }
 }
-#share{
+#navbar-share{
   background-image: url(/share.svg);
   &:hover{
     background-image: url(/share-hover.svg);
   }
 }
-#github-link{
-  background-image: url(/github.png);
+#navbar-new{
+  background-image: url(/new.svg);
   &:hover {
-    background-image: url(/github-hover.png);
+    background-image: url(/new-hover.svg);
   }
 }
 

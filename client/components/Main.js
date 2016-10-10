@@ -30,10 +30,10 @@ const Main = React.createClass({
           {/*Options Selector*/}
           <div className="col-sm-2">
             <a href="https://github.com/giocodes/hellocodebase/">
-              <div id="github-link" className="navbar-item"></div>
+              <div id="navbar-github" className="navbar-item"></div>
             </a>
-            <div id="share" className="navbar-item"></div>
-            <div id="new-code" className="navbar-item"></div>
+            <div id="navbar-share" className="navbar-item"></div>
+            <div id="navbar-new" className="navbar-item"></div>
           </div>
 
         </div>
