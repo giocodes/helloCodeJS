@@ -20,8 +20,8 @@ class InvocationNode extends PaperNode {
       radius: 10,
       fillColor: '#749395'
     })*/
-    var size = new this.project.Size(100,80)
-    var rectangle = new this.project.Rectangle(new this.project.Point(this.x-50, this.y-40), size);
+    var size = new this.project.Size(this.nodeHeight*1.25, this.nodeHeight)
+    var rectangle = new this.project.Rectangle(new this.project.Point(this.x - this.nodeWidth/2, this.y-this.nodeHeight/2), size);
     this.path = new this.project.Shape.Ellipse(rectangle);
     this.path.fillColor = '#b6d2dd';
     this.path.strokeColor = '#b6d2dd'
