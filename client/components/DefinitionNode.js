@@ -15,7 +15,7 @@ class DefinitionNode extends PaperNode {
 
   renderNode() {
     //console.log('def node', this.project);
-    var size = new this.project.Size(this.nodeHeight*1.25, this.nodeHeight)
+    var size = new this.project.Size(this.nodeWidth, this.nodeHeight)
     var rectangle = new this.project.Rectangle(new this.project.Point(this.x - this.nodeWidth/2, this.y-this.nodeHeight/2), size);
     this.path = new this.project.Path.Rectangle(rectangle);
     this.path.fillColor = '#b6d2dd';
