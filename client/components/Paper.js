@@ -69,7 +69,7 @@ class Paper {
 
   calculateHorizontalOffset(){
     const horizontalSpace = paper.project.view.size.width;
-    return horizontalSpace/4;
+    return horizontalSpace * 0.3;
   }
 
   drawNode(node, xPos, yPos, nodeHeight, textAlign){
@@ -97,12 +97,79 @@ class Paper {
   drawKey(){
     const canvasHeight = paper.project.view.size.height;
     const canvasWidth = paper.project.view.size.width;
-    let size = new paper.Size(200, 200)
-    let rectangle = new paper.Rectangle(new paper.Point(canvasWidth/2 - 100, canvasHeight - 200), size);
+    const leftPos = canvasWidth/2 - 150;
+    const topPos = canvasHeight - 180;
+    let size = new paper.Size(300, 175)
+    let rectangle = new paper.Rectangle(new paper.Point(leftPos, topPos), size);
     let path = new paper.Path.Rectangle(rectangle);
-    path.fillColor = '#b6d2dd';
-    path.strokeColor = '#b6d2dd'
+    path.strokeColor = '#FFFFFF'
+    path.fillColor = '#4C4C4C'
     path.strokeWidth = 2;
+
+    let definitionExSize = new paper.Size(24, 20)
+    let definitionExShape = new paper.Rectangle(new paper.Point(leftPos + 18, topPos + 20), definitionExSize);
+    let definitionExPath = new paper.Path.Rectangle(definitionExShape);
+    definitionExPath.strokeColor = '#b6d2dd'
+    definitionExPath.fillColor = '#b6d2dd'
+    definitionExPath.strokeWidth = 2;
+
+    let invocationExSize = new paper.Size(24, 20)
+    let invocationExShape = new paper.Rectangle(new paper.Point(leftPos + 18, topPos + 60), invocationExSize);
+    let invocationExPath = new paper.Shape.Ellipse(invocationExShape);
+    invocationExPath.strokeColor = '#b6d2dd'
+    invocationExPath.fillColor = '#b6d2dd'
+    invocationExPath.strokeWidth = 2;
+
+    let activeExSize = new paper.Size(24, 20)
+    let activeExShape = new paper.Rectangle(new paper.Point(leftPos + 168, topPos + 20), activeExSize);
+    let activeExPath = new paper.Path.Rectangle(activeExShape);
+    activeExPath.strokeColor = '#b6d2dd'
+    activeExPath.fillColor = '#b6d2dd'
+    activeExPath.strokeWidth = 2;
+
+    let secondaryExSize = new paper.Size(24, 20)
+    let secondaryExShape = new paper.Rectangle(new paper.Point(leftPos + 168, topPos + 60), secondaryExSize);
+    let secondaryExPath = new paper.Path.Rectangle(secondaryExShape);
+    secondaryExPath.strokeColor = '#b6d2dd'
+    secondaryExPath.fillColor = '#b6d2dd'
+    secondaryExPath.strokeWidth = 2;
+
+    let text = new paper.PointText({
+        point: [leftPos + 60, topPos + 35],
+        content: 'definition',
+        fillColor: '#FFFFFF',
+        //fontFamily: 'Arial, Helvetica, sans-serif',
+        //fontWeight: 'bold',
+        fontSize: 15,
+        justification: 'left'
+    });
+    let text2 = new paper.PointText({
+        point: [leftPos + 60, topPos + 75],
+        content: 'invocation',
+        fillColor: '#FFFFFF',
+        //fontFamily: 'Arial, Helvetica, sans-serif',
+        //fontWeight: 'bold',
+        fontSize: 15,
+        justification: 'left'
+    });
+    let text3 = new paper.PointText({
+        point: [leftPos + 210, topPos + 35],
+        content: 'active',
+        fillColor: '#FFFFFF',
+        //fontFamily: 'Arial, Helvetica, sans-serif',
+        //fontWeight: 'bold',
+        fontSize: 15,
+        justification: 'left'
+    });
+    let text4 = new paper.PointText({
+        point: [leftPos + 210, topPos + 75],
+        content: 'secondary',
+        fillColor: '#FFFFFF',
+        //fontFamily: 'Arial, Helvetica, sans-serif',
+        //fontWeight: 'bold',
+        fontSize: 15,
+        justification: 'left'
+    });
   }
 
   getActiveLayer(){
