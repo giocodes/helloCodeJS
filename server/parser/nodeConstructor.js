@@ -8,6 +8,10 @@ const Node = function(id, name, type, filePath, start, end, scope){
 	this.scope = scope;
 	this.incomingEdges = [];
 	this.outgoingEdges = [];
+	this.incomingBody = [];
+	this.outgoingBody = [];
+	this.incomingDefinition = [];
+	this.outgoingDefinition = [];
 };
 
 module.exports = Node;

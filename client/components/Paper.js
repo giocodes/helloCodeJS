@@ -33,15 +33,23 @@ class Paper {
   drawConnectedNodes(paperNode, nodeList, isOutgoing){
     let horizOffsetValue = this.calculateHorizontalOffset();
     let horizontalOffset = isOutgoing ? horizOffsetValue : -horizOffsetValue;
-    let connectedNodes = isOutgoing ? paperNode.outgoingEdges : paperNode.incomingEdges;
-    let numOfEdges = connectedNodes.length;
+    let connectedDefinitionNodes = isOutgoing ? paperNode.outgoingDefinition : paperNode.incomingDefinition;
+    let connectedBodyNodes = isOutgoing ? paperNode.outgoingBody : paperNode.incomingBody;
+    let numOfEdges = connectedDefinitionNodes.length + connectedBodyNodes.length;
     let offsetY = this.calculateVerticalOffset(numOfEdges);
     let currentY = 0; //shaky.  might need to revist.
-    connectedNodes.forEach(nodeId => {
-      currentY = currentY + offsetY;
-      let newNode = this.drawNode(nodeList[nodeId-1], paperNode.x + horizontalOffset, currentY);
-      isOutgoing ? this.drawEdge(paperNode, newNode) : this.drawEdge(newNode, paperNode);
-    })
+
+    const draw = (connectedNodes, dashed) => {
+      connectedNodes.forEach(nodeId => {
+        currentY = currentY + offsetY;
+        let newNode = this.drawNode(nodeList[nodeId-1], paperNode.x + horizontalOffset, currentY);
+        isOutgoing ? this.drawEdge(paperNode, newNode, dashed) : this.drawEdge(newNode, paperNode, dashed);
+      });
+    };
+
+    draw(connectedDefinitionNodes, false);
+    draw(connectedBodyNodes, true);
+    
   }
 
   calculateVerticalOffset(numOfEdges){
@@ -71,8 +79,8 @@ class Paper {
     return paperNode;
   }
 
-  drawEdge(fromPaperNode, toPaperNode){
-    const edge = new Edge(paper, fromPaperNode, toPaperNode);
+  drawEdge(fromPaperNode, toPaperNode, dashed){
+    const edge = new Edge(paper, fromPaperNode, toPaperNode, dashed);
     edge.draw();
   }
 

@@ -8,10 +8,11 @@ class Edge{
   //project = a reference to the project object in paper
   //src = the source of the edge (PaperNode)
   //dest = the destination of the edge (PaperNode)
-  constructor(project, src, dest){
+  constructor(project, src, dest, dash){
     this.project = project;
     this.src = src;
     this.dest = dest;
+    this.dash = dash;
   }
 
   draw(){
@@ -26,6 +27,9 @@ class Edge{
     var connector = new this.project.Path(r1seg, r2seg);
 
     connector.strokeColor = 'black';
+    if (this.dash) {
+      connector.dashArray = [10, 10]
+    }
     connector.sendToBack();
   }
 
