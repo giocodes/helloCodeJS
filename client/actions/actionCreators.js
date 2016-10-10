@@ -101,3 +101,23 @@ export function toggleLoading(isLoading){
   }
 }
 
+export function setHighlightedFile(highlightedFile){
+  return {
+    type: 'SET_HIGHLIGHTED_FILE',
+    highlightedFile
+  }
+}
+
+export function setHighlightedFileContent(highlightedFileContent){
+  return {
+    type: 'SET_HIGHLIGHTED_FILE_CONTENT',
+    highlightedFileContent
+  }
+}
+
+export function setHighlightedNodeLoc(highlightedNodeLoc){
+  return {
+    type: 'SET_HIGHLIGHTED_NODE_LOC',
+    highlightedNodeLoc
+  }
+}

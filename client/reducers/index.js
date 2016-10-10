@@ -17,8 +17,11 @@ import hoveredOverNodeId from './hoveredOverNodeId';
 import highlightedNodeId from './highlightedNodeId';
 import activeNodeLoc from './activeNodeLoc';
 import isLoading from './isLoading';
+import highlightedFile from './highlightedFile';
+import highlightedFileContent from './highlightedFileContent';
+import highlightedNodeLoc from './highlightedNodeLoc';
 
-const rootReducer = combineReducers({nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, activeNodeLoc, isLoading, hoveredOverNodeId, highlightedNodeId, routing: routerReducer });
+const rootReducer = combineReducers({nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, activeNodeLoc, isLoading, hoveredOverNodeId, highlightedNodeId, highlightedFile, highlightedFileContent, highlightedNodeLoc, routing: routerReducer });
 
 export default rootReducer;
 
