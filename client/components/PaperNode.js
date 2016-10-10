@@ -19,6 +19,10 @@ class PaperNode  {
     this.outgoingEdges = node.outgoingEdges;
     this.incomingEdges = node.incomingEdges;
     this.nodeId = node.id;
+    //putting this on the group so I can access for highlighting purposes -Yi
+    this.group.nodeId = this.nodeId;
+    console.log('heres this in paperNode,' , this)
+    this.highlightedNodeId = this.project.highlightedNodeId;
   }
 
   /*registerEventListeners(toggleActive, toggleHover) {

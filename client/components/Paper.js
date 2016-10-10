@@ -6,19 +6,22 @@ import Edge from './Edge';
 
 class Paper {
 
-  constructor(canvas, toggleActiveFn, toggleHoverFn){
+  constructor(canvas, toggleActiveFn, toggleHoverFn, toggleHighlightedFn, highlightedNodeId){
     paper.setup(canvas);
     this.canvas = canvas;
     this.center = paper.project.view.center;
     this.activeNodes = [];
     this.toggleActive = toggleActiveFn;
     this.toggleHover = toggleHoverFn;
+    this.toggleHighlighted = toggleHighlightedFn;
+    this.highlightedNodeId = highlightedNodeId;
   }
 
   clearScreen() {
     paper.project.clear();
     this.activeNodes = [];
   }
+
 
   //paperNode is a reference to a paperNode object which has the node props
   //as well as some position data
@@ -66,7 +69,7 @@ class Paper {
       default:
         paperNode = null;
     }
-    paperNode.registerEventListeners(this.toggleActive, this.toggleHover);
+    paperNode.registerEventListeners(this.toggleActive, this.toggleHover, this.toggleHighlighted, this.props);
     paperNode.renderNode();
     return paperNode;
   }
@@ -76,6 +79,14 @@ class Paper {
     edge.draw();
   }
 
+  getActiveLayer(){
+    return paper.project.activeLayer
+
+  }
+
+  updateHighlightedNodeId(highlightedNodeId){
+    this.highlightedNodeId = highlightedNodeId;
+  }
   //TODO - Need a resize handler
 
 }

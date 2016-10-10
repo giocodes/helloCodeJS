@@ -34,7 +34,7 @@ class InvocationNode extends PaperNode {
     //this.group.addChild(this.circle);
   }
 
-  registerEventListeners(toggleActive, toggleHover) {
+  registerEventListeners(toggleActive, toggleHover, toggleHighlighted) {
 
     let thisNode = this;
 
@@ -43,22 +43,20 @@ class InvocationNode extends PaperNode {
     },
 
     this.group.onClick = function(event){
-      console.log('single click event was registered ', event)
-      console.log('heres the group', this)
-      console.log('heres the shadowColor', this.ShadowColor)
       //first child is the path object
+      console.log('on click is working')
       if(!(this.children[0].shadowBlur === 12)){
+        console.log('If on click is working')
+
         this.children[0].shadowColor = '#ffff00';
         this.children[0].shadowBlur = 12;
+        toggleHighlighted(thisNode.nodeId)
+
       }
       else{
-        console.log('heres this before', this)
-        console.log('heres this before', this.children[0].shadowBlur)
-        console.log('you hit the else')
+        console.log('else on click is working')
         this.children[0].shadowBlur = 0;
-        console.log('heres this before', this)
-        console.log('heres this before', this.children[0].shadowBlur)
-
+        toggleHighlighted(0)
       }
     }
 

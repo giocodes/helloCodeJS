@@ -21,27 +21,30 @@ class DefinitionNode extends PaperNode {
     this.path.fillColor = '#b6d2dd';
     this.path.strokeColor = '#b6d2dd'
     this.path.strokeWidth = 2;
-    this.path.shadowColor = '#FFFFFF'
-    this.path.shadowBlur = 12
+    // this.path.shadowColor = '#FFFFFF'
+    // this.path.shadowBlur = 12
     this.group.addChild(this.path);
     this.text.bringToFront();
-    console.log('heres this , ', this)
-
   }
 
-  registerEventListeners(toggleActive, toggleHover) {
+  registerEventListeners(toggleActive, toggleHover, toggleHighlighted) {
 
     let thisNode = this;
-
     this.group.onDoubleClick = function(event){
       toggleActive(thisNode.nodeId);
     },
 
     this.group.onClick = function(event){
-      console.log('single click event was registered ', event)
-      console.log('heres the group', this)
-      console.log('heres the shadowColor', this.ShadowColor)
-      this.shadowColor = "#ffff00";
+      //first child is the path object
+      if(!(this.children[0].shadowBlur === 12)){
+        this.children[0].shadowColor = '#ffff00';
+        this.children[0].shadowBlur = 12;
+        toggleHighlighted(thisNode.nodeId)
+      }
+      else{
+        this.children[0].shadowBlur = 0;
+        toggleHighlighted(0)
+      }
 
     }
 
@@ -50,7 +53,6 @@ class DefinitionNode extends PaperNode {
     }
 
     this.group.onMouseLeave = function(event){
-      console.log('we are done hovering', this.nodeId)
       toggleHover(0)
     }
   }
