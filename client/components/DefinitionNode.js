@@ -21,8 +21,12 @@ class DefinitionNode extends PaperNode {
     this.path.fillColor = '#b6d2dd';
     this.path.strokeColor = '#b6d2dd'
     this.path.strokeWidth = 2;
+    this.path.shadowColor = '#FFFFFF'
+    this.path.shadowBlur = 12
     this.group.addChild(this.path);
     this.text.bringToFront();
+    console.log('heres this , ', this)
+
   }
 
   registerEventListeners(toggleActive, toggleHover) {
@@ -34,7 +38,11 @@ class DefinitionNode extends PaperNode {
     },
 
     this.group.onClick = function(event){
-      //console.log('single click event was registered ', event)
+      console.log('single click event was registered ', event)
+      console.log('heres the group', this)
+      console.log('heres the shadowColor', this.ShadowColor)
+      this.shadowColor = "#ffff00";
+
     }
 
     this.group.onMouseEnter = function(event){

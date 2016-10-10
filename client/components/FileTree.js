@@ -9,6 +9,8 @@ const FileTree = React.createClass({
     if(this.props.activeRepo !== ""){
       window.document.getElementById('fileTree').className="left";
     }
+    console.log('In FunctionWeb  AAAAA')
+
   },
 
   //Plugs into TreeView API.

@@ -12,16 +12,15 @@ const FunctionTree = React.createClass({
       // window.document.getElementById('paper-container').style.visibility='visible';
     }
 
-    if(this.showHover()){
-      let hoverOnlyBox = window.document.getElementById('hover-only-box')
-    }
-
+    console.log('In FunctionWeb  AAAAA')
     console.log('heres showHover, ', this.showHover())
   },
 
   componentDidMount: function(){
     let canvas = document.getElementById('myCanvas');
     this.paper = new Paper(canvas, this.props.setActiveNodeId, this.props.setHoveredOverNodeId);
+        console.log('In FunctionWeb BBBBB')
+
   },
   // Active node holder
   holder : null,
@@ -36,6 +35,9 @@ const FunctionTree = React.createClass({
       }
       this.holder = nextProps.activeNodeId;
     }
+
+            console.log('In FunctionWeb  CCCCC')
+
   },
 
   showHover: function(){

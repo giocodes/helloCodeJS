@@ -29,6 +29,7 @@ class Node  {
 
         this.group.onClick = function(event){
             console.log('single click event was registered ', event)
+             console.log('heres the group', this)
         },
 
         this.group.onMouseEnter = function(event){
