@@ -38,6 +38,10 @@ class PaperNode  {
     this.outgoingDefinition = node.outgoingDefinition;
     this.incomingDefinition = node.incomingDefinition;
     this.nodeId = node.id;
+    //putting this on the group so I can access for highlighting purposes -Yi
+    this.group.nodeId = this.nodeId;
+    console.log('heres this in paperNode,' , this)
+    this.highlightedNodeId = this.project.highlightedNodeId;
   }
 
   /*registerEventListeners(toggleActive, toggleHover) {

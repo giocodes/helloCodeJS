@@ -72,6 +72,14 @@ export function setHoveredOverNodeId(hoveredOverNodeId){
   }
 }
 
+export function setHighlightedNodeId(highlightedNodeId){
+  return {
+    type: 'SET_HIGHLIGHTED_NODE_ID',
+    highlightedNodeId
+  }
+}
+
+
 export function doneHover(){
   return {
     type: 'DONE_HOVER',

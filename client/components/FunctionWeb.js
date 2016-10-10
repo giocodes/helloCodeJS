@@ -3,6 +3,7 @@ import React from 'react';
 import sampleData from '../data/sample-data';
 import Paper from './Paper';
 import HoverOver from './HoverOver';
+import paper from 'paper'
 
 const FunctionTree = React.createClass({
 
@@ -11,17 +12,14 @@ const FunctionTree = React.createClass({
       window.document.getElementById('paper-container').className='fadeinpanel';
       // window.document.getElementById('paper-container').style.visibility='visible';
     }
-
-    if(this.showHover()){
-      let hoverOnlyBox = window.document.getElementById('hover-only-box')
-    }
-
+    console.log('heres this ,', this)
+    console.log('heres this ', this.props.highlightedNodeId)
     console.log('heres showHover, ', this.showHover())
   },
 
   componentDidMount: function(){
     let canvas = document.getElementById('myCanvas');
-    this.paper = new Paper(canvas, this.props.setActiveNodeId, this.props.setHoveredOverNodeId);
+    this.paper = new Paper(canvas, this.props.setActiveNodeId, this.props.setHoveredOverNodeId, this.props.setHighlightedNodeId, this.props.highlightedNodeId);
   },
   // Active node holder
   holder : null,
@@ -34,8 +32,28 @@ const FunctionTree = React.createClass({
           this.paper.drawTree(nextProps.activeNodeId, nextProps.nodes);
         }
       }
+
       this.holder = nextProps.activeNodeId;
     }
+
+    if (this.paper.highlightedNodeId !== nextProps.highlightedNodeId){
+      this.clearHighlighting(nextProps.highlightedNodeId)
+    }
+
+  },
+
+    clearHighlighting: function(newHighlightedNodeId){
+      let activeLayer = this.paper.getActiveLayer();
+        // activeLayer.children.filter(child => return)
+      let groups = activeLayer.children.filter(child => child.constructor === paper.Group)
+      groups.forEach(group =>
+          {
+            if(group.nodeId !== newHighlightedNodeId){
+              group.children[0].shadowBlur = 0;
+            }
+          }
+      )
+
   },
 
   showHover: function(){

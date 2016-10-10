@@ -1,5 +1,5 @@
 class Node  {
-    constructor(project,node,origin,index, length, setActiveNodeIdFunc, setHoveredOverNodeIdFunc) {
+    constructor(project,node,origin,index, length, setActiveNodeIdFunc, setHoveredOverNodeIdFunc, setHighlightedNodeIdFunc) {
         // Wrap everything into a Group
 
         this.canvasCenter = project.view._viewSize._width/2
@@ -18,7 +18,7 @@ class Node  {
         this.group.nodeId = node.id;
         console.log('in node, ' , setActiveNodeIdFunc)
         //adding Doubleclick Event handler
-        this.registerEventListeners(setActiveNodeIdFunc, setHoveredOverNodeIdFunc);
+        this.registerEventListeners(setActiveNodeIdFunc, setHoveredOverNodeIdFunc, setHighlightedNodeIdFunc);
         this.renderShape(project);
     }
 
@@ -29,6 +29,7 @@ class Node  {
 
         this.group.onClick = function(event){
             console.log('single click event was registered ', event)
+             console.log('heres the group', this)
         },
 
         this.group.onMouseEnter = function(event){

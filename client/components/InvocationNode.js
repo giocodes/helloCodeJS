@@ -26,12 +26,15 @@ class InvocationNode extends PaperNode {
     this.path.fillColor = '#b6d2dd';
     this.path.strokeColor = '#b6d2dd'
     this.path.strokeWidth = 2;
+    // this.path.shadowColor = '#FFFFFF';
+    // this.path.shadowBlur = 12
     this.group.addChild(this.path);
     this.text.bringToFront();
+    this.group.highlighted = false;
     //this.group.addChild(this.circle);
   }
 
-  registerEventListeners(toggleActive, toggleHover) {
+  registerEventListeners(toggleActive, toggleHover, toggleHighlighted) {
 
     let thisNode = this;
 
@@ -40,7 +43,21 @@ class InvocationNode extends PaperNode {
     },
 
     this.group.onClick = function(event){
-      //console.log('single click event was registered ', event)
+      //first child is the path object
+      console.log('on click is working')
+      if(!(this.children[0].shadowBlur === 12)){
+        console.log('If on click is working')
+
+        this.children[0].shadowColor = '#ffff00';
+        this.children[0].shadowBlur = 12;
+        toggleHighlighted(thisNode.nodeId)
+
+      }
+      else{
+        console.log('else on click is working')
+        this.children[0].shadowBlur = 0;
+        toggleHighlighted(0)
+      }
     }
 
     this.group.onMouseEnter = function(event){

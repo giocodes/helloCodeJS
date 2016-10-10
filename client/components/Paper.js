@@ -6,13 +6,15 @@ import Edge from './Edge';
 
 class Paper {
 
-  constructor(canvas, toggleActiveFn, toggleHoverFn){
+  constructor(canvas, toggleActiveFn, toggleHoverFn, toggleHighlightedFn, highlightedNodeId){
     paper.setup(canvas);
     this.canvas = canvas;
     this.center = paper.project.view.center;
     this.activeNodes = [];
     this.toggleActive = toggleActiveFn;
     this.toggleHover = toggleHoverFn;
+    this.toggleHighlighted = toggleHighlightedFn;
+    this.highlightedNodeId = highlightedNodeId;
     this.topPadding = 30;
     this.maxNodeHeight = 60;
   }
@@ -21,6 +23,7 @@ class Paper {
     paper.project.clear();
     this.activeNodes = [];
   }
+
 
   //paperNode is a reference to a paperNode object which has the node props
   //as well as some position data
@@ -40,7 +43,7 @@ class Paper {
     let spacePerNode = this.calculateVerticalSpacePerNode(numOfEdges);
     let nodeHeight = spacePerNode * 0.7 <= this.maxNodeHeight ? spacePerNode * 0.7 : this.maxNodeHeight;
     let paddingTop = (spacePerNode - nodeHeight) / 2;
-    let currentY = paddingTop + this.topPadding; 
+    let currentY = paddingTop + this.topPadding;
 
     let horizOffsetValue = this.calculateHorizontalOffset();
     let horizontalOffset = isOutgoing ? horizOffsetValue : -horizOffsetValue;
@@ -55,7 +58,7 @@ class Paper {
 
     draw(connectedDefinitionNodes, false);
     draw(connectedBodyNodes, true);
-    
+
   }
 
   calculateVerticalSpacePerNode(numOfEdges){
@@ -80,7 +83,7 @@ class Paper {
       default:
         paperNode = null;
     }
-    paperNode.registerEventListeners(this.toggleActive, this.toggleHover);
+    paperNode.registerEventListeners(this.toggleActive, this.toggleHover, this.toggleHighlighted, this.props);
     paperNode.renderNode();
     return paperNode;
   }
@@ -90,6 +93,14 @@ class Paper {
     edge.draw();
   }
 
+  getActiveLayer(){
+    return paper.project.activeLayer
+
+  }
+
+  updateHighlightedNodeId(highlightedNodeId){
+    this.highlightedNodeId = highlightedNodeId;
+  }
   //TODO - Need a resize handler
 
 }
