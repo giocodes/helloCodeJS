@@ -113,7 +113,7 @@ const Code = React.createClass({
 
   render() {
     return(
-      <div>
+      <div className="half">
         <div id="code-title" className="">
           {this.props.activeFile}
         </div>
