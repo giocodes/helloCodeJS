@@ -11,18 +11,7 @@ import FunctionWeb from './FunctionWeb';
 import RepoSelector from './RepoSelector';
 
 const Main = React.createClass({
-  /** Yi's code to wire up the components */
-  getInitialState : function(){
-    return {toggledFuncID: null };
-  },
 
-  toggleActiveFunc : function(){
-  /** Need to rewire this to accept arbitrary id **/
-    // console.log('toggleActive Funct triggered!')
-    // console.log('heres the id we got\n', 25)
-    this.setState({toggledFuncID: 25})
-  },
-  /** end of Yi's code*/
   render (){
       // console.log('heres the current state \n', this.state)
     return(

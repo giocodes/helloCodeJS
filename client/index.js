@@ -3,7 +3,6 @@ import { render } from 'react-dom';
 
 //import components
 import App from './components/App';
-import Github from './components/github/main';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
