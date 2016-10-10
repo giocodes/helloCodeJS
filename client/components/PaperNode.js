@@ -16,8 +16,10 @@ class PaperNode  {
         fontSize: 15,
         justification: 'center'
     });
-    this.outgoingEdges = node.outgoingEdges;
-    this.incomingEdges = node.incomingEdges;
+    this.outgoingBody = node.outgoingBody;
+    this.incomingBody = node.incomingBody;
+    this.outgoingDefinition = node.outgoingDefinition;
+    this.incomingDefinition = node.incomingDefinition;
     this.nodeId = node.id;
   }
 

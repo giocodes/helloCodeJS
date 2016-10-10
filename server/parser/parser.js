@@ -292,13 +292,13 @@ const transferEdgesToNodes = function(){
 	// transfer incoming and outgoing edges to node objects
 	for (var key in edgesToBody) {
 		edgesToBody[key].forEach(function(node){
-			nodes[key-1].outgoingEdges.push(node)
-			nodes[node-1].incomingEdges.push(+key)
+			nodes[key-1].outgoingBody.push(node);
+			nodes[node-1].incomingBody.push(+key);
 		})
 	}
 	for (var key in edgesToDefinition) {
-		nodes[key-1].outgoingEdges.push(edgesToDefinition[key])
-		nodes[edgesToDefinition[key]-1].incomingEdges.push(+key)
+		nodes[key-1].outgoingDefinition.push(edgesToDefinition[key]);
+		nodes[edgesToDefinition[key]-1].incomingDefinition.push(+key);		
 	}
 
 };
