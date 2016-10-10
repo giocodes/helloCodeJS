@@ -60,15 +60,36 @@ body {
   width: 65%;
 }
 
-/*Options*/
-#options {
+/*Navbar Items*/
+.navbar-item {
 	float: right;
-  background-image: url(/options.png);
   width: 30px;
   height: 30px;
+  margin: 18px 5px;
   background-size: cover;
   background-repeat: no-repeat;
-  margin: 18px 0;
+  
+}
+#options{
+  background-image: url(/options.png);
+}
+#navbar-github{
+  background-image: url(/github.png);
+  &:hover {
+    background-image: url(/github-hover.png);
+  }
+}
+#navbar-share{
+  background-image: url(/share.svg);
+  &:hover{
+    background-image: url(/share-hover.svg);
+  }
+}
+#navbar-new{
+  background-image: url(/new.svg);
+  &:hover {
+    background-image: url(/new-hover.svg);
+  }
 }
 
 .form-control::-webkit-input-placeholder {
@@ -124,13 +145,13 @@ body {
     width: 15%;
     float: left;
     display: inline-block;
+    height: 89vh;
   }
   #fileTree:hover{
     margin-left :0px;
   }
   #code-container{
     width: 40%;
-    height: 89vh;
     padding-left: 5px;
     float: left;
     display: inline-block;
@@ -141,16 +162,23 @@ body {
       clear: both;
       text-align: center;
     }
-
     .CodeMirror{
       width: 100%;
-      height: 89vh;
       float: left;
+      height: 43vh; 
       .highlight{
         background-color: rgba(255, 255, 0, 0.3);
       }
     }
   }
+.half{
+  height: 43vh;
+  }
+.full{
+height: 89vh;
+}
+
+
   #paper-container{
     width: 59%;
     height: 89vh;

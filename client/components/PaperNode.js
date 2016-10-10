@@ -2,22 +2,41 @@
 class PaperNode  {
   //project is a reference to the project in paper this node will belong to
   //will be rendered at (xPos, yPos) in the canvas
-  constructor(paper, xPos, yPos, node) {
+  constructor(paper, xPos, yPos, node, nodeHeight, textPos) {
+    const widthHeightRatio = 1.25;
+    const paddingFromNodeToText = 7;
+    const fontSize = 15;
+    let textJustification = 'center';
+    let xTextOffset = 0; 
+    let yTextOffset = fontSize/2;
     this.project = paper;
     this.x = xPos;
     this.y = yPos;
-    this.group = new this.project.Group()
+    this.nodeHeight = nodeHeight;
+    this.nodeWidth = nodeHeight * widthHeightRatio;
+    this.group = new this.project.Group();
+    if (textPos === 'right') {
+      textJustification = 'left';
+      xTextOffset = this.nodeWidth/2 + paddingFromNodeToText;
+    } else if (textPos === 'left') {
+      textJustification = 'right';
+      xTextOffset = (this.nodeWidth*0.5 + paddingFromNodeToText) * -1;
+    } else {
+      yTextOffset = (this.nodeHeight/2 + paddingFromNodeToText) * -1;
+    }
     this.text = new this.project.PointText({
-        point: [this.x, this.y-5],
+        point: [this.x + xTextOffset, this.y + yTextOffset],
         content: node.name,
-        fillColor: '#000000',
+        fillColor: '#FFFFFF',
         //fontFamily: 'Arial, Helvetica, sans-serif',
         //fontWeight: 'bold',
-        fontSize: 15,
-        justification: 'center'
+        fontSize: fontSize,
+        justification: textJustification
     });
-    this.outgoingEdges = node.outgoingEdges;
-    this.incomingEdges = node.incomingEdges;
+    this.outgoingBody = node.outgoingBody;
+    this.incomingBody = node.incomingBody;
+    this.outgoingDefinition = node.outgoingDefinition;
+    this.incomingDefinition = node.incomingDefinition;
     this.nodeId = node.id;
     //putting this on the group so I can access for highlighting purposes -Yi
     this.group.nodeId = this.nodeId;
@@ -43,7 +62,7 @@ class PaperNode  {
   }*/
 
   static getHeight(){
-    return 20; //replace this at some point to better determine overall size
+    return this.nodeHeight; //replace this at some point to better determine overall size
   }
 }
 

@@ -11,18 +11,7 @@ import FunctionWeb from './FunctionWeb';
 import RepoSelector from './RepoSelector';
 
 const Main = React.createClass({
-  /** Yi's code to wire up the components */
-  getInitialState : function(){
-    return {toggledFuncID: null };
-  },
 
-  toggleActiveFunc : function(){
-  /** Need to rewire this to accept arbitrary id **/
-    // console.log('toggleActive Funct triggered!')
-    // console.log('heres the id we got\n', 25)
-    this.setState({toggledFuncID: 25})
-  },
-  /** end of Yi's code*/
   render (){
       // console.log('heres the current state \n', this.state)
     return(
@@ -35,12 +24,16 @@ const Main = React.createClass({
             <h3><Link to="/">helloCode.js</Link></h3>
           </div>
           {/*Repo Selector*/}
-          <div className="col-sm-10">
+          <div className="col-sm-9">
             <RepoSelector {...this.props}/>
           </div>
           {/*Options Selector*/}
-          <div className="col-sm-1">
-            <div id="options"></div>
+          <div className="col-sm-2">
+            <a href="https://github.com/giocodes/hellocodebase/">
+              <div id="navbar-github" className="navbar-item"></div>
+            </a>
+            <div id="navbar-share" className="navbar-item"></div>
+            <div id="navbar-new" className="navbar-item"></div>
           </div>
 
         </div>
@@ -54,6 +47,7 @@ const Main = React.createClass({
           {/*Code Mirror Container col-sm-5 col-lg-4*/}
           <div id="code-container" className="hidepanel">
               <Code {...this.props}/>
+              <Code {...this.props}/> 
           </div>
           {/*Paper Container col-sm-5 col-md-6 col-lg-7*/}
           <div id="paper-container" className="hidepanel">

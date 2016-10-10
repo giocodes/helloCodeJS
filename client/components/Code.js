@@ -11,11 +11,11 @@ const Code = React.createClass({
       window.document.getElementById('fileTree').className="overleft";
       window.document.getElementById('code-container').className='fadeinpanel';
       // window.document.getElementById('code-container').style.visibility='visible';
-    } 
+    }
   },
   componentWillReceiveProps(nextProps) {
 
-
+    this.notUpdating = false;
     let activeNode;
 
     if(nextProps.activeFileContent !== this.props.activeFileContent){
@@ -38,6 +38,8 @@ const Code = React.createClass({
         this.doc.removeLineClass(oldLineNum, "background", "highlight");
     }
 
+    this.notUpdating = true;
+
   },
 
   jumpToNode(e){
@@ -46,6 +48,8 @@ const Code = React.createClass({
   },
 
   componentDidMount() {
+
+    this.notUpdating = true;
 
     this.codeMirror = CodeMirror( // eslint-disable-line new-cap
       this.refs.container,
@@ -63,15 +67,16 @@ const Code = React.createClass({
     this.doc = this.codeMirror.getDoc();
 
     this.codeMirror.on('cursorActivity', ()=>{
-      let cursor = this.codeMirror.getCursor();
-      let foundId = this.findChosenNode(cursor.line+1, cursor.ch);
-      if(foundId > 0){
-        //this.doc.removeLineClass(this.props.activeNodeLoc.line-1, "background", "highlight");
-        this.props.setActiveNodeId(foundId);
-        let activeNode = this.props.nodes[foundId-1];
-        this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column})
+      if(this.notUpdating){
+        let cursor = this.codeMirror.getCursor();
+        let foundId = this.findChosenNode(cursor.line+1, cursor.ch);
+        if(foundId > 0){
+          //this.doc.removeLineClass(this.props.activeNodeLoc.line-1, "background", "highlight");
+          this.props.setActiveNodeId(foundId);
+          let activeNode = this.props.nodes[foundId-1];
+          this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column})
+        }
       }
-
     })
 
   },
@@ -108,14 +113,14 @@ const Code = React.createClass({
 
   render() {
     return(
-      <div>
+      <div className="half">
         <div id="code-title" className="">
           {this.props.activeFile}
         </div>
         <div ref="container">
         </div>
       </div>
-      
+
     )
   }
 });
