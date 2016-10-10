@@ -51,6 +51,8 @@ const Code = React.createClass({
 
     this.notUpdating = true;
 
+    this.isPrimary = this.props.isPrimary;
+
     this.codeMirror = CodeMirror( // eslint-disable-line new-cap
       this.refs.container,
       {
