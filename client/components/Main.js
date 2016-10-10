@@ -29,9 +29,11 @@ const Main = React.createClass({
           </div>
           {/*Options Selector*/}
           <div className="col-sm-2">
-            <div id="options" className="navbar-item"></div>
-            <div id="new-code" className="navbar-item"></div>
+            <a href="https://github.com/giocodes/hellocodebase/">
+              <div id="github-link" className="navbar-item"></div>
+            </a>
             <div id="share" className="navbar-item"></div>
+            <div id="new-code" className="navbar-item"></div>
           </div>
 
         </div>

@@ -49,6 +49,7 @@ class TreeView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    // When removing this line folders remain open, but Paper breaks
     this.setState({data: this.setNodeId(_.clone({nodes: nextProps.data}))});
   }
 

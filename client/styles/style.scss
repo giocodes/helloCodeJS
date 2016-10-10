@@ -75,11 +75,21 @@ body {
 }
 #new-code{
   background-image: url(/new.svg);
-  fill: #FFFFFF
+  &:hover {
+    background-image: url(/new-hover.svg);
+  }
 }
 #share{
   background-image: url(/share.svg);
-  fill: #FFFFFF
+  &:hover{
+    background-image: url(/share-hover.svg);
+  }
+}
+#github-link{
+  background-image: url(/github.png);
+  &:hover {
+    background-image: url(/github-hover.png);
+  }
 }
 
 .form-control::-webkit-input-placeholder {
