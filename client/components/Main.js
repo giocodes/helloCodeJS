@@ -24,12 +24,14 @@ const Main = React.createClass({
             <h3><Link to="/">helloCode.js</Link></h3>
           </div>
           {/*Repo Selector*/}
-          <div className="col-sm-10">
+          <div className="col-sm-9">
             <RepoSelector {...this.props}/>
           </div>
           {/*Options Selector*/}
-          <div className="col-sm-1">
-            <div id="options"></div>
+          <div className="col-sm-2">
+            <div id="options" className="navbar-item"></div>
+            <div id="new-code" className="navbar-item"></div>
+            <div id="share" className="navbar-item"></div>
           </div>
 
         </div>

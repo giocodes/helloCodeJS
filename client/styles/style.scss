@@ -60,15 +60,26 @@ body {
   width: 65%;
 }
 
-/*Options*/
-#options {
+/*Navbar Items*/
+.navbar-item {
 	float: right;
-  background-image: url(/options.png);
   width: 30px;
   height: 30px;
+  margin: 18px 5px;
   background-size: cover;
   background-repeat: no-repeat;
-  margin: 18px 0;
+  
+}
+#options{
+  background-image: url(/options.png);
+}
+#new-code{
+  background-image: url(/new.svg);
+  fill: #FFFFFF
+}
+#share{
+  background-image: url(/share.svg);
+  fill: #FFFFFF
 }
 
 .form-control::-webkit-input-placeholder {
