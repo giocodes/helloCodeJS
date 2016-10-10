@@ -49,7 +49,6 @@ class TreeView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    // When removing this line folders remain open, but Paper breaks
     this.setState({data: this.setNodeId(_.clone({nodes: nextProps.data}))});
   }
 
@@ -284,7 +283,7 @@ export class TreeNode extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {node: props.node};
+    this.state = {node: props.node, expanded: false};
     /*this.expanded = (props.node.state && props.node.state.hasOwnProperty('expanded')) ?
      props.node.state.expanded :
      (this.props.level < this.props.options.levels);*/
@@ -300,7 +299,7 @@ export class TreeNode extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({node: nextProps.node});
+    this.setState({node: nextProps.node, expanded: false});
     /*this.expanded = (nextProps.node.state && nextProps.node.state.hasOwnProperty('expanded')) ?
      nextProps.node.state.expanded :
      (this.props.level < this.props.options.levels);*/
