@@ -69,7 +69,7 @@ const FunctionTree = React.createClass({
     };
 
     return(
-        <div>
+        <div style={{height: "75vh"}}>
         <div id="paper-title" className="">
           Functions Web
         </div>
