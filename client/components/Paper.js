@@ -33,6 +33,7 @@ class Paper {
     paperNode.colorAsActive();
     this.drawConnectedNodes(paperNode, nodeList, true);
     this.drawConnectedNodes(paperNode, nodeList, false);
+    this.drawKey();
   }
 
   drawConnectedNodes(paperNode, nodeList, isOutgoing){
@@ -91,6 +92,17 @@ class Paper {
   drawEdge(fromPaperNode, toPaperNode, dashed){
     const edge = new Edge(paper, fromPaperNode, toPaperNode, dashed);
     edge.draw();
+  }
+
+  drawKey(){
+    const canvasHeight = paper.project.view.size.height;
+    const canvasWidth = paper.project.view.size.width;
+    let size = new paper.Size(200, 200)
+    let rectangle = new paper.Rectangle(new paper.Point(canvasWidth/2 - 100, canvasHeight - 200), size);
+    let path = new paper.Path.Rectangle(rectangle);
+    path.fillColor = '#b6d2dd';
+    path.strokeColor = '#b6d2dd'
+    path.strokeWidth = 2;
   }
 
   getActiveLayer(){

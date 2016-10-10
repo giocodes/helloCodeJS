@@ -180,9 +180,9 @@ describe('Parser', function () {
                 var exampleCode = {'samplepath': 'function a(){}; a(); a(); b();'};
                 var parsedExample = parser(exampleCode);
                 var definitionNode = parsedExample.nodes[0];
-                expect(definitionNode.incomingEdges.length).to.equal(2);
-                expect(definitionNode.incomingEdges.includes(2)).to.equal(true);
-                expect(definitionNode.incomingEdges.includes(3)).to.equal(true);
+                expect(definitionNode.incomingDefinition.length).to.equal(2);
+                expect(definitionNode.incomingDefinition.includes(2)).to.equal(true);
+                expect(definitionNode.incomingDefinition.includes(3)).to.equal(true);
             });
 
             it('determination of incoming edges between invocations and definitions respects scope', function(){
@@ -190,28 +190,28 @@ describe('Parser', function () {
                 var parsedExample = parser(exampleCode);
                 
                 var innerDefinition = parsedExample.nodes[1];
-                expect(innerDefinition.incomingEdges.length).to.equal(2);
-                expect(innerDefinition.incomingEdges.includes(3)).to.equal(true);
+                expect(innerDefinition.incomingDefinition.length).to.equal(1);
+                expect(innerDefinition.incomingDefinition.includes(3)).to.equal(true);
                 
                 var outerDefinition = parsedExample.nodes[3];
-                expect(outerDefinition.incomingEdges.length).to.equal(1);
-                expect(outerDefinition.incomingEdges.includes(5)).to.equal(true);
+                expect(outerDefinition.incomingDefinition.length).to.equal(1);
+                expect(outerDefinition.incomingDefinition.includes(5)).to.equal(true);
             });
 
             it('if function is defined within another function, it has an incoming edge from that function', function(){
                 var exampleCode = {'samplepath': 'function a(){ function b(){}};'};
                 var parsedExample = parser(exampleCode);
                 var definitionNode = parsedExample.nodes[1];
-                expect(definitionNode.incomingEdges.length).to.equal(1);
-                expect(definitionNode.incomingEdges.includes(1)).to.equal(true);
+                expect(definitionNode.incomingBody.length).to.equal(1);
+                expect(definitionNode.incomingBody.includes(1)).to.equal(true);
             });
 
             it('if function is invoked within another function, it has an incoming edge from that function', function(){
                 var exampleCode = {'samplepath': 'function a(){ b()};'};
                 var parsedExample = parser(exampleCode);
                 var invocationNode = parsedExample.nodes[1];
-                expect(invocationNode.incomingEdges.length).to.equal(1);
-                expect(invocationNode.incomingEdges.includes(1)).to.equal(true);
+                expect(invocationNode.incomingBody.length).to.equal(1);
+                expect(invocationNode.incomingBody.includes(1)).to.equal(true);
             });
 
         })
@@ -222,8 +222,8 @@ describe('Parser', function () {
                 var exampleCode = {'samplepath': 'function a(){}; a();'};
                 var parsedExample = parser(exampleCode);
                 var invocationNode = parsedExample.nodes[1];
-                expect(invocationNode.outgoingEdges.length).to.equal(1);
-                expect(invocationNode.outgoingEdges.includes(1)).to.equal(true);
+                expect(invocationNode.outgoingDefinition.length).to.equal(1);
+                expect(invocationNode.outgoingDefinition.includes(1)).to.equal(true);
             });
 
             it('determination of outgoing edges between invocations and definitions respects scope', function(){
@@ -231,28 +231,28 @@ describe('Parser', function () {
                 var parsedExample = parser(exampleCode);
                 
                 var innerInvocation = parsedExample.nodes[2];
-                expect(innerInvocation.outgoingEdges.length).to.equal(1);
-                expect(innerInvocation.outgoingEdges.includes(2)).to.equal(true);
+                expect(innerInvocation.outgoingDefinition.length).to.equal(1);
+                expect(innerInvocation.outgoingDefinition.includes(2)).to.equal(true);
                 
                 var outerInvocation = parsedExample.nodes[4];
-                expect(outerInvocation.outgoingEdges.length).to.equal(1);
-                expect(outerInvocation.outgoingEdges.includes(4)).to.equal(true);
+                expect(outerInvocation.outgoingDefinition.length).to.equal(1);
+                expect(outerInvocation.outgoingDefinition.includes(4)).to.equal(true);
             });
 
             it('if function is defined within another function definition, the outer function has an outgoing edge to the inner function', function(){
                 var exampleCode = {'samplepath': 'function a(){ function b(){}};'};
                 var parsedExample = parser(exampleCode);
                 var definitionNode = parsedExample.nodes[0];
-                expect(definitionNode.outgoingEdges.length).to.equal(1);
-                expect(definitionNode.outgoingEdges.includes(2)).to.equal(true);
+                expect(definitionNode.outgoingBody.length).to.equal(1);
+                expect(definitionNode.outgoingBody.includes(2)).to.equal(true);
             });
 
             it('if function is invoked within a function definition, the definition has an outgoing edge to the invocation', function(){
                 var exampleCode = {'samplepath': 'function a(){ b()};'};
                 var parsedExample = parser(exampleCode);
                 var definitionNode = parsedExample.nodes[0];
-                expect(definitionNode.outgoingEdges.length).to.equal(1);
-                expect(definitionNode.outgoingEdges.includes(2)).to.equal(true);
+                expect(definitionNode.outgoingBody.length).to.equal(1);
+                expect(definitionNode.outgoingBody.includes(2)).to.equal(true);
             });
 
         });
@@ -263,24 +263,24 @@ describe('Parser', function () {
                 var exampleCode = {'folder/samplepath1': 'var a = require("./samplepath2"); a();', 'folder/samplepath2': 'var a  = function(){}; module.exports = a;'};
                 var parsedExample = parser(exampleCode);
                 var invocationNode = parsedExample.nodes[1];
-                expect(invocationNode.outgoingEdges.length).to.equal(1);
-                expect(invocationNode.outgoingEdges.includes(3)).to.equal(true);
+                expect(invocationNode.outgoingDefinition.length).to.equal(1);
+                expect(invocationNode.outgoingDefinition.includes(3)).to.equal(true);
             });
 
             it('cross-file edges can be found when the ES6 named export module pattern is used', function(){
                 var exampleCode = {'folder/samplepath1': 'import {a} from "./samplepath2"; a();', 'folder/samplepath2': 'var a  = function(){}; export {a};'};
                 var parsedExample = parser(exampleCode);
                 var invocationNode = parsedExample.nodes[0];
-                expect(invocationNode.outgoingEdges.length).to.equal(1);
-                expect(invocationNode.outgoingEdges.includes(2)).to.equal(true);
+                expect(invocationNode.outgoingDefinition.length).to.equal(1);
+                expect(invocationNode.outgoingDefinition.includes(2)).to.equal(true);
             });
 
             it('cross-file edges can be found when the ES6 default export module pattern is used', function(){
                 var exampleCode = {'folder/samplepath1': 'import importedFunc from "./samplepath2"; importedFunc();', 'folder/samplepath2': 'export default function(){};'};
                 var parsedExample = parser(exampleCode);
                 var invocationNode = parsedExample.nodes[0];
-                expect(invocationNode.outgoingEdges.length).to.equal(1);
-                expect(invocationNode.outgoingEdges.includes(2)).to.equal(true);
+                expect(invocationNode.outgoingDefinition.length).to.equal(1);
+                expect(invocationNode.outgoingDefinition.includes(2)).to.equal(true);
             });
 
         });
