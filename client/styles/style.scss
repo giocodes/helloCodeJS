@@ -60,15 +60,36 @@ body {
   width: 65%;
 }
 
-/*Options*/
-#options {
+/*Navbar Items*/
+.navbar-item {
 	float: right;
-  background-image: url(/options.png);
   width: 30px;
   height: 30px;
+  margin: 18px 5px;
   background-size: cover;
   background-repeat: no-repeat;
-  margin: 18px 0;
+  
+}
+#options{
+  background-image: url(/options.png);
+}
+#navbar-github{
+  background-image: url(/github.png);
+  &:hover {
+    background-image: url(/github-hover.png);
+  }
+}
+#navbar-share{
+  background-image: url(/share.svg);
+  &:hover{
+    background-image: url(/share-hover.svg);
+  }
+}
+#navbar-new{
+  background-image: url(/new.svg);
+  &:hover {
+    background-image: url(/new-hover.svg);
+  }
 }
 
 .form-control::-webkit-input-placeholder {
