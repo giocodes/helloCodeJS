@@ -18,8 +18,8 @@ class Edge{
   draw(){
     let srcPt = new this.project.Point(this.src.x, this.src.y);
     let destPt = new this.project.Point(this.dest.x, this.dest.y);
-    let h1 = new this.project.Point(100, 0);
-    let h2 = new this.project.Point(-100, 0);
+    let h1 = new this.project.Point(80, 0);
+    let h2 = new this.project.Point(-80, 0);
 
     var r1seg = new this.project.Segment(srcPt, null, h1);
     var r2seg = new this.project.Segment(destPt, h2, null);
