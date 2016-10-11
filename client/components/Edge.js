@@ -28,7 +28,7 @@ class Edge{
     var connector = new this.project.Path(r1seg, r2seg);
     this.drawArrow(srcPt, destPt);
 
-    connector.strokeColor = 'black';
+    connector.strokeColor = '#FFF';
     connector.strokeWidth = 2;
     
     if (this.dash) {
@@ -43,7 +43,7 @@ class Edge{
   drawArrow(start, end){
     var headLength = 10;
     var headAngle = 135;
-    var arrowColor = 'black';
+    var arrowColor = '#FFF';
     
     var tailVector = new this.project.Point(end.x - start.x, end.y - start.y);
     var middle = new this.project.Point((end.x-start.x)/2 + start.x, (end.y-start.y)/2 + start.y);
