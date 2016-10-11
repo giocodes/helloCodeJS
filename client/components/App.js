@@ -23,7 +23,8 @@ function mapStateToProps(state) {
     isLoading: state.isLoading,
     highlightedFile: state.highlightedFile,
     highlightedFileContent: state.highlightedFileContent,
-    highlightedNodeLoc: state.highlightedNodeLoc
+    highlightedNodeLoc: state.highlightedNodeLoc,
+    mouseLoc: state.mouseLoc
   }
 }
 

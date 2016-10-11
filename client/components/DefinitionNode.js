@@ -27,7 +27,7 @@ class DefinitionNode extends PaperNode {
     this.text.bringToFront();
   }
 
-  registerEventListeners(toggleActive, toggleHover, toggleHighlighted) {
+  registerEventListeners(toggleActive, toggleHover, toggleHighlighted, toggleMouseLoc) {
 
     let thisNode = this;
     this.group.onDoubleClick = function(event){
@@ -54,6 +54,10 @@ class DefinitionNode extends PaperNode {
 
     this.group.onMouseLeave = function(event){
       toggleHover(0)
+    }
+
+    this.group.onMouseMove = function(event){
+      toggleMouseLoc(event.point);
     }
   }
 

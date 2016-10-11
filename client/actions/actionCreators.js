@@ -121,3 +121,11 @@ export function setHighlightedNodeLoc(highlightedNodeLoc){
     highlightedNodeLoc
   }
 }
+
+export function setMouseLoc(mouseLoc){
+  return {
+    type: 'SET_MOUSE_LOC',
+    mouseLoc
+  }
+}
+

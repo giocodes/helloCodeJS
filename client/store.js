@@ -28,7 +28,8 @@ const defaultState = {
   isLoading: false,
   highlightedFile: "",
   highlightedFileContent: "",
-  highlightedNodeLoc: {}
+  highlightedNodeLoc: {},
+  mouseLoc: {}
 };
 
 // const store = createStore(rootReducer, defaultState);
