@@ -8,11 +8,12 @@ class Edge{
   //project = a reference to the project object in paper
   //src = the source of the edge (PaperNode)
   //dest = the destination of the edge (PaperNode)
-  constructor(project, src, dest, dash){
+  constructor(project, src, dest, dash, toFront){
     this.project = project;
     this.src = src;
     this.dest = dest;
     this.dash = dash;
+    this.toFront = toFront;
   }
 
   draw(){
@@ -25,12 +26,40 @@ class Edge{
     var r2seg = new this.project.Segment(destPt, h2, null);
 
     var connector = new this.project.Path(r1seg, r2seg);
+    this.drawArrow(srcPt, destPt);
 
-    connector.strokeColor = 'black';
+    connector.strokeColor = '#FFF';
+    connector.strokeWidth = 2;
+    
     if (this.dash) {
       connector.dashArray = [10, 10]
     }
-    connector.sendToBack();
+
+    if (!this.toFront) {
+      connector.sendToBack();
+    }
+  }
+
+  drawArrow(start, end){
+    var headLength = 10;
+    var headAngle = 135;
+    var arrowColor = '#FFF';
+    
+    var tailVector = new this.project.Point(end.x - start.x, end.y - start.y);
+    var middle = new this.project.Point((end.x-start.x)/2 + start.x, (end.y-start.y)/2 + start.y);
+    //var tailLine = new this.project.Path.Line(start, end);
+    var headLine = tailVector.normalize(headLength);
+    var point1 = new this.project.Point(middle.x + headLine.rotate(headAngle).x, middle.y + headLine.rotate(headAngle).y);
+    var point2 = new this.project.Point(middle.x + headLine.rotate(-headAngle).x, middle.y + headLine.rotate(-headAngle).y);
+
+    var arrow = new this.project.Path([
+      point1,
+      middle,
+      point2
+    ]);
+
+    arrow.strokeColor = arrowColor;
+    arrow.strokeWidth = 2;
   }
 
 }
