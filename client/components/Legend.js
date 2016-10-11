@@ -7,13 +7,36 @@ const style = {
 
 class Legend{
   
-  constructor(project, canvasHeight, canvasWidth){
+  constructor(project, canvasHeight, canvasWidth, legendOn = true){
     this.project = project;
     this.canvasHeight = canvasHeight;
     this.canvasWidth = canvasWidth;
+    this.legendOn = legendOn;
+    this.group;
   }
 
-  draw(){
+  drawMin(){
+    const leftPos = this.canvasWidth/2 - 50;
+    const topPos = this.canvasHeight - 45;
+    let size = new this.project.Size(100, 40)
+    let rectangle = new this.project.Rectangle(new this.project.Point(leftPos, topPos), size);
+    let path = new this.project.Path.Rectangle(rectangle);
+    path.strokeColor = '#FFFFFF'
+    path.fillColor = '#4C4C4C'
+    path.strokeWidth = 2;
+
+    let text1 = new this.project.PointText({
+        point: [leftPos + 7, topPos + 24],
+        content: 'Show legend',
+        fillColor: '#FFFFFF',
+        fontSize: 15,
+        justification: 'left'
+    });
+
+    this.group = [text1, path];
+  }
+
+  drawFull(){
     const leftPos = this.canvasWidth/2 - 165;
     const topPos = this.canvasHeight - 180;
     let size = new this.project.Size(330, 175)
@@ -61,7 +84,7 @@ class Legend{
     edge1.draw();
     edge2.draw();
 
-    let text = new this.project.PointText({
+    let text1 = new this.project.PointText({
         point: [leftPos + 60, topPos + 35],
         content: 'definition',
         fillColor: '#FFFFFF',
@@ -110,6 +133,28 @@ class Legend{
         fontSize: 14,
         justification: 'left'
     });
+
+    this.group = [text1, text2, text3, text4, text5, text6, text7, edge1, edge2, path, definitionExPath, invocationExPath, activeExPath, secondaryExPath];
+  }
+
+  registerEventListeners(toggleKey) {
+
+    let thisNode = this;
+
+    this.group.onClick = function(event){
+      //first child is the path object
+      if(this.legendOn){
+        this.clearLegend();
+        this.drawMin();
+        toggleKey(this.legendOn);
+      }
+      else{
+        this.clearLegend();
+        this.drawFull();
+        toggleKey(this.legendOn);
+      }
+    }
+
   }
 
 }
