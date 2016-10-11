@@ -44,20 +44,28 @@ body {
 
 /*Branding*/
 #navbar{
-
+  background-color: #333;
+  margin-bottom: 10px;
 }
 
 /*Repo Selector*/
 
-#github-repo {
+.text-input {
   color: #eee;
   height: 40px;
-  margin: 15px 10px 12px 10%;
+  margin: 15px 10px 12px 0;
   border: none;
   font-size: 1.5em;
   outline: none;
-  background-color: #333;
-  width: 65%;
+  background-color: #4C4C4C;
+  width: 95%;
+  text-align: center;
+}
+#repo-title{
+  padding-top: 16px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
 }
 
 /*Navbar Items*/
@@ -65,11 +73,15 @@ body {
 	float: right;
   width: 30px;
   height: 30px;
-  margin: 18px 5px;
+  margin: 18px 10px;
   background-size: cover;
   background-repeat: no-repeat;
-
 }
+
+.no-display{
+  display:none;
+}
+
 #options{
   background-image: url(/options.png);
 }
@@ -85,6 +97,24 @@ body {
     background-image: url(/share-hover.svg);
   }
 }
+#floating-share{
+  position: absolute;
+  top: 50px;
+  left: -150px;
+  height: 25px;
+  width: 300px;
+  overflow: hidden;
+  background-color: #ffcc66;
+  color: #474747;
+  padding: 5px;
+    span {
+      white-space: nowrap;
+      font-weight: bold;
+      float: left;
+      width: 20px;
+    }
+}
+
 #navbar-new{
   background-image: url(/new.svg);
   &:hover {
@@ -141,6 +171,14 @@ body {
     -webkit-transition: opacity 1s;
   }
 
+  .panel-title{
+    background-color: #FFCC66;
+    color: black;
+    font-weight: bold;
+    clear: both;
+    text-align: center;
+  }
+
   #fileTree{
     width: 15%;
     float: left;
@@ -155,13 +193,6 @@ body {
     padding-left: 5px;
     float: left;
     display: inline-block;
-    #code-title{
-      background-color: #FFCC66;
-      color: black;
-      font-weight: bold;
-      clear: both;
-      text-align: center;
-    }
     .CodeMirror{
       width: 100%;
       float: left;
@@ -175,7 +206,8 @@ body {
     }
   }
 .half{
-  height: 43vh;
+  height: 41vh;
+  margin-bottom: 4vh;
   }
 .full{
 height: 89vh;
@@ -189,23 +221,11 @@ height: 89vh;
     overflow: hidden;
     float: none;
     display: inline-block;
-    #paper-title{
-      background-color: #FFCC66;
-      color: black;
-      font-weight: bold;
-      clear: both;
-      text-align: center;
-    }
   }
 }
 
 /*File Tree*/
 #fileTree{
-  #tree-title{
-    background-color: #FFCC66;
-    color: black;
-    font-weight: bold;
-  }
 
   ul {
     padding: 0;
