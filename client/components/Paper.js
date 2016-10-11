@@ -87,7 +87,7 @@ class Paper {
       default:
         paperNode = null;
     }
-    
+
     paperNode.registerEventListeners(this.toggleActive, this.toggleHover, this.toggleHighlighted, this.toggleMouseLoc);
     paperNode.renderNode();
     return paperNode;

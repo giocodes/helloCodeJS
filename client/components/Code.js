@@ -12,6 +12,7 @@ const Code = React.createClass({
       window.document.getElementById('code-container').className='fadeinpanel';
       // window.document.getElementById('code-container').style.visibility='visible';
     }
+
   },
   componentWillReceiveProps(nextProps) {
 
@@ -31,13 +32,18 @@ const Code = React.createClass({
       this.props.requestFile(activeNode.filePath);
       this.props.receiveFileContent(this.props.repoContents[activeNode.filePath]);
       this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
+      this.isPrimary ? this.codeMirrorClass = 'full' : this.codeMirrorClass ='no-display';
     }
 
-    if(!this.isPrimary && nextProps.highlightedNodeId !== this.props.highlightedNodeId){
+    if(nextProps.highlightedNodeId !== this.props.highlightedNodeId){
       activeNode = this.props.nodes[nextProps.highlightedNodeId-1];
-      this.props.setHighlightedFile(activeNode.filePath);
-      this.props.setHighlightedFileContent(this.props.repoContents[activeNode.filePath]);
-      this.props.setHighlightedNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
+      if(activeNode){
+        this.props.setHighlightedFile(activeNode.filePath);
+        this.props.setHighlightedFileContent(this.props.repoContents[activeNode.filePath]);
+        this.props.setHighlightedNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
+      }
+
+      this.codeMirrorClass ='half';
     }
 
     if(this.isPrimary && nextProps.activeNodeLoc !== this.props.activeNodeLoc){
@@ -105,6 +111,8 @@ const Code = React.createClass({
       }
     })
 
+    this.codeMirrorClass = this.isPrimary ? 'full' : 'no-display';
+
   },
 
   findChosenNode(line, ch){
@@ -137,13 +145,17 @@ const Code = React.createClass({
            (node.end.line == line && node.start.line < line && node.end.column >= ch));
   },
 
+  setClassName(str){
+    this.codeMirrorClass = str;
+  },
+
   render() {
     return(
-      <div className="half">
+      <div>
         <div className="panel-title">
           {this.isPrimary ? this.props.activeFile : this.props.highlightedFile}
         </div>
-        <div ref="container">
+        <div ref="container" className={this.codeMirrorClass}>
         </div>
       </div>
 
