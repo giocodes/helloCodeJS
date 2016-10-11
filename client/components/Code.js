@@ -32,15 +32,17 @@ const Code = React.createClass({
       this.props.requestFile(activeNode.filePath);
       this.props.receiveFileContent(this.props.repoContents[activeNode.filePath]);
       this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
-      //ATTEMPT TO DESELECT HIGHLIGHTED NODE
       this.isPrimary ? this.codeMirrorClass = 'full' : this.codeMirrorClass ='no-display';
     }
 
     if(nextProps.highlightedNodeId !== this.props.highlightedNodeId){
       activeNode = this.props.nodes[nextProps.highlightedNodeId-1];
-      this.props.setHighlightedFile(activeNode.filePath);
-      this.props.setHighlightedFileContent(this.props.repoContents[activeNode.filePath]);
-      this.props.setHighlightedNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
+      if(activeNode){
+        this.props.setHighlightedFile(activeNode.filePath);
+        this.props.setHighlightedFileContent(this.props.repoContents[activeNode.filePath]);
+        this.props.setHighlightedNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
+      }
+
       this.codeMirrorClass ='half';
     }
 

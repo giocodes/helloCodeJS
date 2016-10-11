@@ -49,9 +49,9 @@ class TreeView extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('In TreeView  AAAAA')
+    //console.log('In TreeView  AAAAA')
 
-    this.setState({data: this.setNodeId(_.clone({nodes: nextProps.data}))});
+    //this.setState({data: this.setNodeId(_.clone({nodes: nextProps.data}))});
   }
 
   setNodeId(node) {
