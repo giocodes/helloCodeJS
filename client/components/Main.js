@@ -12,6 +12,11 @@ import RepoSelector from './RepoSelector';
 
 const Main = React.createClass({
 
+  // Handler to reset the app through the navbar
+  reloadHome : function(){
+    window.location.reload(true)
+  },
+
   render (){
       // console.log('heres the current state \n', this.state)
     return(
@@ -21,7 +26,7 @@ const Main = React.createClass({
         <div id="navbar" className="col-sm-12">
           {/*Branding*/}
           <div className="col-sm-1 row">
-            <h3><Link to="/">helloCode.js</Link></h3>
+            <h3><a href="/" onClick={this.reloadHome}>helloCode.js</a></h3>
           </div>
           {/*Repo Selector*/}
           <div className="col-sm-9">
@@ -33,7 +38,10 @@ const Main = React.createClass({
               <div id="navbar-github" className="navbar-item"></div>
             </a>
             <div id="navbar-share" className="navbar-item"></div>
-            <div id="navbar-new" className="navbar-item"></div>
+            <a href="/" onClick={this.reloadHome}>
+              <div id="navbar-new" className="navbar-item"></div>
+            </a>
+            
           </div>
         </div>
 

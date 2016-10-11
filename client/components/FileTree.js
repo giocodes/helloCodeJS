@@ -66,7 +66,7 @@ const FileTree = React.createClass({
 
 
 
-    return (<div>No repo selected.</div>)
+    return (<div></div>)
 
   }
 });

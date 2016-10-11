@@ -1,5 +1,6 @@
 //RepoSelector.js
 import React from 'react';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 const RepoSelector = React.createClass({
   componentDidMount(){
@@ -13,8 +14,9 @@ const RepoSelector = React.createClass({
 
   handleSubmit(e){
     e.preventDefault();
-
     let repo = this.refs.repo.value;
+    console.log(repo)
+    browserHistory.push('/?repo='+repo)
     this.fetchRepo(repo);
   },
   fetchRepo(repoUrl){
@@ -28,6 +30,10 @@ const RepoSelector = React.createClass({
       this.props.receiveRepoContents(repoObj.code);
       this.props.receiveNodes(repoObj.nodes);
       this.props.toggleLoading(false);
+      this.props.location.query = {
+        repo : 'http',
+        done : true
+      }
     })
   },
 
