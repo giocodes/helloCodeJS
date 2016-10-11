@@ -35,7 +35,6 @@ const Main = React.createClass({
             <div id="navbar-share" className="navbar-item"></div>
             <div id="navbar-new" className="navbar-item"></div>
           </div>
-
         </div>
 
         {/*Panels Container*/}
@@ -53,11 +52,7 @@ const Main = React.createClass({
           <div id="paper-container" className="hidepanel">
               <FunctionWeb {...this.props} />
           </div>
-
         </div>
-
-
-
       </div>
     )
   }
