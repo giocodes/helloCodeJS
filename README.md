@@ -6,12 +6,24 @@ Ever gotten frustrated with trying to figure out what a function did in an unfam
 Written by Chris Cook, Sergio "Gio" Gomez, Kevin Hurley, and Yi Chao from Fullstack Academy Chicago.
 
 ### The Latest Version
-
+To do later
 
 ### Documentation
+1. Enter github repository url into the URL bar on the top middle. __(make sure it's a valid URL)__
+2. A File Tree will appear, __double click__ the javascript file of interest or the folder icon containing your file of interest. The Active Node code window will appear with your selected javascript file.
+3. Double click the function invocation or function declaration of interest. The web graph will appear with your selected function in the middle.
+4. Using the graph
+      - Double-clicking a node will make it the new active node. The web graph and active code window will rerender with the new selection.
+      - Single-click a node to open a secondary code window and examine the associated code with that node. The secondary node will be highlighted to show its association with the secondary code window.
 
 ### Installation
-
+- Git fork or clone the repository into your desired folder
+```sh
+$ cd hellocodebase
+$ npm install
+$ npm start
+```
+- Go to http://localhost:7770/ in your browser
 
 ### Technology
 HelloCodeJS uses a number of open source projects to work properly:
