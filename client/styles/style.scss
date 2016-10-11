@@ -68,7 +68,7 @@ body {
   margin: 18px 5px;
   background-size: cover;
   background-repeat: no-repeat;
-  
+
 }
 #options{
   background-image: url(/options.png);
@@ -165,9 +165,12 @@ body {
     .CodeMirror{
       width: 100%;
       float: left;
-      height: 43vh; 
+      height: 43vh;
       .highlight{
         background-color: rgba(255, 255, 0, 0.3);
+      }
+      .highlight_other{
+        background-color: rgba(138, 255, 61, 0.3);
       }
     }
   }

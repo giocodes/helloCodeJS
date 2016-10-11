@@ -18,18 +18,29 @@ const Code = React.createClass({
     this.notUpdating = false;
     let activeNode;
 
-    if(nextProps.activeFileContent !== this.props.activeFileContent){
+    if(this.isPrimary && nextProps.activeFileContent !== this.props.activeFileContent){
       this.codeMirror.setValue(nextProps.activeFileContent);
     }
 
-    if(nextProps.activeNodeId !== this.props.activeNodeId){
+    if(!this.isPrimary && nextProps.highlightedFileContent !== this.props.highlightedFileContent){
+      this.codeMirror.setValue(nextProps.highlightedFileContent);
+    }
+
+    if(this.isPrimary && nextProps.activeNodeId !== this.props.activeNodeId){
       activeNode = this.props.nodes[nextProps.activeNodeId-1];
       this.props.requestFile(activeNode.filePath);
       this.props.receiveFileContent(this.props.repoContents[activeNode.filePath]);
       this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
     }
 
-    if(nextProps.activeNodeLoc !== this.props.activeNodeLoc){
+    if(!this.isPrimary && nextProps.highlightedNodeId !== this.props.highlightedNodeId){
+      activeNode = this.props.nodes[nextProps.highlightedNodeId-1];
+      this.props.setHighlightedFile(activeNode.filePath);
+      this.props.setHighlightedFileContent(this.props.repoContents[activeNode.filePath]);
+      this.props.setHighlightedNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
+    }
+
+    if(this.isPrimary && nextProps.activeNodeLoc !== this.props.activeNodeLoc){
       this.codeMirror.scrollIntoView(nextProps.activeNodeLoc);
       const newLineNum = nextProps.activeNodeLoc.line-1;
       const oldLineNum = this.props.activeNodeLoc.line-1;
@@ -38,18 +49,34 @@ const Code = React.createClass({
         this.doc.removeLineClass(oldLineNum, "background", "highlight");
     }
 
+    if(!this.isPrimary && nextProps.highlightedNodeLoc !== this.props.highlightedNodeLoc){
+      this.codeMirror.scrollIntoView(nextProps.highlightedNodeLoc);
+      const newLineNum = nextProps.highlightedNodeLoc.line-1;
+      const oldLineNum = this.props.highlightedNodeLoc.line-1;
+      this.doc.addLineClass(newLineNum, "background", "highlight_other");
+      if(!_.isEmpty(this.props.highlightedNodeLoc) && newLineNum !== oldLineNum)
+        this.doc.removeLineClass(oldLineNum, "background", "highlight_other");
+    }
+
     this.notUpdating = true;
 
   },
 
-  jumpToNode(e){
-    e.preventDefault();
-    this.props.setActiveNodeId(+this.refs.selectedNode.value);
-  },
 
   componentDidMount() {
 
     this.notUpdating = true;
+
+    this.isPrimary = this.props.isPrimary;
+
+    this.setActiveFile = this.isPrimary ?
+      this.props.activeFile : this.props.highlightedFile;
+    this.setActiveFileContent = this.isPrimary ?
+      this.props.activeFileContent : this.props.highlightedFileContent;
+    this.setActiveNodeId = this.isPrimary ?
+      this.props.setActiveNodeId : this.props.sethighlightedNodeId;
+    this.setActiveNodeLoc = this.isPrimary ?
+      this.props.setActiveNodeLoc : this.props.sethighlightedNodeLoc;
 
     this.codeMirror = CodeMirror( // eslint-disable-line new-cap
       this.refs.container,
@@ -71,10 +98,9 @@ const Code = React.createClass({
         let cursor = this.codeMirror.getCursor();
         let foundId = this.findChosenNode(cursor.line+1, cursor.ch);
         if(foundId > 0){
-          //this.doc.removeLineClass(this.props.activeNodeLoc.line-1, "background", "highlight");
-          this.props.setActiveNodeId(foundId);
+          this.setActiveNodeId(foundId);
           let activeNode = this.props.nodes[foundId-1];
-          this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column})
+          this.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column})
         }
       }
     })
@@ -98,7 +124,7 @@ const Code = React.createClass({
       return foundNodes[0];
     }
 
-    return this.props.activeNodeId;
+    return this.isPrimary ? this.props.activeNodeId : this.props.highlightedNodeId;
 
   },
 
@@ -115,7 +141,7 @@ const Code = React.createClass({
     return(
       <div className="half">
         <div id="code-title" className="">
-          {this.props.activeFile}
+          {this.isPrimary ? this.props.activeFile : this.props.highlightedFile}
         </div>
         <div ref="container">
         </div>

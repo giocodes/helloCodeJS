@@ -37,7 +37,7 @@ class DefinitionNode extends PaperNode {
     this.group.onClick = function(event){
       //first child is the path object
       if(!(this.children[0].shadowBlur === 12)){
-        this.children[0].shadowColor = '#ffff00';
+        this.children[0].shadowColor = '#8aff3d';
         this.children[0].shadowBlur = 12;
         toggleHighlighted(thisNode.nodeId)
       }
