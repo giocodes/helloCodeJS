@@ -25,7 +25,10 @@ const defaultState = {
   highlightedNodeId: 0,
   hoveredOverNodeId: 0,
   activeNodeLoc: {},
-  isLoading: false
+  isLoading: false,
+  highlightedFile: "",
+  highlightedFileContent: "",
+  highlightedNodeLoc: {}
 };
 
 // const store = createStore(rootReducer, defaultState);

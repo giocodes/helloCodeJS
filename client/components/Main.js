@@ -45,8 +45,8 @@ const Main = React.createClass({
           </div>
           {/*Code Mirror Container col-sm-5 col-lg-4*/}
           <div id="code-container" className="hidepanel">
-              <Code {...this.props}/>
-              <Code {...this.props}/> 
+              <Code isPrimary={true} {...this.props}/>
+              <Code isPrimary={false} {...this.props}/>
           </div>
           {/*Paper Container col-sm-5 col-md-6 col-lg-7*/}
           <div id="paper-container" className="hidepanel">
