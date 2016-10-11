@@ -12,14 +12,13 @@ const FunctionTree = React.createClass({
       window.document.getElementById('paper-container').className='fadeinpanel';
       // window.document.getElementById('paper-container').style.visibility='visible';
     }
-    console.log('heres this ,', this)
-    console.log('heres this ', this.props.highlightedNodeId)
-    console.log('heres showHover, ', this.showHover())
+    console.log('heres mouse Loc in fnweb ,', this.props.mouseLoc)
+    console.log('heres this.props in fnweb', this.props)
   },
 
   componentDidMount: function(){
     let canvas = document.getElementById('myCanvas');
-    this.paper = new Paper(canvas, this.props.setActiveNodeId, this.props.setHoveredOverNodeId, this.props.setHighlightedNodeId, this.props.highlightedNodeId);
+    this.paper = new Paper(canvas, this.props.setActiveNodeId, this.props.setHoveredOverNodeId, this.props.setHighlightedNodeId, this.props.highlightedNodeId, this.props.setMouseLoc);
   },
   // Active node holder
   holder : null,

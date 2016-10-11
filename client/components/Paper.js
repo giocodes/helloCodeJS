@@ -6,7 +6,7 @@ import Edge from './Edge';
 
 class Paper {
 
-  constructor(canvas, toggleActiveFn, toggleHoverFn, toggleHighlightedFn, highlightedNodeId){
+  constructor(canvas, toggleActiveFn, toggleHoverFn, toggleHighlightedFn, highlightedNodeId, toggleMouseLocFn){
     paper.setup(canvas);
     this.canvas = canvas;
     this.center = paper.project.view.center;
@@ -15,6 +15,7 @@ class Paper {
     this.toggleHover = toggleHoverFn;
     this.toggleHighlighted = toggleHighlightedFn;
     this.highlightedNodeId = highlightedNodeId;
+    this.toggleMouseLoc = toggleMouseLocFn;
     this.topPadding = 30;
     this.maxNodeHeight = 60;
   }
@@ -83,7 +84,10 @@ class Paper {
       default:
         paperNode = null;
     }
-    paperNode.registerEventListeners(this.toggleActive, this.toggleHover, this.toggleHighlighted, this.props);
+    console.log('we are drawing nodes heres this in paper constructor', this)
+    console.log('Heres the mouseLoc Fn in this ', this.toggleMouseLoc)
+
+    paperNode.registerEventListeners(this.toggleActive, this.toggleHover, this.toggleHighlighted, this.toggleMouseLoc);
     paperNode.renderNode();
     return paperNode;
   }

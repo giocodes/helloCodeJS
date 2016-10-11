@@ -34,7 +34,7 @@ class InvocationNode extends PaperNode {
     //this.group.addChild(this.circle);
   }
 
-  registerEventListeners(toggleActive, toggleHover, toggleHighlighted) {
+  registerEventListeners(toggleActive, toggleHover, toggleHighlighted, toggleMouseLoc) {
 
     let thisNode = this;
 
@@ -44,10 +44,7 @@ class InvocationNode extends PaperNode {
 
     this.group.onClick = function(event){
       //first child is the path object
-      console.log('on click is working')
       if(!(this.children[0].shadowBlur === 12)){
-        console.log('If on click is working')
-
         this.children[0].shadowColor = '#8aff3d';
         this.children[0].shadowBlur = 12;
         toggleHighlighted(thisNode.nodeId)
@@ -65,9 +62,13 @@ class InvocationNode extends PaperNode {
     }
 
     this.group.onMouseLeave = function(event){
-    console.log('we are done hovering', this.nodeId)
     toggleHover(0)
     }
+
+    this.group.onMouseMove = function(event){
+      toggleMouseLoc(event.point);
+    }
+
   }
 
   colorAsActive(){
