@@ -24,7 +24,7 @@ const HoverOver = React.createClass({
           position: "absolute",
           opacity: 0.5,
           margin: "auto",
-          top: this.props.mouseLoc.y,
+          top: this.props.mouseLoc.y + 40,
           left: this.props.mouseLoc.x + totalWidth
     };
     let hoveredOverNode = this.props.nodes[this.props.hoveredOverNodeId-1]
