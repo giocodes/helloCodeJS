@@ -17,7 +17,13 @@ To do later
       - Single-click a node to open a secondary code window and examine the associated code with that node. The secondary node will be highlighted to show its association with the secondary code window.
 
 ### Installation
-To do later
+- Git fork or clone the repository into your desired folder
+```sh
+$ cd hellocodebase
+$ npm install
+$ npm start
+```
+- Go to http://localhost:7770/ in your browser
 
 ### Technology
 HelloCodeJS uses a number of open source projects to work properly:
