@@ -72,7 +72,7 @@ const FunctionTree = React.createClass({
 
         <div style={{height:"75vh"}}>
 
-        <div id="paper-title" className="">
+        <div className="panel-title">
           Functions Web
         </div>
             <canvas id="myCanvas"></canvas>

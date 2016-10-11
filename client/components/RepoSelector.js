@@ -4,11 +4,12 @@ import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
 const RepoSelector = React.createClass({
   componentDidMount(){
-    console.log('did update')
     if (this.props.location.query.repo){
-      console.log(this.props.location.query);
     this.fetchRepo(this.props.location.query.repo);
-    // window.document.getElementById('repo-title').innerHTML = "Repo"
+    window.document.getElementById('githubForm').className="no-display";
+    window.document.getElementById("repo-title").className="col-sm-12";
+    // Todo: enable omnibox
+    // window.document.getElementById("omniBox").className="col-sm-4";
     }
   },
 
@@ -30,24 +31,37 @@ const RepoSelector = React.createClass({
       this.props.receiveRepoContents(repoObj.code);
       this.props.receiveNodes(repoObj.nodes);
       this.props.toggleLoading(false);
-      this.props.location.query = {
-        repo : 'http',
-        done : true
-      }
+      window.document.getElementById('githubForm').className ="no-display";
+      window.document.getElementById("repo-title").className="col-sm-12";
     })
+  },
+
+  omniBoxSearch(){
+    // Search a function, line, activeNode...
   },
 
   render() {
     return (
       <div>
-      <h2 id="repo-title"></h2>
-      <form ref="usernameForm" onSubmit={this.handleSubmit}>
-        <div className="form-group">
-          <input autoComplete="off" id="github-repo" className="form-control" type="text" ref="repo" placeholder="Enter Github repo URL"/>
-          <input type="submit" hidden />
-        </div>
-      </form>
-        
+      <div id="repo-title" className="col-sm-12 no-display">
+        {this.props.activeRepo.substr(18)}
+      </div>
+      <div id="omniBox" className="col-sm-4 no-display">
+        <form ref="omniBox" onSubmit={this.omniBox}>
+          <div className="form-group">
+            <input autoComplete="off" id="" className="form-control text-input" type="text" ref="omniBox" placeholder="Search"/>
+            <input type="submit" hidden />
+          </div>
+        </form>
+      </div> 
+      <div id="githubForm" className="">
+        <form ref="usernameForm" onSubmit={this.handleSubmit}>
+          <div className="form-group">
+            <input autoComplete="off" id="github-repo" className="form-control text-input" type="text" ref="repo" placeholder="Enter Github repo URL"/>
+            <input type="submit" hidden />
+          </div>
+        </form>
+      </div>
       </div>
 
     )
