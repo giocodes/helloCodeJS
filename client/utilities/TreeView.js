@@ -285,7 +285,7 @@ export class TreeNode extends React.Component {
 
   constructor(props) {
     super(props);
-    this.state = {node: props.node, expanded: false};
+    this.state = {node: props.node};
     /*this.expanded = (props.node.state && props.node.state.hasOwnProperty('expanded')) ?
      props.node.state.expanded :
      (this.props.level < this.props.options.levels);*/
@@ -301,7 +301,7 @@ export class TreeNode extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.setState({node: nextProps.node, expanded: false});
+    this.setState({node: nextProps.node});
     /*this.expanded = (nextProps.node.state && nextProps.node.state.hasOwnProperty('expanded')) ?
      nextProps.node.state.expanded :
      (this.props.level < this.props.options.levels);*/
