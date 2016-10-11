@@ -17,7 +17,7 @@ const FunctionTree = React.createClass({
 
   componentDidMount: function(){
     let canvas = document.getElementById('myCanvas');
-    this.paper = new Paper(canvas, this.props.setActiveNodeId, this.props.setHoveredOverNodeId, this.props.setHighlightedNodeId, this.props.highlightedNodeId, this.props.setMouseLoc);
+    this.paper = new Paper(canvas, this.props.setActiveNodeId, this.props.setHoveredOverNodeId, this.props.setHighlightedNodeId, this.props.highlightedNodeId, this.props.setMouseLoc, this.props.setToggleLegend);
   },
   // Active node holder
   holder : null,
@@ -68,7 +68,7 @@ const FunctionTree = React.createClass({
 
     return(
 
-        <div style={{height:"75vh"}}>
+        <div style={{height:"82vh"}}>
 
         <div className="panel-title">
           Functions Web

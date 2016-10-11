@@ -129,3 +129,10 @@ export function setMouseLoc(mouseLoc){
   }
 }
 
+export function setToggleLegend(legendOn){
+  return {
+    type: 'TOGGLE_LEGEND',
+    legendOn
+  }
+}
+

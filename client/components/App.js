@@ -24,7 +24,8 @@ function mapStateToProps(state) {
     highlightedFile: state.highlightedFile,
     highlightedFileContent: state.highlightedFileContent,
     highlightedNodeLoc: state.highlightedNodeLoc,
-    mouseLoc: state.mouseLoc
+    mouseLoc: state.mouseLoc,
+    toggleLegend: state.toggleLegend
   }
 }
 

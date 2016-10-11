@@ -29,7 +29,8 @@ const defaultState = {
   highlightedFile: "",
   highlightedFileContent: "",
   highlightedNodeLoc: {},
-  mouseLoc: {}
+  mouseLoc: {},
+  toggleLegend: true
 };
 
 // const store = createStore(rootReducer, defaultState);
