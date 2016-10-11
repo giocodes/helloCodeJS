@@ -21,8 +21,9 @@ import highlightedFile from './highlightedFile';
 import highlightedFileContent from './highlightedFileContent';
 import highlightedNodeLoc from './highlightedNodeLoc';
 import mouseLoc from './mouseLoc'
+import toggleLegend from './toggleLegend'
 
-const rootReducer = combineReducers({nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, activeNodeLoc, isLoading, hoveredOverNodeId, highlightedNodeId, highlightedFile, highlightedFileContent, highlightedNodeLoc, mouseLoc, routing: routerReducer });
+const rootReducer = combineReducers({nodes, username, repos, activeRepo, repoContents, activeFile, activeFileContent, activeNodeId, activeNodeLoc, isLoading, hoveredOverNodeId, highlightedNodeId, highlightedFile, highlightedFileContent, highlightedNodeLoc, mouseLoc, toggleLegend, routing: routerReducer });
 
 export default rootReducer;
 

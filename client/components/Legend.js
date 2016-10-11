@@ -1,5 +1,6 @@
 //Key.js
 import Edge from './Edge';
+import store from '../store.js'
 
 const style = {
 
@@ -7,15 +8,24 @@ const style = {
 
 class Legend{
   
-  constructor(project, canvasHeight, canvasWidth, legendOn = true){
+  constructor(project, canvasHeight, canvasWidth, toggleLegend){
     this.project = project;
     this.canvasHeight = canvasHeight;
     this.canvasWidth = canvasWidth;
-    this.legendOn = legendOn;
-    this.group;
+    this.toggleLegend = toggleLegend;
+    this.legendOn = true;
+  }
+
+  draw(){
+    if (store.getState().toggleLegend) {
+        this.drawFull();
+    } else {
+        this.drawMin();
+    }
   }
 
   drawMin(){
+    this.legendOn = false;
     const leftPos = this.canvasWidth/2 - 50;
     const topPos = this.canvasHeight - 45;
     let size = new this.project.Size(100, 40)
@@ -33,10 +43,23 @@ class Legend{
         justification: 'left'
     });
 
-    this.group = [text1, path];
+    this.group = [path, text1];
+    
+    text1.onClick = (e) => {
+        this.clearLegend();
+        this.toggleLegend(this.legendOn);
+        this.drawFull();
+    };
+    path.onClick = (e) => {
+        this.clearLegend();
+        this.toggleLegend(this.legendOn);
+        this.drawFull();
+    };
+
   }
 
   drawFull(){
+    this.legendOn = true;
     const leftPos = this.canvasWidth/2 - 165;
     const topPos = this.canvasHeight - 180;
     let size = new this.project.Size(330, 175)
@@ -79,8 +102,8 @@ class Legend{
     let src2 = {x: leftPos+18, y: topPos+150};
     let dest2 = {x: leftPos+80, y: topPos+150};
 
-    const edge1 = new Edge(this.project, src1, dest1, false, true);
-    const edge2 = new Edge(this.project, src2, dest2, true, true);
+    let edge1 = new Edge(this.project, src1, dest1, false, true);
+    let edge2 = new Edge(this.project, src2, dest2, true, true);
     edge1.draw();
     edge2.draw();
 
@@ -133,29 +156,28 @@ class Legend{
         fontSize: 14,
         justification: 'left'
     });
+    let text8 = new this.project.PointText({
+        point: [leftPos + 313, topPos + 22],
+        content: 'x',
+        fillColor: '#FFFFFF',
+        fontSize: 19,
+        justification: 'left'
+    });
 
-    this.group = [text1, text2, text3, text4, text5, text6, text7, edge1, edge2, path, definitionExPath, invocationExPath, activeExPath, secondaryExPath];
-  }
-
-  registerEventListeners(toggleKey) {
-
-    let thisNode = this;
-
-    this.group.onClick = function(event){
-      //first child is the path object
-      if(this.legendOn){
+    text8.onClick = (e) => {
         this.clearLegend();
+        this.toggleLegend(this.legendOn);
         this.drawMin();
-        toggleKey(this.legendOn);
-      }
-      else{
-        this.clearLegend();
-        this.drawFull();
-        toggleKey(this.legendOn);
-      }
-    }
-
+    };
+    this.group = [text1, text2, text3, text4, text5, text6, text7, text8, edge1, edge2, path, definitionExPath, invocationExPath, activeExPath, secondaryExPath];
   }
+
+  clearLegend(){
+    this.group.forEach(item=>{
+        item.remove();
+    });
+  }
+
 
 }
 

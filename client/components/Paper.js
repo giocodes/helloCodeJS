@@ -7,12 +7,12 @@ import Legend from './Legend';
 
 class Paper {
 
-  constructor(canvas, toggleActiveFn, toggleHoverFn, toggleHighlightedFn, highlightedNodeId, toggleMouseLocFn, toggleKeyFn){
+  constructor(canvas, toggleActiveFn, toggleHoverFn, toggleHighlightedFn, highlightedNodeId, toggleMouseLocFn, toggleLegendFn){
     paper.setup(canvas);
     this.canvas = canvas;
     this.center = paper.project.view.center;
     this.activeNodes = [];
-    this.toggleKey = toggleKeyFn;
+    this.toggleLegend = toggleLegendFn;
     this.toggleActive = toggleActiveFn;
     this.toggleHover = toggleHoverFn;
     this.toggleHighlighted = toggleHighlightedFn;
@@ -36,7 +36,7 @@ class Paper {
     paperNode.colorAsActive();
     this.drawConnectedNodes(paperNode, nodeList, true);
     this.drawConnectedNodes(paperNode, nodeList, false);
-    this.drawKey();
+    this.drawLegend();
   }
 
   drawConnectedNodes(paperNode, nodeList, isOutgoing){
@@ -87,9 +87,7 @@ class Paper {
       default:
         paperNode = null;
     }
-    console.log('we are drawing nodes heres this in paper constructor', this)
-    console.log('Heres the mouseLoc Fn in this ', this.toggleMouseLoc)
-
+    
     paperNode.registerEventListeners(this.toggleActive, this.toggleHover, this.toggleHighlighted, this.toggleMouseLoc);
     paperNode.renderNode();
     return paperNode;
@@ -100,12 +98,11 @@ class Paper {
     edge.draw();
   }
 
-  drawKey(){
+  drawLegend(){
     const canvasHeight = paper.project.view.size.height;
     const canvasWidth = paper.project.view.size.width;
-    const legend = new Legend(paper, canvasHeight, canvasWidth);
-    legend.registerEventListeners(this.toggleKey);
-    legend.drawMin();
+    const legend = new Legend(paper, canvasHeight, canvasWidth, this.toggleLegend);
+    legend.draw();
   }
 
   getActiveLayer(){
