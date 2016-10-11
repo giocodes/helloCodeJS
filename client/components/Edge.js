@@ -14,6 +14,8 @@ class Edge{
     this.dest = dest;
     this.dash = dash;
     this.toFront = toFront;
+    this.path;
+    this.arrow;
   }
 
   draw(){
@@ -38,6 +40,8 @@ class Edge{
     if (!this.toFront) {
       connector.sendToBack();
     }
+
+    this.path = connector;
   }
 
   drawArrow(start, end){
@@ -60,6 +64,12 @@ class Edge{
 
     arrow.strokeColor = arrowColor;
     arrow.strokeWidth = 2;
+    this.arrow = arrow;
+  }
+
+  remove(){
+    this.path.remove();
+    this.arrow.remove();
   }
 
 }
