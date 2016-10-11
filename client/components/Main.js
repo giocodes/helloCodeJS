@@ -12,19 +12,36 @@ import RepoSelector from './RepoSelector';
 
 const Main = React.createClass({
 
+  componentDidMount(){
+    console.log(this.props.location.pathname);
+    // window.document.getElementById('floating-share').innerHTML = window.location.href;
+    window.document.getElementById('share-input').innerHTML = window.location.href;
+  },
+
+  // Handler to reset the app through the navbar
+  reloadHome(){
+    window.location.reload(true)
+  },
+  toggleShare(e){
+    let shareLinkDiv = window.document.getElementById('floating-share');
+    let activeClass = shareLinkDiv.className;
+    if (activeClass === 'no-display') {shareLinkDiv.className = ''} 
+      else {shareLinkDiv.className='no-display'}
+  },
+
   render (){
       // console.log('heres the current state \n', this.state)
     return(
       // Main Cointainer
       <div className="row">
         {/*Navbar Container*/}
-        <div id="navbar" className="col-sm-12">
+        <div id="navbar" className="col-sm-12 row">
           {/*Branding*/}
-          <div className="col-sm-1 row">
-            <h3><Link to="/">helloCode.js</Link></h3>
+          <div className="col-sm-2">
+            <h3><a href="/" onClick={this.reloadHome}>helloCode.js</a></h3>
           </div>
           {/*Repo Selector*/}
-          <div className="col-sm-9">
+          <div className="col-sm-8">
             <RepoSelector {...this.props}/>
           </div>
           {/*Options Selector*/}
@@ -32,8 +49,18 @@ const Main = React.createClass({
             <a href="https://github.com/giocodes/hellocodebase/">
               <div id="navbar-github" className="navbar-item"></div>
             </a>
-            <div id="navbar-share" className="navbar-item"></div>
-            <div id="navbar-new" className="navbar-item"></div>
+            <div id="navbar-share" className="navbar-item" onClick={this.toggleShare}>
+            <div id="floating-share" className="no-display">
+              <span className="glyphicon glyphicon-duplicate"></span>
+              <span id="share-input"></span>
+            </div>
+            </div>
+
+
+            <a href="/" onClick={this.reloadHome}>
+              <div id="navbar-new" className="navbar-item"></div>
+            </a>
+            
           </div>
         </div>
 

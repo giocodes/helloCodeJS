@@ -46,8 +46,8 @@ const FileTree = React.createClass({
     else if(this.props.activeRepo.length > 0){
       return(
         <div>
-          <div id="tree-title" className="">
-            {this.props.activeRepo.substr(18)}
+          <div id="tree-title" className="panel-title">
+            File Tree
           </div>
           <TreeView
             {...this.props}
@@ -66,7 +66,7 @@ const FileTree = React.createClass({
 
 
 
-    return (<div>No repo selected.</div>)
+    return (<div></div>)
 
   }
 });

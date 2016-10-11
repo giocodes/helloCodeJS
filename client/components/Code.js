@@ -140,7 +140,7 @@ const Code = React.createClass({
   render() {
     return(
       <div className="half">
-        <div id="code-title" className="">
+        <div className="panel-title">
           {this.isPrimary ? this.props.activeFile : this.props.highlightedFile}
         </div>
         <div ref="container">
