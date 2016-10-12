@@ -1,11 +1,19 @@
-const checkForImportExport = function(node, pathString, esModuleImports, esModuleExports){
+const nodeChecker = require('./nodeChecker.js');
+const buildNode = require('./nodeCreator.js');
+
+const checkForImportExport = function(node, pathString, esModuleImports, esModuleExports, scope, idCounter){
 	// log import/export info if node is an ES6 module import/export statement
+	let createdNode;
 	if (node.type === 'ImportDeclaration') {
 		logEsmImports(node, pathString, esModuleImports);
+	}
+	else if (node.type === 'ExportDefaultDeclaration' && nodeChecker.isNodeDefinition(node.declaration)) {
+		createdNode = buildNode(idCounter, node.declaration, node, pathString, scope);
 	}
 	else if (node.type === 'ExportNamedDeclaration' || node.type === 'ExportDefaultDeclaration') {
 		logEsmExports(node, pathString, esModuleExports);
 	}
+	return createdNode;
 };
 
 const logEsmImports = function(node, pathString, esModuleImports){

@@ -4,7 +4,7 @@ const babelCore = require('babel-core');
 const traverseAST = require('./traverseAST.js');
 const edges = require('./edges.js');
 
-const analyzeFiles = function(javascriptFiles, framework){
+const analyzeFiles = function(javascriptFiles){
 
 	const files = Object.assign({}, javascriptFiles),
 		esModuleImports = {},
