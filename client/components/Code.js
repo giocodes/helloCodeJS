@@ -29,14 +29,17 @@ const Code = React.createClass({
       this.codeMirror.setValue(nextProps.highlightedFileContent);
     }
 
-    if(this.isPrimary && nextProps.activeNodeId !== this.props.activeNodeId){
+    // took this off: this.isPrimary && 
+    if(nextProps.activeNodeId !== this.props.activeNodeId){
       activeNode = this.props.nodes[nextProps.activeNodeId-1];
       this.props.requestFile(activeNode.filePath);
       this.props.receiveFileContent(this.props.repoContents[activeNode.filePath]);
       this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
+      // console.log(this.isPrimary)
+      this.codeMirrorClass = this.isPrimary ? 'full' : 'no-display';
       // Update address bar URL to match activeNodeID
       browserHistory.push('/?repo='+ this.props.location.query.repo +'&activeNodeId='+activeNode.id)
-      this.isPrimary ? this.codeMirrorClass = 'full' : this.codeMirrorClass ='no-display';
+      //
     }
 
     if(nextProps.highlightedNodeId !== this.props.highlightedNodeId){
