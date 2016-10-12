@@ -41,7 +41,7 @@ const HoverOver = React.createClass({
 
     return(
         <div id="hover-only-box" style={hoverOverStyle}>
-            <div> Name: <strong>{funcName}   </strong> ▶︎ Incoming: <strong>{funcNumbIncNodes}</strong> ◀︎ Outgoing: <strong>{funcNumbOutNodes}</strong> </div>
+            <div>Incoming: <strong>{funcNumbIncNodes} ︎<span>◀</span> </strong> Name: <strong>{funcName}</strong> <span>▶</span> ︎ Outgoing: <strong>{funcNumbOutNodes}</strong> </div>
             <div> Source File: <strong>{funcFilePath}</strong> </div>
         </div>
 
