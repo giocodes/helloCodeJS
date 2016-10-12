@@ -1,4 +1,16 @@
-const Node = require('./nodeConstructor'); 
+const Node = require('./nodeConstructor');
+const nodeChecker = require('./nodeChecker.js'); 
+
+const buildNode = function(id, node, parent, pathString, scope){
+	let createdNode;
+	if (nodeChecker.isNodeDefinition(node)) {
+		createdNode = createDefinitionNode(id, node, parent, pathString, scope);
+	} 
+	else if (nodeChecker.isNodeInvocation(node)) {
+		createdNode = createInvocationNode(id, node, parent, pathString, scope);
+	}
+	return createdNode;
+};
 
 // function that creates nodes for function declarations and expressions
 const createDefinitionNode = function(id, node, parent, pathString, scope){
@@ -95,4 +107,5 @@ const createInvocationNode = function(id, node, parent, pathString, scope){
 	return createdNode;
 };
 
-module.exports = {createDefinitionNode, createInvocationNode};
+module.exports = buildNode;
+
