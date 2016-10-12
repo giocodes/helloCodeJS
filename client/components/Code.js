@@ -154,9 +154,12 @@ const Code = React.createClass({
   },
 
   render() {
+    let greenTitle = {
+        backgroundColor:'#459045'
+      };
     return(
       <div>
-        <div className="panel-title">
+        <div className="panel-title" style={this.isPrimary ? null : greenTitle}>
           {this.isPrimary ? this.props.activeFile : this.props.highlightedFile}
         </div>
         <div ref="container" className={this.codeMirrorClass}>
