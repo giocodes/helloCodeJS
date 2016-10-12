@@ -34,7 +34,7 @@ const Main = React.createClass({
       // Main Cointainer
       <div className="row">
         {/*Navbar Container*/}
-        <div id="navbar" className="col-sm-12 row">
+        <div id="navbar" className="col-sm-12">
           {/*Branding*/}
           <div className="col-sm-2">
             <h3><a href="/" onClick={this.reloadHome}>helloCode.js</a></h3>

@@ -31,15 +31,16 @@ body {
 // Root Container
 #root {
     // background-image: url(/login-page-background.svg),linear-gradient(180deg,#4C4C4C,#333);
-    background-image: linear-gradient(180deg,#4C4C4C,#333);
+    background-image: linear-gradient(180deg, #4C4C4C, #333);
     background-position: 50%;
     min-height: 100vh;
-    width: 100vw;
-    padding: 0 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    overflow: hidden;
+    /* width: 99%; */
+    /* padding: 0 20px; */
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+    /* z-index: 1; */
 }
 
 /*Branding*/
@@ -209,17 +210,17 @@ body {
     }
   }
 .half{
-  height: 41vh;
-  margin-bottom: 2vh;
+  height: 42.5vh;
+  margin-bottom: 1vh;
   }
 .full{
-height: 89vh;
+height: 88vh;
 }
 
 
   #paper-container{
     width: 59%;
-    height: 89vh;
+    height: 88vh;
     padding-left: 10px;
     overflow: hidden;
     float: none;
