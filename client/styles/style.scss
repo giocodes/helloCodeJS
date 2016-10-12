@@ -5,6 +5,7 @@ $theme-background-2: #333;
 $theme-highlight-1: #FFCC66;
 $theme-highlight-2: #eac25e;
 $theme-text: #eee;
+// Green for second code mirror is #459045
 
 @mixin background-color($color){
   background-color: $color
