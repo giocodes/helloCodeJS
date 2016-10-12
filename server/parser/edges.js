@@ -82,7 +82,10 @@ const doObjectsMatch = function(inv, def){
 };
 
 const getModuleExport = function(sourceFile){
-	return /module\.exports\s*\=\s*([\w\$]+)/.exec(sourceFile)[1];
+	const moduleExportMatch = /module\.exports\s*\=\s*([\w\$]+)/.exec(sourceFile);
+	if (moduleExportMatch){
+		return moduleExportMatch[1];
+	}
 };
 
 const getSourcePath = function(invocation, currentFile, importData){
