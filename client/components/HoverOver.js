@@ -16,30 +16,33 @@ const HoverOver = React.createClass({
     // console.log('heres the respective widths for file tree and code container ,', offsetWidthFileTree, offsetWidthCodeContainer)
 
     let hoverOverStyle = {
-          backgroundColor: "#FF4500",
-          //#FF4500  #7ec0ee
-          // need to figure out how to make it 100% (percentage instead of pixels)
-          width: 400,
-          height: 90,
-          position: "absolute",
-          opacity: 0.5,
-          margin: "auto",
-          top: this.props.mouseLoc.y + 60,
-          left: this.props.mouseLoc.x + totalWidth
+      backgroundColor: "#b6d2dd",
+      //#FF4500  #7ec0ee
+      // need to figure out how to make it 100% (percentage instead of pixels)
+      width: "400px",
+      /* height: 90px, */
+      position: "absolute",
+      opacity: 0.9,
+      margin: "auto",
+      top: this.props.mouseLoc.y + 60,
+      left: this.props.mouseLoc.x + (totalWidth/2),
+      color: "#474747",
+      textAlign: "center",
+      borderRadius: "5px"
     };
     let hoveredOverNode = this.props.nodes[this.props.hoveredOverNodeId-1]
     let funcName = hoveredOverNode.name,
         funcType = hoveredOverNode.type,
-        funcFilePath = hoveredOverNode.filePath,
-        funcNumbIncNodes = hoveredOverNode.incomingEdges.length,
-        funcNumbOutNodes = hoveredOverNode.outgoingEdges.length;
+        funcFilePath = '...'+hoveredOverNode.filePath.substr(-35),
+        funcNumbIncNodes = hoveredOverNode.incomingEdges.length + hoveredOverNode.incomingDefinition.length,
+        funcNumbOutNodes = hoveredOverNode.outgoingEdges.length + hoveredOverNode.outgoingDefinition.length,
+        funcScope = hoveredOverNode.scope;
+        // console.log(hoveredOverNode);
 
     return(
         <div id="hover-only-box" style={hoverOverStyle}>
-            <div> Func Name: {funcName} </div>
-            <div> File Path: {funcFilePath} </div>
-           <div> Numb Incoming Edges: {funcNumbIncNodes} </div>
-           <div> Numb Outgoing Edges: {funcNumbOutNodes} </div>
+            <div> Name: <strong>{funcName}   </strong> ▶︎ Incoming: <strong>{funcNumbIncNodes}</strong> ◀︎ Outgoing: <strong>{funcNumbOutNodes}</strong> </div>
+            <div> Source File: <strong>{funcFilePath}</strong> </div>
         </div>
 
     )

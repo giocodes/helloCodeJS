@@ -5,6 +5,7 @@ $theme-background-2: #333;
 $theme-highlight-1: #FFCC66;
 $theme-highlight-2: #eac25e;
 $theme-text: #eee;
+// Green for second code mirror is #459045
 
 @mixin background-color($color){
   background-color: $color
@@ -31,15 +32,16 @@ body {
 // Root Container
 #root {
     // background-image: url(/login-page-background.svg),linear-gradient(180deg,#4C4C4C,#333);
-    background-image: linear-gradient(180deg,#4C4C4C,#333);
+    background-image: linear-gradient(180deg, #4C4C4C, #333);
     background-position: 50%;
     min-height: 100vh;
-    width: 100vw;
-    padding: 0 20px;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
+    overflow: hidden;
+    /* width: 99%; */
+    /* padding: 0 20px; */
+    /* position: absolute; */
+    /* top: 0; */
+    /* left: 0; */
+    /* z-index: 1; */
 }
 
 /*Branding*/
@@ -98,19 +100,22 @@ body {
   }
 }
 #floating-share{
-  position: absolute;
-  top: 50px;
-  left: -150px;
-  height: 25px;
-  width: 300px;
-  overflow: hidden;
-  background-color: #ffcc66;
-  color: #474747;
-  padding: 5px;
+    height: 48px;
+    width: 480px;
+    position: absolute;
+    top: 10px;
+    right: 120px;
+    font-size: 12px;
+    overflow: hidden;
+    background-color: #b6d2dd;
+    color: #474747;
+    padding: 5px;
+    z-index: 1;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    text-align: center;
+    border-radius: 5px;
     span {
-      white-space: nowrap;
-      font-weight: bold;
-      float: left;
       width: 20px;
     }
 }
@@ -206,17 +211,17 @@ body {
     }
   }
 .half{
-  height: 41vh;
-  margin-bottom: 4vh;
+  height: 42.5vh;
+  margin-bottom: 1vh;
   }
 .full{
-height: 89vh;
+height: 88vh;
 }
 
 
   #paper-container{
     width: 59%;
-    height: 89vh;
+    height: 88vh;
     padding-left: 10px;
     overflow: hidden;
     float: none;

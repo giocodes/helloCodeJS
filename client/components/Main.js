@@ -12,8 +12,7 @@ import RepoSelector from './RepoSelector';
 
 const Main = React.createClass({
 
-  componentDidMount(){
-    console.log(this.props.location.pathname);
+  componentDidUpdate(){
     // window.document.getElementById('floating-share').innerHTML = window.location.href;
     window.document.getElementById('share-input').innerHTML = window.location.href;
   },
@@ -35,7 +34,7 @@ const Main = React.createClass({
       // Main Cointainer
       <div className="row">
         {/*Navbar Container*/}
-        <div id="navbar" className="col-sm-12 row">
+        <div id="navbar" className="col-sm-12">
           {/*Branding*/}
           <div className="col-sm-2">
             <h3><a href="/" onClick={this.reloadHome}>helloCode.js</a></h3>
@@ -50,10 +49,10 @@ const Main = React.createClass({
               <div id="navbar-github" className="navbar-item"></div>
             </a>
             <div id="navbar-share" className="navbar-item" onClick={this.toggleShare}>
+            </div>
             <div id="floating-share" className="no-display">
               <span className="glyphicon glyphicon-duplicate"></span>
               <span id="share-input"></span>
-            </div>
             </div>
 
 

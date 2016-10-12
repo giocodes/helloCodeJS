@@ -16,9 +16,13 @@ const RepoSelector = React.createClass({
   handleSubmit(e){
     e.preventDefault();
     let repo = this.refs.repo.value;
-    console.log(repo)
     browserHistory.push('/?repo='+repo)
     this.fetchRepo(repo);
+  },
+  fetchActiveNode(){
+    if(this.props.location.query.activeNodeId){
+      this.props.setActiveNodeId(this.props.location.query.activeNodeId);
+    }
   },
   fetchRepo(repoUrl){
     this.props.requestRepoContents(repoUrl);
@@ -33,6 +37,7 @@ const RepoSelector = React.createClass({
       this.props.toggleLoading(false);
       window.document.getElementById('githubForm').className ="no-display";
       window.document.getElementById("repo-title").className="col-sm-12";
+      this.fetchActiveNode();
     })
   },
 
