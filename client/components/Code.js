@@ -1,8 +1,10 @@
 //Code.js
 import React from 'react';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 import _ from 'lodash';
 // This module below is how we are getting syntax highlighting!
 require('codemirror/mode/javascript/javascript');
+// Then this is the CodeMirror library
 const CodeMirror = require('codemirror');
 
 const Code = React.createClass({
@@ -32,6 +34,8 @@ const Code = React.createClass({
       this.props.requestFile(activeNode.filePath);
       this.props.receiveFileContent(this.props.repoContents[activeNode.filePath]);
       this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
+      // Update address bar URL to match activeNodeID
+      browserHistory.push('/?repo='+ this.props.location.query.repo +'&activeNodeId='+activeNode.id)
       this.isPrimary ? this.codeMirrorClass = 'full' : this.codeMirrorClass ='no-display';
     }
 

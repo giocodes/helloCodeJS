@@ -16,7 +16,6 @@ const RepoSelector = React.createClass({
   handleSubmit(e){
     e.preventDefault();
     let repo = this.refs.repo.value;
-    console.log(repo)
     browserHistory.push('/?repo='+repo)
     this.fetchRepo(repo);
   },
