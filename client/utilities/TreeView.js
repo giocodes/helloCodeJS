@@ -298,6 +298,7 @@ export class TreeNode extends React.Component {
     this.newNodeForm = this.newNodeForm.bind(this);
     this.addNode = this.addNode.bind(this);
     this.removeNode = this.removeNode.bind(this);
+    this.performNodeAction = this.performNodeAction.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -324,6 +325,13 @@ export class TreeNode extends React.Component {
   doubleClicked(event) {
     let selected = !this.props.node.state.selected;
     this.props.onNodeDoubleClicked(this.state.node.nodeId, selected);
+    event.stopPropagation();
+  }
+
+  performNodeAction(event) {
+    //if there are children nodes, expand the node.
+    //else - invoke double click, which should open the file
+    this.state.node.nodes ? this.toggleExpanded(event) : this.doubleClicked(event);
     event.stopPropagation();
   }
 
@@ -427,7 +435,9 @@ export class TreeNode extends React.Component {
     }
     else {
       nodeText = (
-          <span style={treeviewSpanStyle}> {node.text} </span>
+          <span style={treeviewSpanStyle}
+          onClick={this.performNodeAction}>
+          {node.text} </span>
       )
     }
 
