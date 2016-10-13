@@ -37,6 +37,7 @@ const Code = React.createClass({
       this.props.setActiveNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
       // console.log(this.isPrimary)
       this.codeMirrorClass = this.isPrimary ? 'full' : 'no-display';
+      this.showFullCM = true;
       // Update address bar URL to match activeNodeID
       browserHistory.push('/?repo='+ this.props.location.query.repo +'&activeNodeId='+activeNode.id)
       //
@@ -49,12 +50,14 @@ const Code = React.createClass({
         this.props.setHighlightedFileContent(this.props.repoContents[activeNode.filePath]);
         this.props.setHighlightedNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
       }
-
+      this.showFullCM = false;
       this.codeMirrorClass ='half';
     }
 
     if(this.isPrimary && nextProps.activeNodeLoc !== this.props.activeNodeLoc){
-      this.codeMirror.scrollIntoView(nextProps.activeNodeLoc);
+      // TODO: Offset view
+      // this.codeMirror.scrollIntoView({line: nextProps.activeNodeLoc.line -2, ch: nextProps.activeNodeLoc.ch});
+      this.codeMirror.scrollIntoView(nextProps.activeNodeLoc.line);
       const newLineNum = nextProps.activeNodeLoc.line-1;
       const oldLineNum = this.props.activeNodeLoc.line-1;
       this.doc.addLineClass(newLineNum, "background", "highlight");
@@ -63,6 +66,8 @@ const Code = React.createClass({
     }
 
     if(!this.isPrimary && nextProps.highlightedNodeLoc !== this.props.highlightedNodeLoc){
+      // TODO: Offset view
+      // this.codeMirror.scrollIntoView({line: nextProps.highlightedNodeLoc.line -2, ch: nextProps.highlightedNodeLoc.ch});
       this.codeMirror.scrollIntoView(nextProps.highlightedNodeLoc);
       const newLineNum = nextProps.highlightedNodeLoc.line-1;
       const oldLineNum = this.props.highlightedNodeLoc.line-1;
@@ -79,8 +84,8 @@ const Code = React.createClass({
   componentDidMount() {
 
     this.notUpdating = true;
-
     this.isPrimary = this.props.isPrimary;
+    this.showFullCM = true;
 
     this.setActiveFile = this.isPrimary ?
       this.props.activeFile : this.props.highlightedFile;
@@ -164,8 +169,10 @@ const Code = React.createClass({
       };
     return(
       <div>
-        <div className="panel-title" style={this.isPrimary ? null : greenTitle}>
-          {this.isPrimary ?  
+        <div className={ !this.showFullCM ? "panel-title" :
+          !this.isPrimary ? "no-display" : "panel-title"}
+        style={this.isPrimary ? null : greenTitle}>
+          {this.isPrimary ? 
             activePath.length > 50 ? '..' + activePath.substr(-55) : activePath :
             highlightPath.length > 50 ? '..' + highlightPath.substr(-55) : highlightPath
           }
