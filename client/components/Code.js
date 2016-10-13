@@ -157,13 +157,18 @@ const Code = React.createClass({
   },
 
   render() {
+    let activePath = this.props.activeFile;
+    let highlightPath = this.props.highlightedFile;
     let greenTitle = {
         backgroundColor:'#459045'
       };
     return(
       <div>
         <div className="panel-title" style={this.isPrimary ? null : greenTitle}>
-          {this.isPrimary ? this.props.activeFile : this.props.highlightedFile}
+          {this.isPrimary ?  
+            activePath.length > 50 ? '..' + activePath.substr(-55) : activePath :
+            highlightPath.length > 50 ? '..' + highlightPath.substr(-55) : highlightPath
+          }
         </div>
         <div ref="container" className={this.codeMirrorClass}>
         </div>

@@ -2,10 +2,10 @@
 $font-stack:    Helvetica, sans-serif;
 $theme-background-1: #4C4C4C;
 $theme-background-2: #333;
-$theme-highlight-1: #FFCC66; //Main Yellow
-$theme-highlight-2: #eac25e;
+$theme-highlight-1: #FFCC66; // Main Yellow
+$theme-highlight-2: #eac25e; // Darker Yello
+$theme-highlight-3: #459045; // Green
 $theme-text: #eee;
-// Green for second code mirror is #459045
 
 @mixin background-color($color){
   background-color: $color
@@ -159,6 +159,7 @@ body {
     margin-left :0;
     -webkit-transition: margin-left 1s; /* Safari */
     transition: margin-left 1s;
+    background-position: 110% 50%;
   }
   .overleft{
     margin-left: -15.5%;
@@ -216,6 +217,9 @@ body {
       width: 100%;
       float: left;
       height: 100%;
+      border-left: 1px solid $theme-highlight-1;
+      border-right: 1px solid $theme-highlight-1;
+      border-bottom: 1px solid $theme-highlight-1;
       .highlight{
         background-color: rgba(255, 255, 0, 0.3);
       }
