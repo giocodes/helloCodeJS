@@ -50,10 +50,7 @@ const Code = React.createClass({
         this.props.setHighlightedFileContent(this.props.repoContents[activeNode.filePath]);
         this.props.setHighlightedNodeLoc({line: activeNode.start.line, ch: activeNode.start.column});
       }
-
-      console.log(this.showFullCM)
       this.showFullCM = false;
-      console.log(this.showFullCM)
       this.codeMirrorClass ='half';
     }
 
