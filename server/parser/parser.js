@@ -1,12 +1,12 @@
 const esprima = require('esprima');
 const babelCore = require('babel-core');
 
-const traverseAST = require('./traverseAST.js');
+const traverseTreeAndCreateNodes = require('./traverseAST.js');
 const edges = require('./edges.js');
 
-const analyzeFiles = function(javascriptFiles){
+const parser = function(javascriptFiles){
 
-	const files = Object.assign({}, javascriptFiles),
+	const files = copyFiles(javascriptFiles),
 		esModuleImports = {},
 		esModuleExports = {},
 		edgesToBody = {}, // join table between function definitions/invocations and definitions/invocations within them
@@ -15,19 +15,19 @@ const analyzeFiles = function(javascriptFiles){
 
 	// run through each file fed into function to find nodes and same-file edges
 	for (let filePath in files) {	
-		const ast = parseFileToAST(filePath, files);
+		const ast = convertFileToTree(filePath, files);
 		if (!ast) {continue;}
 		esModuleImports[filePath] = {};
 		esModuleExports[filePath] = {};
-		traverseAST(ast, filePath, nodes, edgesToBody, esModuleImports, esModuleExports);
+		traverseTreeAndCreateNodes(ast, filePath, nodes, edgesToBody, esModuleImports, esModuleExports);
 	}
-	edges.findEdges(nodes, files, edgesToBody, edgesToDefinition, esModuleImports, esModuleExports);
-	edges.transferEdgesToNodes(nodes, edgesToBody, edgesToDefinition);
+	edges.findConnections(nodes, files, edgesToBody, edgesToDefinition, esModuleImports, esModuleExports);
+	edges.transferConnectionsToNodes(nodes, edgesToBody, edgesToDefinition);
 
 	return {nodes, code:files};
 };
 
-const parseFileToAST = function(filePath, files){
+const convertFileToTree = function(filePath, files){
 	let ast;
 	const transpileMessage = '// ** helloCode note **\n// this file was transpiled from JSX to Javascript \n\n';
 	try {
@@ -46,5 +46,9 @@ const parseFileToAST = function(filePath, files){
 	return ast;
 };
 
-module.exports = analyzeFiles;
+const copyFiles = function(files){
+	return Object.assign({}, files);
+};
+
+module.exports = parser;
 

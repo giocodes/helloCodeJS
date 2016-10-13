@@ -8,7 +8,7 @@ const logEdgesToBody = function(ancestor, node, edgesToBody){
 	}
 };
 
-const findEdges = function(nodes, files, edgesToBody, edgesToDefinition, esModuleImports, esModuleExports){
+const findConnections = function(nodes, files, edgesToBody, edgesToDefinition, esModuleImports, esModuleExports){
 	findDefinitionEdgesInSameFile(nodes, edgesToDefinition);
 	findCrossFileEdges(files, nodes, edgesToDefinition, esModuleImports, esModuleExports);
 };
@@ -60,7 +60,7 @@ const findCrossFileEdges = function(code, nodes, edgesToDefinition, esModuleImpo
 	});
 };
 
-const transferEdgesToNodes = function(nodes, edgesToBody, edgesToDefinition){
+const transferConnectionsToNodes = function(nodes, edgesToBody, edgesToDefinition){
 	for (var key in edgesToBody) {
 		edgesToBody[key].forEach(function(node){
 			nodes[key-1].outgoingBody.push(node);
@@ -135,4 +135,4 @@ const angularFactoryMatch = function(node, invocation){
 	return node.factory && node.type === 'definition' && invocation.object && node.factory === invocation.object && node.name === invocation.name;
 };
 
-module.exports = {logEdgesToBody, findEdges, transferEdgesToNodes};
+module.exports = {logEdgesToBody, findConnections, transferConnectionsToNodes};
