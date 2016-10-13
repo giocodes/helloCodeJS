@@ -1,4 +1,5 @@
-//Node.js
+import { Color, Size, Rectangle, Group, PointText, Point } from 'paper';
+
 class PaperNode  {
   //project is a reference to the project in paper this node will belong to
   //will be rendered at (xPos, yPos) in the canvas
@@ -7,14 +8,14 @@ class PaperNode  {
     const paddingFromNodeToText = 7;
     const fontSize = 15;
     let textJustification = 'center';
-    let xTextOffset = 0; 
+    let xTextOffset = 0;
     let yTextOffset = fontSize/2;
     this.project = paper;
     this.x = xPos;
     this.y = yPos;
     this.nodeHeight = nodeHeight;
     this.nodeWidth = nodeHeight * widthHeightRatio;
-    this.group = new this.project.Group();
+    this.group = new Group();
     if (textPos === 'right') {
       textJustification = 'left';
       xTextOffset = this.nodeWidth/2 + paddingFromNodeToText;
@@ -24,7 +25,7 @@ class PaperNode  {
     } else {
       yTextOffset = (this.nodeHeight/2 + paddingFromNodeToText) * -1;
     }
-    this.text = new this.project.PointText({
+    this.text = new PointText({
         point: [this.x + xTextOffset, this.y + yTextOffset],
         content: node.name,
         fillColor: '#FFFFFF',
@@ -40,26 +41,61 @@ class PaperNode  {
     this.nodeId = node.id;
     //putting this on the group so I can access for highlighting purposes -Yi
     this.group.nodeId = this.nodeId;
-    console.log('heres this in paperNode,' , this)
     this.highlightedNodeId = this.project.highlightedNodeId;
   }
 
-  /*registerEventListeners(toggleActive, toggleHover) {
+  renderNode() {
+    this.size = new Size(this.nodeWidth, this.nodeHeight)
+    this.rectangle = new Rectangle(new Point(this.x - this.nodeWidth/2, this.y-this.nodeHeight/2), this.size);
+
+  }
+
+  applyStylesForRender(){
+    this.path.fillColor = '#b6d2dd';
+    this.path.strokeColor = '#b6d2dd'
+    this.path.strokeWidth = 2;
+    this.group.addChild(this.path);
+    this.text.bringToFront();
+  }
+
+  registerEventListeners(toggleActive, toggleHover, toggleHighlighted, toggleMouseLoc) {
 
     let thisNode = this;
-
     this.group.onDoubleClick = function(event){
       toggleActive(thisNode.nodeId);
     },
 
     this.group.onClick = function(event){
-      console.log('single click event was registered ', event)
+      //first child is the path object
+      if(!(this.children[0].shadowBlur === 12)){
+        this.children[0].shadowColor = '#8aff3d';
+        this.children[0].shadowBlur = 12;
+        toggleHighlighted(thisNode.nodeId)
+      }
+      else{
+        this.children[0].shadowBlur = 0;
+        toggleHighlighted(0)
+      }
+
     }
 
     this.group.onMouseEnter = function(event){
-        toggleHover(thisNode.nodeId)
+      toggleHover(thisNode.nodeId)
     }
-  }*/
+
+    this.group.onMouseLeave = function(event){
+      toggleHover(0)
+    }
+
+    this.group.onMouseMove = function(event){
+      toggleMouseLoc(event.point);
+    }
+  }
+
+  colorAsActive(){
+    this.path.fillColor = '#b3c623';
+    this.path.strokeColor = new Color(255,255,0);
+  }
 
   static getHeight(){
     return this.nodeHeight; //replace this at some point to better determine overall size
