@@ -2,10 +2,10 @@
 $font-stack:    Helvetica, sans-serif;
 $theme-background-1: #4C4C4C;
 $theme-background-2: #333;
-$theme-highlight-1: #FFCC66;
-$theme-highlight-2: #eac25e;
+$theme-highlight-1: #FFCC66; // Main Yellow
+$theme-highlight-2: #eac25e; // Darker Yello
+$theme-highlight-3: #459045; // Green
 $theme-text: #eee;
-// Green for second code mirror is #459045
 
 @mixin background-color($color){
   background-color: $color
@@ -21,7 +21,7 @@ body {
   background-color: $theme-background-1;
   color: $theme-text;
   a {
-  	color: $theme-highlight-1;
+    color: $theme-highlight-1;
   }
   a:hover, a:focus{
    color: $theme-highlight-2;
@@ -72,7 +72,7 @@ body {
 
 /*Navbar Items*/
 .navbar-item {
-	float: right;
+  float: right;
   width: 30px;
   height: 30px;
   margin: 18px 10px;
@@ -159,17 +159,31 @@ body {
     margin-left :0;
     -webkit-transition: margin-left 1s; /* Safari */
     transition: margin-left 1s;
+    background-position: 110% 50%;
   }
   .overleft{
-    margin-left :-14%;
-    -webkit-transition: margin-left 1s; /* Safari */
-    transition: margin-left 1s;
+    margin-left: -15.5%;
+    background-image: url(/yellow-arrow.svg);
+    background-repeat: no-repeat;
+    background-position: 102% 50%;
+    transition-property: margin-left, background-image, background-position;
+    transition-duration: 1s, 1s,1s;
+    transition-delay: 0s, 1s,0s;
+    
   }
   .overleft:hover{
     margin-left :-2%;
+    background-position: 110% 50%;
+
+    // background-color: rgba(250, 235, 215, 0.0);
+    transition-property: margin-left, background-image, background-position;
+    transition-duration: 1s, 0s,1s;
+    transition-delay: 0s, 0s,0s;
+
   }
   .hidepanel{
     opacity: 0;
+
   }
   .fadeinpanel{
     opacity: 1;
@@ -185,10 +199,11 @@ body {
   }
 
   #fileTree{
-    width: 15%;
+    width: 17%;
     float: left;
     display: inline-block;
     height: 89vh;
+
   }
   #fileTree:hover{
     margin-left :0px;
@@ -202,6 +217,9 @@ body {
       width: 100%;
       float: left;
       height: 100%;
+      border-left: 1px solid $theme-highlight-1;
+      border-right: 1px solid $theme-highlight-1;
+      border-bottom: 1px solid $theme-highlight-1;
       .highlight{
         background-color: rgba(255, 255, 0, 0.3);
       }
@@ -231,6 +249,13 @@ height: 88vh;
 
 /*File Tree*/
 #fileTree{
+  #icon-filetree{
+    background-image: url(/filetree.svg);
+    float: right;
+    width: 20px;
+    height: 20px;
+    margin: 1px 5px;
+  }
 
   ul {
     padding: 0;
