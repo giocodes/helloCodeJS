@@ -1,4 +1,4 @@
-import { Color } from 'paper';
+import { Color, Size, Rectangle, Group, PointText, Point } from 'paper';
 
 class PaperNode  {
   //project is a reference to the project in paper this node will belong to
@@ -15,7 +15,7 @@ class PaperNode  {
     this.y = yPos;
     this.nodeHeight = nodeHeight;
     this.nodeWidth = nodeHeight * widthHeightRatio;
-    this.group = new this.project.Group();
+    this.group = new Group();
     if (textPos === 'right') {
       textJustification = 'left';
       xTextOffset = this.nodeWidth/2 + paddingFromNodeToText;
@@ -25,7 +25,7 @@ class PaperNode  {
     } else {
       yTextOffset = (this.nodeHeight/2 + paddingFromNodeToText) * -1;
     }
-    this.text = new this.project.PointText({
+    this.text = new PointText({
         point: [this.x + xTextOffset, this.y + yTextOffset],
         content: node.name,
         fillColor: '#FFFFFF',
@@ -41,14 +41,12 @@ class PaperNode  {
     this.nodeId = node.id;
     //putting this on the group so I can access for highlighting purposes -Yi
     this.group.nodeId = this.nodeId;
-    console.log('heres this in paperNode,' , this)
     this.highlightedNodeId = this.project.highlightedNodeId;
   }
 
   renderNode() {
-    //console.log('def node', this.project);
-    this.size = new this.project.Size(this.nodeWidth, this.nodeHeight)
-    this.rectangle = new this.project.Rectangle(new this.project.Point(this.x - this.nodeWidth/2, this.y-this.nodeHeight/2), this.size);
+    this.size = new Size(this.nodeWidth, this.nodeHeight)
+    this.rectangle = new Rectangle(new Point(this.x - this.nodeWidth/2, this.y-this.nodeHeight/2), this.size);
 
   }
 
