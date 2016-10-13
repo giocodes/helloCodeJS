@@ -1,4 +1,5 @@
-//Node.js
+import { Color } from 'paper';
+
 class PaperNode  {
   //project is a reference to the project in paper this node will belong to
   //will be rendered at (xPos, yPos) in the canvas
@@ -7,7 +8,7 @@ class PaperNode  {
     const paddingFromNodeToText = 7;
     const fontSize = 15;
     let textJustification = 'center';
-    let xTextOffset = 0; 
+    let xTextOffset = 0;
     let yTextOffset = fontSize/2;
     this.project = paper;
     this.x = xPos;
@@ -44,22 +45,59 @@ class PaperNode  {
     this.highlightedNodeId = this.project.highlightedNodeId;
   }
 
-  /*registerEventListeners(toggleActive, toggleHover) {
+  renderNode() {
+    //console.log('def node', this.project);
+    this.size = new this.project.Size(this.nodeWidth, this.nodeHeight)
+    this.rectangle = new this.project.Rectangle(new this.project.Point(this.x - this.nodeWidth/2, this.y-this.nodeHeight/2), this.size);
+
+  }
+
+  applyStylesForRender(){
+    this.path.fillColor = '#b6d2dd';
+    this.path.strokeColor = '#b6d2dd'
+    this.path.strokeWidth = 2;
+    this.group.addChild(this.path);
+    this.text.bringToFront();
+  }
+
+  registerEventListeners(toggleActive, toggleHover, toggleHighlighted, toggleMouseLoc) {
 
     let thisNode = this;
-
     this.group.onDoubleClick = function(event){
       toggleActive(thisNode.nodeId);
     },
 
     this.group.onClick = function(event){
-      console.log('single click event was registered ', event)
+      //first child is the path object
+      if(!(this.children[0].shadowBlur === 12)){
+        this.children[0].shadowColor = '#8aff3d';
+        this.children[0].shadowBlur = 12;
+        toggleHighlighted(thisNode.nodeId)
+      }
+      else{
+        this.children[0].shadowBlur = 0;
+        toggleHighlighted(0)
+      }
+
     }
 
     this.group.onMouseEnter = function(event){
-        toggleHover(thisNode.nodeId)
+      toggleHover(thisNode.nodeId)
     }
-  }*/
+
+    this.group.onMouseLeave = function(event){
+      toggleHover(0)
+    }
+
+    this.group.onMouseMove = function(event){
+      toggleMouseLoc(event.point);
+    }
+  }
+
+  colorAsActive(){
+    this.path.fillColor = '#b3c623';
+    this.path.strokeColor = new Color(255,255,0);
+  }
 
   static getHeight(){
     return this.nodeHeight; //replace this at some point to better determine overall size
