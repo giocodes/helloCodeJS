@@ -1,5 +1,5 @@
 const nodeChecker = require('./nodeChecker.js');
-const buildNode = require('./nodeCreator.js');
+const buildNode = require('./buildNode.js');
 
 const checkForImportExport = function(node, pathString, esModuleImports, esModuleExports, scope, idCounter){
 	// log import/export info if node is an ES6 module import/export statement

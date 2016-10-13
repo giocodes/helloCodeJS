@@ -1,11 +1,11 @@
 const estraverse = require('estraverse');
 const nodeChecker = require('./nodeChecker.js');
-const buildNode = require('./nodeCreator.js');
+const buildNode = require('./buildNode.js');
 const manageImportExport = require('./manageImportsExports.js');
 const edges = require('./edges.js');
 
 // function that creates nodes from an abstract syntax tree, traveling down the tree recursively to capture edgesToBody relationships
-const traverseAST = function(ast, filePath, nodes, edgesToBody, esModuleImports, esModuleExports, ancestor, factory) {
+const readFileAndCreateNodes = function(ast, filePath, nodes, edgesToBody, esModuleImports, esModuleExports, ancestor, factory) {
 	
 	// attaching ancestor to ast so that it can be passed into traversal callback
 	if (ast && ancestor) {
@@ -47,10 +47,10 @@ const traverseAST = function(ast, filePath, nodes, edgesToBody, esModuleImports,
 			// if a node was created, begin the traversal again starting just below that node
 			// different recursive starting points if new node is definition vs invocation
 			if (astNode.body) {
-				traverseAST(astNode.body, filePath, nodes, edgesToBody, esModuleImports, esModuleExports, createdNode, factory);
+				readFileAndCreateNodes(astNode.body, filePath, nodes, edgesToBody, esModuleImports, esModuleExports, createdNode, factory);
 			} else if (astNode.arguments) {
 				astNode.arguments.forEach(function(argument){
-					traverseAST(argument, filePath, nodes, edgesToBody, esModuleImports, esModuleExports, createdNode, factory);
+					readFileAndCreateNodes(argument, filePath, nodes, edgesToBody, esModuleImports, esModuleExports, createdNode, factory);
 				})
 			}
 		}
@@ -70,4 +70,4 @@ const getAngularFactoryInfo = function(factory, node){
 	return nodeChecker.isNodeInvocation(node) && node.callee.property && node.callee.property.name === 'factory' ? node.arguments[0].value : factory;
 };
 
-module.exports = traverseAST;
+module.exports = readFileAndCreateNodes;
