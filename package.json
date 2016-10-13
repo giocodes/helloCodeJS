@@ -50,6 +50,7 @@
     "redux-promise": "^0.5.3",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.2",
+    "temp": "^0.8.3",
     "treeview-react-bootstrap": "^0.4.6",
     "webpack": "^1.13.2",
     "webpack-dev-middleware": "^1.8.3",

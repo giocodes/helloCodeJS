@@ -11,7 +11,7 @@ class Paper {
     paper.setup(canvas);
     this.canvas = canvas;
     this.center = paper.project.view.center;
-    this.activeNodes = [];
+    //this.activeNodes = [];
     this.toggleLegend = toggleLegendFn;
     this.toggleActive = toggleActiveFn;
     this.toggleHover = toggleHoverFn;
@@ -24,7 +24,7 @@ class Paper {
 
   clearScreen() {
     paper.project.clear();
-    this.activeNodes = [];
+    //this.activeNodes = [];
   }
 
 
