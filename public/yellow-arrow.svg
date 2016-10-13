@@ -1,0 +1,14 @@
+<svg width="30" height="60" xmlns="http://www.w3.org/2000/svg">
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="62" width="32" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g stroke="null" id="svg_1">
+   <path stroke="null" id="svg_2" stroke-miterlimit="4" stroke-width="2" fill-rule="evenodd" fill="#ffcc66" d="m24.000002,5l-10.857144,0l-8.142858,25l8.142858,25l10.857144,0l-8.142858,-25l8.142858,-25z"/>
+  </g>
+  <text id="svg_4" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-weight="bold" font-size="5px" fill="#000000" y="84" x="0">from the Noun Project</text>
+ </g>
+</svg>
