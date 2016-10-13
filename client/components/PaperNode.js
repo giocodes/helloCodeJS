@@ -11,6 +11,7 @@ class PaperNode  {
     let xTextOffset = 0;
     let yTextOffset = fontSize/2;
     this.project = paper;
+    this.textName = node.name;
     this.x = xPos;
     this.y = yPos;
     this.nodeHeight = nodeHeight;
@@ -25,9 +26,12 @@ class PaperNode  {
     } else {
       yTextOffset = (this.nodeHeight/2 + paddingFromNodeToText) * -1;
     }
+    if (this.textName.length > 26) {
+      this.textName = this.textName.slice(0, 23) + '...';
+    }
     this.text = new PointText({
         point: [this.x + xTextOffset, this.y + yTextOffset],
-        content: node.name,
+        content: this.textName,
         fillColor: '#FFFFFF',
         //fontFamily: 'Arial, Helvetica, sans-serif',
         //fontWeight: 'bold',

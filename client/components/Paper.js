@@ -72,7 +72,7 @@ class Paper {
 
   calculateHorizontalOffset(){
     const horizontalSpace = paper.project.view.size.width;
-    return horizontalSpace * 0.3;
+    return horizontalSpace * 0.26;
   }
 
   drawNode(node, xPos, yPos, nodeHeight, textAlign){

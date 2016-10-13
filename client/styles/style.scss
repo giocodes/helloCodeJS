@@ -81,7 +81,11 @@ body {
 }
 
 .no-display{
-  display:none;
+  opacity: 0;
+  height: 0;
+  transition-property: opacity, height;
+  transition-duration: 1s, 0s;
+  transition-delay: 0s, 1s;
 }
 
 #options{
@@ -230,10 +234,12 @@ body {
   }
 .half{
   height: 42.5vh;
+  transition: height 1s;
   margin-bottom: 1vh;
   }
 .full{
 height: 88vh;
+transition: height 1s;
 }
 
 
