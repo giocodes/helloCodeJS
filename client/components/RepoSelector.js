@@ -18,14 +18,31 @@ const RepoSelector = React.createClass({
   handleSubmit(e){
     e.preventDefault();
     let repo = this.refs.repo.value;
+    console.log('heres the repo ,' , repo);
     if(this.checkRepoUrl(repo)){
       browserHistory.push('/?repo='+repo)
       this.fetchRepo(repo);
     }
     else{
-      console.log('heres githubrepo', window.document.getElementById('github-repo'))
-      window.document.getElementById('github-repo').value = "";
-      window.document.getElementById('github-repo').placeholder = "Invalid Github Url! Please enter a valid one!";
+      let fixedRepoUrl;
+
+      if(repo.slice(0,23)==='https://www.github.com/' ){
+
+        fixedRepoUrl = repo.slice(0,8)+repo.slice(12,repo.length);
+        browserHistory.push('/?repo='+fixedRepoUrl);
+        this.fetchRepo(fixedRepoUrl);
+      }
+      else if(repo.slice(0,22)==='http://www.github.com/'){
+
+        fixedRepoUrl = repo.slice(0,7)+repo.slice(11,repo.length);
+        browserHistory.push('/?repo='+fixedRepoUrl);
+        this.fetchRepo(fixedRepoUrl);
+      }
+      else{
+
+        window.document.getElementById('github-repo').value = "";
+        window.document.getElementById('github-repo').placeholder = "Invalid Github Url! Please enter a valid one!";
+      }
     }
   },
   fetchActiveNode(){

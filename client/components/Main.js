@@ -24,12 +24,13 @@ const Main = React.createClass({
   toggleShare(e){
     let shareLinkDiv = window.document.getElementById('floating-share');
     let activeClass = shareLinkDiv.className;
-    if (activeClass === 'no-display') {shareLinkDiv.className = ''} 
+    if (activeClass === 'no-display') {shareLinkDiv.className = ''}
       else {shareLinkDiv.className='no-display'}
   },
 
   render (){
       // console.log('heres the current state \n', this.state)
+    console.log('heres the props in MainJS , ', this.props)
     return(
       // Main Cointainer
       <div className="row">
@@ -59,7 +60,7 @@ const Main = React.createClass({
             <a href="/" onClick={this.reloadHome}>
               <div id="navbar-new" className="navbar-item"></div>
             </a>
-            
+
           </div>
         </div>
 

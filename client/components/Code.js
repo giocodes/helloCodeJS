@@ -29,7 +29,7 @@ const Code = React.createClass({
       this.codeMirror.setValue(nextProps.highlightedFileContent);
     }
 
-    // took this off: this.isPrimary && 
+    // took this off: this.isPrimary &&
     if(nextProps.activeNodeId !== this.props.activeNodeId){
       activeNode = this.props.nodes[nextProps.activeNodeId-1];
       this.props.requestFile(activeNode.filePath);
@@ -165,7 +165,7 @@ const Code = React.createClass({
     return(
       <div>
         <div className="panel-title" style={this.isPrimary ? null : greenTitle}>
-          {this.isPrimary ?  
+          {this.isPrimary ?
             activePath.length > 50 ? '..' + activePath.substr(-55) : activePath :
             highlightPath.length > 50 ? '..' + highlightPath.substr(-55) : highlightPath
           }
