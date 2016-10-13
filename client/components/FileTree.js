@@ -48,6 +48,7 @@ const FileTree = React.createClass({
         <div>
           <div id="tree-title" className="panel-title">
             File Tree
+            <span id="icon-filetree"></span>
           </div>
           <TreeView
             {...this.props}
