@@ -86,8 +86,8 @@ class Legend{
     let activeExSize = new this.project.Size(25, 20)
     let activeExShape = new this.project.Rectangle(new this.project.Point(leftPos + 168, topPos + 20), activeExSize);
     let activeExPath = new this.project.Path.Rectangle(activeExShape);
-    activeExPath.strokeColor = '#FF0'
-    activeExPath.fillColor = '#b3c623'
+    activeExPath.strokeColor = '#c5523f'
+    activeExPath.fillColor = '#c5523f'
     activeExPath.strokeWidth = 2;
 
     let secondaryExSize = new this.project.Size(25, 20)
