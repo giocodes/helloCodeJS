@@ -57,8 +57,8 @@ class PaperNode  {
   }
 
   applyStylesForRender(){
-    this.path.fillColor = '#b6d2dd';
-    this.path.strokeColor = '#b6d2dd'
+    this.path.fillColor = '#FFCC66';
+    this.path.strokeColor = '#FFCC66'
     this.path.strokeWidth = 2;
     this.group.addChild(this.path);
     this.text.bringToFront();
