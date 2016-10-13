@@ -23,7 +23,9 @@ const RepoSelector = React.createClass({
       this.fetchRepo(repo);
     }
     else{
-      window.document.getElementById('github-repo').value = "Invalid Github Url! Please enter a valid one!"
+      console.log('heres githubrepo', window.document.getElementById('github-repo'))
+      window.document.getElementById('github-repo').value = "";
+      window.document.getElementById('github-repo').placeholder = "Invalid Github Url! Please enter a valid one!";
     }
   },
   fetchActiveNode(){
