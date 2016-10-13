@@ -2,19 +2,24 @@ const fs = require('fs');
 const Git = require("nodegit");
 const rmrf = require("rimraf");
 const filewalker = require('filewalker');
-
+const temp = require('temp');
 
 function buildRepoObject(directory, cb){
 
   let finalObj, repoObj = {};
 
-  Git.Clone(directory, "./temp")
+  temp.track();
+  let tempPath = temp.path();
+
+  console.log('Temp dir will be: ', tempPath);
+
+  Git.Clone(directory, tempPath)
   .then(function(repository) {
 
-    filewalker('./temp')
+    filewalker(tempPath)
     .on('file', function(path, s) {
-      if(path.substr(path.length-3) === '.js'){
-        repoObj[path] = fs.readFileSync('./temp/'+ path, 'utf-8');
+      if(path.endsWith('.js')){
+        repoObj[path] = fs.readFileSync(tempPath + '/' + path, 'utf-8');
       }
     })
     .on('error', function(err) {
@@ -22,17 +27,19 @@ function buildRepoObject(directory, cb){
     })
     .on('done', function() {
       cb(repoObj);
-      rmrf("./temp", {}, function(err){
-        console.log(err);
-      });
+      cleanup(tempPath);
     })
     .walk();
 
   })
   .catch(function(){
-    rmrf("./temp", {}, function(err){
-      console.log(err);
-    });
+    cleanup(tempPath);
+  });
+}
+
+function cleanup(path) {
+  rmrf(path, {}, function(err){
+    console.log(err);
   });
 }
 
