@@ -107,8 +107,14 @@ class PaperNode  {
 
   colorAsActive(){
     this.isActiveNode = true;
-    this.path.fillColor = '#c5523f';
-    this.path.strokeColor = '#c5523f';
+    if(this.path){
+      this.path.fillColor = '#c5523f';
+      this.path.strokeColor = '#c5523f';
+    }
+    else if(this.shape){
+      this.shape.fillColor = '#c5523f';
+      this.shape.strokeColor = '#c5523f';
+    }
   }
 
   static getHeight(){

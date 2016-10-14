@@ -75,6 +75,30 @@ class Paper {
     return horizontalSpace * 0.26;
   }
 
+  clearHighlighting(newHighlightedNodeId, currentActiveNodeId){
+      let activeLayer = this.getActiveLayer();
+        // activeLayer.children.filter(child => return)
+      let groups = activeLayer.children.filter(child => child.constructor === paper.Group)
+      groups.forEach(group =>
+          {
+            let activeNodeId = currentActiveNodeId;
+            let activeNodeIdNumb = +activeNodeId;
+
+            // console.log('group nodeId and newHighlightedNodeId', group.nodeId, newHighlightedNodeId)
+            // console.log('group nodeId and activeNodeIdNumb', group.nodeId, activeNodeIdNumb)
+            // console.log('group nodeId not equal newHighlightedNodeId', group.nodeId !== newHighlightedNodeId)
+            // console.log('group nodeId not equal activeNodeIdNumb', group.nodeId !== activeNodeIdNumb)
+
+            if(group.nodeId !== newHighlightedNodeId && group.nodeId !== activeNodeIdNumb){
+              group.children[0].shadowBlur = 0;
+              group.children[0].fillColor = '#FFCC66';
+              group.children[0].strokeColor = '#FFCC66';
+            }
+          }
+      )
+
+  }
+
   drawNode(node, xPos, yPos, nodeHeight, textAlign){
     let paperNode;
     switch(node.type){

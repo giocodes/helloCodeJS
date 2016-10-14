@@ -3,7 +3,6 @@ import React from 'react';
 import sampleData from '../data/sample-data';
 import Paper from './Paper';
 import HoverOver from './HoverOver';
-import paper from 'paper'
 
 const FunctionTree = React.createClass({
 
@@ -35,27 +34,8 @@ const FunctionTree = React.createClass({
     }
 
     if (this.paper.highlightedNodeId !== nextProps.highlightedNodeId){
-      this.clearHighlighting(nextProps.highlightedNodeId)
+      this.paper.clearHighlighting(nextProps.highlightedNodeId, nextProps.activeNodeId)
     }
-
-  },
-
-    clearHighlighting: function(newHighlightedNodeId){
-      let activeLayer = this.paper.getActiveLayer();
-        // activeLayer.children.filter(child => return)
-      let groups = activeLayer.children.filter(child => child.constructor === paper.Group)
-      groups.forEach(group =>
-          {
-            let activeNodeId = this.props.activeNodeId;
-            let activeNodeIdNumb = +activeNodeId;
-
-            if(group.nodeId !== newHighlightedNodeId && group.nodeId !== activeNodeIdNumb){
-              group.children[0].shadowBlur = 0;
-              group.children[0].fillColor = '#FFCC66';
-              group.children[0].strokeColor = '#FFCC66';
-            }
-          }
-      )
 
   },
 
