@@ -164,17 +164,18 @@ const Code = React.createClass({
   render() {
     let activePath = this.props.activeFile;
     let highlightPath = this.props.highlightedFile;
-    let greenTitle = {
-        backgroundColor:'#459045'
-      };
-    let redTitle = {
-        backgroundColor:'#c5523f'
-      };
+    // let greenTitle = {
+    //     backgroundColor:'#459045'
+    //   };
+    // let redTitle = {
+    //     backgroundColor:'#c5523f'
+    //   };
     return(
       <div>
-        <div className={ !this.showFullCM ? "panel-title" :
-          !this.isPrimary ? "no-display" : "panel-title"}
-        style={this.isPrimary ? redTitle : greenTitle}>
+        <div className={ this.isPrimary ? "panel-title active" : 
+          !this.showFullCM ? "panel-title highlight" : "no-display" 
+        }
+        >
           {this.isPrimary ? 
             activePath.length > 50 ? '..' + activePath.substr(-55) : activePath :
             highlightPath.length > 50 ? '..' + highlightPath.substr(-55) : highlightPath
