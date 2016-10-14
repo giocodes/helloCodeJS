@@ -46,10 +46,13 @@ const FunctionTree = React.createClass({
       let groups = activeLayer.children.filter(child => child.constructor === paper.Group)
       groups.forEach(group =>
           {
-            if(group.nodeId !== newHighlightedNodeId && group.nodeId !== this.props.activeNodeId){
+            let activeNodeId = this.props.activeNodeId;
+            let activeNodeIdNumb = +activeNodeId;
+
+            if(group.nodeId !== newHighlightedNodeId && group.nodeId !== activeNodeIdNumb){
               group.children[0].shadowBlur = 0;
-              group.children[0].fillColor = '#b6d2dd';
-              group.children[0].strokeColor = '#b6d2dd';
+              group.children[0].fillColor = '#FFCC66';
+              group.children[0].strokeColor = '#FFCC66';
             }
           }
       )

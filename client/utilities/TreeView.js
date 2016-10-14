@@ -185,8 +185,6 @@ class TreeView extends React.Component {
       node.nodes = [newNode]
     }
 
-    console.log(this.convert(this.state.data));
-
     if (this.props.onNodeAdded)
       this.props.onNodeAdded(this.state.data);
   }
@@ -346,7 +344,6 @@ export class TreeNode extends React.Component {
       return false;
     }
     this.setState({addNode: false});
-    console.log("ref", this.refs.newNodeName.value);
     this.props.addNode(this.state.node.nodeId, this.refs.newNodeName.value);
     this.setState({expanded: true});
     event.stopPropagation();

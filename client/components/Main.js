@@ -30,7 +30,6 @@ const Main = React.createClass({
 
   render (){
       // console.log('heres the current state \n', this.state)
-    console.log('heres the props in MainJS , ', this.props)
     return(
       // Main Cointainer
       <div className="row">
