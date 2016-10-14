@@ -24,7 +24,7 @@ const Main = React.createClass({
   toggleShare(e){
     let shareLinkDiv = window.document.getElementById('floating-share');
     let activeClass = shareLinkDiv.className;
-    if (activeClass === 'no-display') {shareLinkDiv.className = ''} 
+    if (activeClass === 'no-display') {shareLinkDiv.className = ''}
       else {shareLinkDiv.className='no-display'}
   },
 
@@ -59,7 +59,7 @@ const Main = React.createClass({
             <a href="/" onClick={this.reloadHome}>
               <div id="navbar-new" className="navbar-item"></div>
             </a>
-            
+
           </div>
         </div>
 
