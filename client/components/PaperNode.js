@@ -57,8 +57,9 @@ class PaperNode  {
   }
 
   applyStylesForRender(){
-    this.path.fillColor = '#FFCC66';
-    this.path.strokeColor = '#FFCC66'
+    //update Theme to change colors
+    this.path.fillColor = '#d7d2cf';
+    this.path.strokeColor = '#d7d2cf'
     this.path.strokeWidth = 2;
     this.group.addChild(this.path);
     this.text.bringToFront();
@@ -74,18 +75,20 @@ class PaperNode  {
     this.group.onClick = function(event){
       //first child is the path object
       if(!thisNode.isActiveNode){
+        //highlight color should be changed for updating theme
         if(!(this.children[0].shadowBlur === 12)){
-          this.children[0].shadowColor = '#8aff3d';
+          this.children[0].shadowColor = '#92b6e6';
           this.children[0].shadowBlur = 12;
-          this.children[0].fillColor = '#459045'
-          this.children[0].strokeColor = '#459045'
+          this.children[0].fillColor = '#92b6e6'
+          this.children[0].strokeColor = '#92b6e6'
 
           toggleHighlighted(thisNode.nodeId)
         }
         else{
-          // this.children[0].shadowBlur = 0;
-          // this.children[0].fillColor = '#b6d2dd';
-          // this.children[0].strokeColor = '#b6d2dd';
+          //highlight color should be changed for updating theme
+          this.children[0].shadowBlur = 0;
+          this.children[0].fillColor = '#d7d2cf';
+          this.children[0].strokeColor = '#d7d2cf';
           toggleHighlighted(0)
         }
       }
