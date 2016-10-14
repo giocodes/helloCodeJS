@@ -51,8 +51,9 @@ const FunctionTree = React.createClass({
 
             if(group.nodeId !== newHighlightedNodeId && group.nodeId !== activeNodeIdNumb){
               group.children[0].shadowBlur = 0;
-              group.children[0].fillColor = '#FFCC66';
-              group.children[0].strokeColor = '#FFCC66';
+              //this is where inactiveNodes (ie not active or Highlighted) Highlight color should be changed updating theme
+              group.children[0].fillColor = '#d7d2cf';
+              group.children[0].strokeColor = '#d7d2cf';
             }
           }
       )
