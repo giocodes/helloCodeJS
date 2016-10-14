@@ -1,7 +1,6 @@
 //FunctionTree.js
 import React from 'react';
 import paper from 'paper';
-import NodeGen from './NodeGen';
 
 const HoverOver = React.createClass({
 

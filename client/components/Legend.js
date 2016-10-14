@@ -7,7 +7,7 @@ const style = {
 }
 
 class Legend{
-  
+
   constructor(project, canvasHeight, canvasWidth, toggleLegend){
     this.project = project;
     this.canvasHeight = canvasHeight;
@@ -44,7 +44,7 @@ class Legend{
     });
 
     this.group = [path, text1];
-    
+
     text1.onClick = (e) => {
         this.clearLegend();
         this.toggleLegend(this.legendOn);
@@ -72,15 +72,16 @@ class Legend{
     let definitionExSize = new this.project.Size(25, 20)
     let definitionExShape = new this.project.Rectangle(new this.project.Point(leftPos + 18, topPos + 20), definitionExSize);
     let definitionExPath = new this.project.Path.Rectangle(definitionExShape);
-    definitionExPath.strokeColor = '#FFCC66'
-    definitionExPath.fillColor = '#FFCC66'
+    //updating theme change Legend colors
+    definitionExPath.strokeColor = '#d7d2cf'
+    definitionExPath.fillColor = '#d7d2cf'
     definitionExPath.strokeWidth = 2;
 
     let invocationExSize = new this.project.Size(25, 20)
     let invocationExShape = new this.project.Rectangle(new this.project.Point(leftPos + 18, topPos + 60), invocationExSize);
     let invocationExPath = new this.project.Shape.Ellipse(invocationExShape);
-    invocationExPath.strokeColor = '#FFCC66'
-    invocationExPath.fillColor = '#FFCC66'
+    invocationExPath.strokeColor = '#d7d2cf'
+    invocationExPath.fillColor = '#d7d2cf'
     invocationExPath.strokeWidth = 2;
 
     let activeExSize = new this.project.Size(25, 20)
@@ -93,8 +94,9 @@ class Legend{
     let secondaryExSize = new this.project.Size(25, 20)
     let secondaryExShape = new this.project.Rectangle(new this.project.Point(leftPos + 168, topPos + 60), secondaryExSize);
     let secondaryExPath = new this.project.Path.Rectangle(secondaryExShape);
-    secondaryExPath.strokeColor = '#459045'
-    secondaryExPath.fillColor = '#459045'
+    //theme color should be changed for updating purposes
+    secondaryExPath.strokeColor = '#92b6e6'
+    secondaryExPath.fillColor = '#92b6e6'
     secondaryExPath.strokeWidth = 2;
 
     let src1 = {x: leftPos+18, y: topPos+110};
