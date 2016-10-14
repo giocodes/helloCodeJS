@@ -104,7 +104,7 @@ const Code = React.createClass({
         mode: 'javascript',
         theme: 'blackboard',
         value: this.props.activeFileContent,
-        lineWrapping: true,
+        lineWrapping: false,
         scrollbarStyle: 'null'
       }
     );
