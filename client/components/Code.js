@@ -167,11 +167,14 @@ const Code = React.createClass({
     let greenTitle = {
         backgroundColor:'#459045'
       };
+    let redTitle = {
+        backgroundColor:'#c5523f'
+      };
     return(
       <div>
         <div className={ !this.showFullCM ? "panel-title" :
           !this.isPrimary ? "no-display" : "panel-title"}
-        style={this.isPrimary ? null : greenTitle}>
+        style={this.isPrimary ? redTitle : greenTitle}>
           {this.isPrimary ? 
             activePath.length > 50 ? '..' + activePath.substr(-55) : activePath :
             highlightPath.length > 50 ? '..' + highlightPath.substr(-55) : highlightPath

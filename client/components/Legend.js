@@ -72,22 +72,22 @@ class Legend{
     let definitionExSize = new this.project.Size(25, 20)
     let definitionExShape = new this.project.Rectangle(new this.project.Point(leftPos + 18, topPos + 20), definitionExSize);
     let definitionExPath = new this.project.Path.Rectangle(definitionExShape);
-    definitionExPath.strokeColor = '#b6d2dd'
-    definitionExPath.fillColor = '#b6d2dd'
+    definitionExPath.strokeColor = '#FFCC66'
+    definitionExPath.fillColor = '#FFCC66'
     definitionExPath.strokeWidth = 2;
 
     let invocationExSize = new this.project.Size(25, 20)
     let invocationExShape = new this.project.Rectangle(new this.project.Point(leftPos + 18, topPos + 60), invocationExSize);
     let invocationExPath = new this.project.Shape.Ellipse(invocationExShape);
-    invocationExPath.strokeColor = '#b6d2dd'
-    invocationExPath.fillColor = '#b6d2dd'
+    invocationExPath.strokeColor = '#FFCC66'
+    invocationExPath.fillColor = '#FFCC66'
     invocationExPath.strokeWidth = 2;
 
     let activeExSize = new this.project.Size(25, 20)
     let activeExShape = new this.project.Rectangle(new this.project.Point(leftPos + 168, topPos + 20), activeExSize);
     let activeExPath = new this.project.Path.Rectangle(activeExShape);
-    activeExPath.strokeColor = '#FF0'
-    activeExPath.fillColor = '#b3c623'
+    activeExPath.strokeColor = '#c5523f'
+    activeExPath.fillColor = '#c5523f'
     activeExPath.strokeWidth = 2;
 
     let secondaryExSize = new this.project.Size(25, 20)

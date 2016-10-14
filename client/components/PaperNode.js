@@ -57,8 +57,8 @@ class PaperNode  {
   }
 
   applyStylesForRender(){
-    this.path.fillColor = '#b6d2dd';
-    this.path.strokeColor = '#b6d2dd'
+    this.path.fillColor = '#FFCC66';
+    this.path.strokeColor = '#FFCC66'
     this.path.strokeWidth = 2;
     this.group.addChild(this.path);
     this.text.bringToFront();
@@ -107,8 +107,8 @@ class PaperNode  {
 
   colorAsActive(){
     this.isActiveNode = true;
-    this.path.fillColor = '#b3c623';
-    this.path.strokeColor = new Color(255,255,0);
+    this.path.fillColor = '#c5523f';
+    this.path.strokeColor = '#c5523f';
   }
 
   static getHeight(){
