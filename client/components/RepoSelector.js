@@ -52,7 +52,7 @@ const RepoSelector = React.createClass({
   fetchRepo(repoUrl){
     this.props.requestRepoContents(repoUrl);
     this.props.toggleLoading(true);
-    fetch('http://localhost:7770/api/repo?url=' + repoUrl)
+    fetch('/api/repo?url=' + repoUrl)
     .then(response => {
       return response.json();
     })
