@@ -26,8 +26,8 @@ class PaperNode  {
     } else {
       yTextOffset = (this.nodeHeight/2 + paddingFromNodeToText) * -1;
     }
-    if (this.textName.length > 26) {
-      this.textName = this.textName.slice(0, 23) + '...';
+    if (this.textName.length > 16) {
+      this.textName = this.textName.slice(0, 13) + '...';
     }
     this.text = new PointText({
         point: [this.x + xTextOffset, this.y + yTextOffset],
