@@ -1,4 +1,4 @@
-module.exports = function(ingredients){
+function mixAndCook(ingredients){
 	function preHeatOven(){}
 	function mixEvenly(ingredients){return ingredients + "mixed"}
 	function cook(time){return time}
@@ -7,3 +7,4 @@ module.exports = function(ingredients){
 	mixEvenly(ingredients);
 	cook(20); // for 20 minutes
 }
+module.exports = mixAndCook;

@@ -23,14 +23,14 @@ const Welcome = React.createClass({
 		<div id="welcome" className={this.welcomeClass}>
 			<h1 className={this.fontMain}>Hello!</h1>
 			<h2>let´s take a <span className={this.fontActive}>better</span> look at <span className={this.fontHighlight}>your code</span></h2>
-			<p>this web application analyzes your software <br/>
-			and generates a <span className={this.fontActive}>user-friendly map</span> <br/>
+			<p>analyze your software <br/>
+			and generate a <span className={this.fontActive}>user-friendly map</span> <br/>
 			displaying the <span className={this.fontMain}>interaction</span> <br/>
 			between different parts of <br/>
 			your <span className={this.fontHighlight}>javascript</span> program<br/>
 			</p>
 			<h3>works with <span className={this.fontMain}>ES6</span>, Angular, React and 
-			<a href="https://github.com/giocodes/helloCodeJS/">more...</a></h3>
+			<a href="https://github.com/giocodes/helloCodeJS/"> more...</a></h3>
 		</div>
 		)
 	}

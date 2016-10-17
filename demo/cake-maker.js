@@ -8,11 +8,11 @@ function makeCake(size,flavor){
 	
 	// get ingredients
 	fetchIngredients('/api/shopper')
-	.then(ingredient => ingredients.push(ingredient));
+	// .then(ingredient => ingredients.push(ingredient));
 
 	// mix and cook ingredients
 	mixAndCook(ingredients)
-	.then(result => cake = result);
+	// .then(result => cake = result);
 
 	// decorate and final touch
 	decorate(cake);
