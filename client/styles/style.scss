@@ -80,9 +80,9 @@ body {
 .no-display{
   opacity: 0;
   height: 0;
-  transition-property: opacity, height;
-  transition-duration: 1s, 0s;
-  transition-delay: 0s, 1s;
+  // transition-property: opacity, height;
+  // transition-duration: 1s, 0s;
+  // transition-delay: 0s, 1s;
 }
 
 #options{
@@ -143,6 +143,42 @@ body {
 .form-control:-ms-input-placeholder {
     color: $theme-main-1;
 }
+
+// Welcome
+#welcome {
+  position: absolute;
+  left: 31vw;
+  top: 20vh;
+  text-align: center;
+  color: $theme-main-1;
+  font-weight: 100;
+    &.no-display{
+      opacity: 0;
+      height: 0;
+      transition: opacity 1s, height 0s 1s;
+    }
+  h1 {
+    font-weight: 200;
+    font-size: 4em;
+  }
+  h2 {
+    font-size: 2.5em;
+    padding-bottom: .5em;
+  }
+  p {
+    font-size: 2em;
+  }
+  h3 {
+    font-size: 1.5em;
+    padding-top: .5em;
+  }
+  .font-main{color: $theme-main-2; transition: color 2s;}
+  .font-active{color: $theme-active; transition: color 2s 1s;}
+  .font-highlight{color: $theme-highlight; transition: color 2s 2s;}
+
+
+}
+
 
 // Panels Layout
 .babies {
