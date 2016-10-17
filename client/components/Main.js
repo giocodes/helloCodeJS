@@ -9,6 +9,7 @@ import FileTree from './FileTree';
 import Code from './Code';
 import FunctionWeb from './FunctionWeb';
 import RepoSelector from './RepoSelector';
+import Welcome from './Welcome';
 
 const Main = React.createClass({
 
@@ -62,6 +63,8 @@ const Main = React.createClass({
 
           </div>
         </div>
+        {/*Welcome*/}
+        <Welcome {...this.props}/>
 
         {/*Panels Container*/}
         <div id="panels-container" className="col-sm-12">
