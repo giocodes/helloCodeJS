@@ -11,13 +11,13 @@ const isImportExportDeclaration = function(node){
 };
 
 const doesNodeExist = function(nodes, astNode, filePath){
-	var repeats = nodes.some(function(functionNode){
+	const repeats = nodes.some(function(functionNode){
 		return isAstNodeEqualToFunctionNode(astNode, functionNode, filePath);
 	});
 	if (repeats) {return true;}
 };
 
-isAstNodeEqualToFunctionNode = function(astNode, functionNode, filePath){
+const isAstNodeEqualToFunctionNode = function(astNode, functionNode, filePath){
 	return astNode.loc.start.line === functionNode.start.line && astNode.loc.start.column === functionNode.start.column && astNode.loc.end.line === functionNode.end.line && astNode.loc.end.column === functionNode.end.column && functionNode.filePath === filePath;
 };
 
