@@ -16,7 +16,7 @@ Written by Chris Cook, Sergio "Gio" Gomez, Kevin Hurley, and Yi Chao from Fullst
 ### Installation
 - Git fork or clone the repository into your desired folder
 ```bash
-$ cd hellocodebase
+$ cd helloCodeJS
 $ npm install
 $ npm start
 ```
