@@ -35,18 +35,18 @@ const Main = React.createClass({
       // Main Cointainer
       <div className="row">
         {/*Navbar Container*/}
-        <div id="navbar" className="col-sm-12">
+        <div id="navbar" className="col-xs-12">
           {/*Branding*/}
-          <div className="col-sm-2">
+          <div className="col-xs-6 col-sm-2">
             <h3><a href="/" onClick={this.reloadHome}>helloCode.js</a></h3>
           </div>
           {/*Repo Selector*/}
-          <div className="col-sm-8">
+          <div className="hidden-xs col-sm-6 col-sm-offset-1 col-md-8 col-md-offset-0">
             <RepoSelector {...this.props}/>
           </div>
           {/*Options Selector*/}
-          <div className="col-sm-2">
-            <a href="https://github.com/giocodes/hellocodebase/">
+          <div className="col-xs-6 col-sm-3 col-md-2 row">
+            <a href="https://github.com/giocodes/helloCodeJS/">
               <div id="navbar-github" className="navbar-item"></div>
             </a>
             <div id="navbar-share" className="navbar-item" onClick={this.toggleShare}>
@@ -55,19 +55,20 @@ const Main = React.createClass({
               <span className="glyphicon glyphicon-duplicate"></span>
               <span id="share-input"></span>
             </div>
-
-
             <a href="/" onClick={this.reloadHome}>
               <div id="navbar-new" className="navbar-item"></div>
             </a>
-
+          </div>
+        {/*Repo Selector for mobile*/}
+          <div className="col-xs-12 hidden-sm hidden-md hidden-lg ">
+            <RepoSelector {...this.props}/>
           </div>
         </div>
         {/*Welcome*/}
         <Welcome {...this.props}/>
 
         {/*Panels Container*/}
-        <div id="panels-container" className="col-sm-12">
+        <div id="panels-container" className="col-xs-12">
           {/*File Tree Container col-sm-2 col-md-1 row*/ }
           <div id="fileTree" className="babies center">
               <FileTree {...this.props}/>
