@@ -58,6 +58,7 @@
   },
   "scripts": {
     "test": "mocha ./tests/server/parserTest.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "dev": "node server-dev.js"
   }
 }

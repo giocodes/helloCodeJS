@@ -56,7 +56,7 @@ body {
   font-size: 1.5em;
   outline: none;
   background-color: $theme-background-1;
-  width: 95%;
+  // width: 95%;
   text-align: center;
 }
 #repo-title{
@@ -72,7 +72,7 @@ body {
   float: right;
   width: 30px;
   height: 30px;
-  margin: 18px 10px;
+  margin: 18px 7px;
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -146,9 +146,11 @@ body {
 
 // Welcome
 #welcome {
+  // position: absolute;
+  // width: 50%;
+  // left: 25%;
   position: absolute;
-  left: 31vw;
-  top: 20vh;
+  margin-top: 15vh;
   text-align: center;
   color: $theme-main-1;
   font-weight: 100;
