@@ -73,10 +73,10 @@ const RepoSelector = React.createClass({
   render() {
     return (
       <div>
-      <div id="repo-title" className="col-sm-12 no-display">
+      <div id="repo-title" className="col-xs-12 no-display">
         {this.props.activeRepo.substr(18)}
       </div>
-      <div id="omniBox" className="col-sm-4 no-display">
+      <div id="omniBox" className="col-xs-4 no-display">
         <form ref="omniBox" onSubmit={this.omniBox}>
           <div className="form-group">
             <input autoComplete="off" id="" className="form-control text-input" type="text" ref="omniBox" placeholder="Search"/>

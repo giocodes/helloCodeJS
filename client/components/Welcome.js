@@ -20,7 +20,7 @@ const Welcome = React.createClass({
 	},
 	render() {
 		return(
-		<div id="welcome" className={this.welcomeClass}>
+		<div id="welcome" className={this.welcomeClass + ' col-xs-6 col-xs-offset-3 col-md-8 col-md-offset-2'}>
 			<h1 className={this.fontMain}>Hello!</h1>
 			<h2>let´s take a <span className={this.fontActive}>better</span> look at <span className={this.fontHighlight}>your code</span></h2>
 			<p>analyze your software <br/>

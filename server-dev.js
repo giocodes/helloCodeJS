@@ -35,10 +35,11 @@ app.get('*', (req, res) => {
 });
 
 
-app.listen(80, (err) => {
-  if (err) {console.log(err);
+app.listen(7770, 'localhost', (err) => {
+  if (err) {
+    console.log(err);
     return;
   }
 
-  console.log('Server started correctly FTW!!!');
+  console.log('Listening at http://localhost:7770');
 });
